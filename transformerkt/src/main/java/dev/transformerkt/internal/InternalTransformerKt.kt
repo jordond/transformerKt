@@ -1,4 +1,4 @@
-package dev.transformerkt
+package dev.transformerkt.internal
 
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
@@ -8,6 +8,7 @@ import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.ProgressHolder
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerKt.Status
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers

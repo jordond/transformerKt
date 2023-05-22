@@ -5,6 +5,7 @@ import androidx.annotation.IntRange
 import androidx.media3.common.MimeTypes
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.internal.InternalTransformerKt
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
