@@ -15,6 +15,8 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 
 You can view the TransformerKt KDocs at [docs.transformerkt.dev](docs.transformerkt.dev)
 
+- Using `media3.transformer` version `1.1.0-alpha01`
+
 ## Table of Contents
 
 - [Motivation](#motivation)
