@@ -42,7 +42,7 @@ jobs:
           author_email: noreply@github.com
           message: 'chore(dependencies): Refresh versions.properties'
           new_branch: chore/dependency-update
-          push: --force --set-upstream origin dependency-update
+          push: --force --set-upstream origin chore/dependency-update
       - id: step-5
         name: Pull Request
         uses: repo-sync/pull-request@v2
