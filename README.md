@@ -7,11 +7,13 @@
 </p
 
 TransformerKt is a Kotlin coroutine wrapper library
-around [media3.transformer](https://developer.android.com/guide/topics/media/transformer).
+around [media3.transformer](https://developer.android.com/guide/topics/media/transformer):
 
 > Transformer is an API for editing media, including converting between formats (transcoding),
 > applying changes like trimming a clip from a longer video, cropping a portion of the video frame,
 > applying custom effects, and other editing operations
+
+You can view the TransformerKt KDocs at [docs.transformerkt.dev](docs.transformerkt.dev)
 
 ## Table of Contents
 
