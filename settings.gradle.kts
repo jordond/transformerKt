@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TransformerKt"
 include(":demo")
- 
+include(":transformerkt")
