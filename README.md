@@ -1,6 +1,10 @@
-# TransformerKt
+<p align="center"> 
+   <img height="250" src="art/logo-text.png"/> 
+</p>
 
-A Kotlin coroutine wrapper
+# tKt
+
+TransformerKt is a Kotlin coroutine wrapper
 around [media3.transformer](https://developer.android.com/guide/topics/media/transformer).
 
 > Transformer is an API for editing media, including converting between formats (transcoding),
@@ -69,6 +73,8 @@ dependencies {
 
 First you should familiarize yourself with
 the [Transformer Docs](https://developer.android.com/guide/topics/media/transformer).
+
+### Inputs
 
 Then you need an input video or image file. TransformerKt supports the following inputs:
 
