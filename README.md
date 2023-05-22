@@ -1,10 +1,12 @@
-![GitHub](https://img.shields.io/github/license/jordond/transformerkt)![GitHub release (latest by date)](https://img.shields.io/github/v/release/jordond/transformerkt)
-
 <p align="center"> 
-   <img height="250" src="art/logo-text.png"/> 
+   <img height="200" src="art/logo-text.png"/>
 </p>
+<p align="center">
+   <img src="https://img.shields.io/github/license/jordond/transformerkt" />
+   <img src="https://img.shields.io/github/v/release/jordond/transformerkt" />
+</p
 
-TransformerKt is a Kotlin coroutine wrapper
+TransformerKt is a Kotlin coroutine wrapper library
 around [media3.transformer](https://developer.android.com/guide/topics/media/transformer).
 
 > Transformer is an API for editing media, including converting between formats (transcoding),
