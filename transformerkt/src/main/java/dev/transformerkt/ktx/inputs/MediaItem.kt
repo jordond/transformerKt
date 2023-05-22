@@ -1,4 +1,4 @@
-package dev.transformerkt.ktx
+package dev.transformerkt.ktx.inputs
 
 import androidx.annotation.CheckResult
 import androidx.media3.common.MediaItem
@@ -6,12 +6,20 @@ import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 import dev.transformerkt.TransformerKt
 import dev.transformerkt.internal.createTransformerCallbackFlow
-import kotlinx.coroutines.CancellationException
+import dev.transformerkt.ktx.start
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 /**
- * Start a [Transformer] request and return a [Flow] of [TransformerKt.Status].
+ * Create a [TransformerKt.Input] from this [MediaItem].
+ */
+public fun MediaItem.asTransformerInput(): TransformerKt.Input {
+    return TransformerKt.Input.MediaItem(this)
+}
+
+
+/**
+ * Start a [Transformer] request for a [MediaItem] and return a [Flow] of [TransformerKt.Status].
  *
  * @see createTransformerCallbackFlow
  * @param[input] The input to transform.
@@ -22,20 +30,20 @@ import java.io.File
  */
 @CheckResult
 public fun Transformer.start(
-    input: TransformerKt.Input,
+    input: MediaItem,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-): Flow<TransformerKt.Status> = createTransformerCallbackFlow(
-    input = input,
+): Flow<TransformerKt.Status> = start(
+    input = TransformerKt.Input.MediaItem(input),
     output = output,
     request = request,
     progressPollDelayMs = progressPollDelayMs,
 )
 
 /**
- * Start a [Transformer] request in a coroutine and return a [TransformerKt.Status.Finished]
- * when the request is finished.
+ * Start a [Transformer] request for a [MediaItem] in a coroutine and return
+ * a [TransformerKt.Status.Finished] when the request is finished.
  *
  * For progress updates pass a [onProgress] callback.
  *
@@ -48,45 +56,12 @@ public fun Transformer.start(
  * @return A [TransformerKt.Status.Finished] status.
  */
 public suspend fun Transformer.start(
-    input: TransformerKt.Input,
-    output: File,
-    request: TransformationRequest,
-    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-    onProgress: (Int) -> Unit = {},
-): TransformerKt.Status.Finished {
-    try {
-        var result: TransformerKt.Status? = null
-        start(
-            input = input,
-            output = output,
-            request = request,
-            progressPollDelayMs = progressPollDelayMs,
-        ).collect { status ->
-            result = status
-            if (status is TransformerKt.Status.Progress) {
-                onProgress(status.progress)
-            }
-        }
-
-        if (result == null || result !is TransformerKt.Status.Finished) {
-            error("Unexpected finish result: $result")
-        }
-
-        return result as TransformerKt.Status.Finished
-    } catch (cause: Throwable) {
-        if (cause is CancellationException) throw cause
-
-        return TransformerKt.Status.Failure(cause)
-    }
-}
-
-public suspend fun Transformer.start(
     input: MediaItem,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
-):TransformerKt.Status.Finished = start(
+): TransformerKt.Status.Finished = start(
     input = TransformerKt.Input.MediaItem(input),
     output = output,
     request = request,

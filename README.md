@@ -28,7 +28,7 @@ for more information.
 First you need to add jitpack to either your root level `build.gradle.kts` or
 your `settings.gradle.kts` file:
 
-### `build.gradle.kts`
+`build.gradle.kts`:
 
 ```kotlin
 allprojects {
@@ -38,7 +38,7 @@ allprojects {
 }
 ```
 
-### `settings.gradle.kts`
+`settings.gradle.kts`:
 
 ```kotlin
 dependencyResolutionManagement {

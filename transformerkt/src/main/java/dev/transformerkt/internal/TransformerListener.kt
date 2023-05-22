@@ -30,6 +30,7 @@ import java.io.File
  *
  * **Note:** This must flow on [Dispatchers.Main] as [Transformer] expects a Looper.
  *
+ * @receiver The [Transformer] instance to start a transformation.
  * @param[input] The input to transform.
  * @param[output] The output file to write to.
  * @param[request] The [TransformationRequest] to use.
@@ -104,6 +105,9 @@ internal fun Transformer.createTransformerCallbackFlow(
     }.flowOn(Dispatchers.Main)
 }
 
+/**
+ * Map an [TransformerKt.Input] into a value that [Transformer] can use.
+ */
 private fun Transformer.start(input: TransformerKt.Input, output: File) {
     val outputPath = output.absolutePath
     when (input) {
