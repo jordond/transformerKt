@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "TransformerKt"
-include(":app")
+include(":demo")
  
