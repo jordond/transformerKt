@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation("com.google.accompanist:accompanist-navigation-material:0.30.1")
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
