@@ -1,8 +1,8 @@
+![GitHub](https://img.shields.io/github/license/jordond/transformerkt)![GitHub release (latest by date)](https://img.shields.io/github/v/release/jordond/transformerkt)
+
 <p align="center"> 
    <img height="250" src="art/logo-text.png"/> 
 </p>
-
-# tKt
 
 TransformerKt is a Kotlin coroutine wrapper
 around [media3.transformer](https://developer.android.com/guide/topics/media/transformer).
