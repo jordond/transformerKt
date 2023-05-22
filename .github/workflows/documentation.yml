@@ -10,7 +10,8 @@ permissions:
   contents: write
 
 jobs:
-  "Generate Documentation":
+  generate:
+    name: "Generate Documentation"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
