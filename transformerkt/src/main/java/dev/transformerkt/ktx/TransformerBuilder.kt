@@ -24,26 +24,24 @@ public fun MediaItem.Builder.setClippingConfiguration(
 /**
  * Create a [EditedMediaItem] from this [MediaItem.Builder].
  *
- * Shorthand for [MediaItem.Builder.asEditedMediaItem].
- *
  * @receiver The [MediaItem.Builder] to use to create the [EditedMediaItem].
  * @param[block] The block to use to configure the [EditedMediaItem].
  * @return The [EditedMediaItem] created from this [EditedMediaItem.Builder].
  */
 public fun MediaItem.Builder.edited(
     block: EditedMediaItem.Builder.() -> Unit,
-): EditedMediaItem = asEditedMediaItem(block)
+): EditedMediaItem = EditedMediaItem.Builder(build()).apply(block).build()
 
 /**
- * Create a [EditedMediaItem] from this [MediaItem.Builder].
+ * Create a [EditedMediaItem] from this [MediaItem].
  *
  * @receiver The [MediaItem.Builder] to use to create the [EditedMediaItem].
  * @param[block] The block to use to configure the [EditedMediaItem].
  * @return The [EditedMediaItem] created from this [EditedMediaItem.Builder].
  */
-public fun MediaItem.Builder.asEditedMediaItem(
+public fun MediaItem.edited(
     block: EditedMediaItem.Builder.() -> Unit,
-): EditedMediaItem = EditedMediaItem.Builder(build()).apply(block).build()
+): EditedMediaItem = buildUpon().edited(block)
 
 /**
  * Build upon an existing [Transformer] instance.

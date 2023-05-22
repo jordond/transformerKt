@@ -16,9 +16,9 @@ internal class InternalTransformerKt(
     /**
      * Wrapper around [Transformer.createTransformerCallbackFlow]
      *
-     * @see TransformerKt.executeFlow
+     * @see TransformerKt.start
      */
-    override fun executeFlow(
+    override fun start(
         input: TransformerKt.Input,
         output: File,
         request: TransformationRequest,
@@ -32,9 +32,9 @@ internal class InternalTransformerKt(
     /**
      * Wrapper around [Transformer.start].
      *
-     * @see TransformerKt.execute
+     * @see TransformerKt.start
      */
-    override suspend fun execute(
+    override suspend fun start(
         input: TransformerKt.Input,
         output: File,
         request: TransformationRequest,

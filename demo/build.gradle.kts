@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":transformerkt"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

@@ -81,7 +81,7 @@ public interface TransformerKt {
      * @param[request] The [TransformationRequest] to use for the [Transformer].
      * @return A [Flow] of [Status] for the [Transformer] execution.
      */
-    public fun executeFlow(
+    public fun start(
         input: Input,
         output: File,
         request: TransformationRequest = DefaultRequest,
@@ -113,7 +113,7 @@ public interface TransformerKt {
      * @param[onProgress] Callback to receive progress updates.
      * @return The [Status.Finished] state of the [Transformer] execution.
      */
-    public suspend fun execute(
+    public suspend fun start(
         input: Input,
         output: File,
         request: TransformationRequest = DefaultRequest,
