@@ -1,3 +1,7 @@
+@file:Suppress("UnstableApiUsage")
+
+import de.fayard.refreshVersions.core.StabilityLevel
+
 pluginManagement {
     repositories {
         google()
@@ -16,6 +20,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+    }
+}
+
+refreshVersions {
+    rejectVersionIf {
+        candidate.stabilityLevel.isLessStableThan(current.stabilityLevel)
     }
 }
 
