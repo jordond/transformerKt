@@ -5,6 +5,12 @@ import androidx.media3.transformer.EditedMediaItem
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 
+/**
+ * Convenience function for creating a [MediaItem.ClippingConfiguration].
+ *
+ * @param[startMs] The start position in milliseconds.
+ * @param[endMs] The end position in milliseconds.
+ */
 public fun MediaItem.Builder.setClippingConfiguration(
     startMs: Long,
     endMs: Long,
@@ -12,7 +18,7 @@ public fun MediaItem.Builder.setClippingConfiguration(
     MediaItem.ClippingConfiguration.Builder()
         .setStartPositionMs(startMs)
         .setEndPositionMs(endMs)
-        .build()
+        .build(),
 )
 
 /**

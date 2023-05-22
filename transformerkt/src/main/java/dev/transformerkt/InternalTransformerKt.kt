@@ -2,15 +2,13 @@ package dev.transformerkt
 
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
-import androidx.media3.common.util.UnstableApi
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.ProgressHolder
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
-import dev.transformerkt.TransformerExecutor
-import dev.transformerkt.TransformerExecutor.Status
+import dev.transformerkt.TransformerKt.Status
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -22,17 +20,16 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.io.File
 
-@UnstableApi
-internal class InternalTransformerExecutor(
+internal class InternalTransformerKt(
     private val transformer: Transformer,
     private val progressPollDelayMs: Long,
-) : TransformerExecutor {
+) : TransformerKt {
 
     /**
-     * @see TransformerExecutor.executeFlow
+     * @see TransformerKt.executeFlow
      */
     override fun executeFlow(
-        input: TransformerExecutor.Input,
+        input: TransformerKt.Input,
         output: File,
         request: TransformationRequest,
     ): Flow<Status> = callbackFlow {
@@ -88,10 +85,10 @@ internal class InternalTransformerExecutor(
     }.flowOn(Dispatchers.Main)
 
     /**
-     * @see TransformerExecutor.execute
+     * @see TransformerKt.execute
      */
     override suspend fun execute(
-        input: TransformerExecutor.Input,
+        input: TransformerKt.Input,
         output: File,
         request: TransformationRequest,
         onProgress: (Int) -> Unit,
@@ -127,13 +124,13 @@ internal class InternalTransformerExecutor(
             .build()
     }
 
-    private fun Transformer.start(input: TransformerExecutor.Input, output: File) {
+    private fun Transformer.start(input: TransformerKt.Input, output: File) {
         val outputPath = output.absolutePath
         when (input) {
-            is TransformerExecutor.Input.MediaItem -> start(input.value, outputPath)
-            is TransformerExecutor.Input.EditedMediaItem -> start(input.value, outputPath)
-            is TransformerExecutor.Input.Uri -> start(MediaItem.fromUri(input.value), outputPath)
-            is TransformerExecutor.Input.File -> {
+            is TransformerKt.Input.MediaItem -> start(input.value, outputPath)
+            is TransformerKt.Input.EditedMediaItem -> start(input.value, outputPath)
+            is TransformerKt.Input.Uri -> start(MediaItem.fromUri(input.value), outputPath)
+            is TransformerKt.Input.File -> {
                 start(MediaItem.fromUri(input.value.toUri()), outputPath)
             }
         }

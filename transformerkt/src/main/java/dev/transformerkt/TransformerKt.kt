@@ -30,7 +30,7 @@ import java.io.File
  * }
  * ```
  */
-public interface TransformerExecutor {
+public interface TransformerKt {
 
     /**
      * Execute a [TransformationRequest] on the given [input] and write the result to [output]
@@ -166,7 +166,7 @@ public interface TransformerExecutor {
         private const val DEFAULT_PROGRESS_POLL_DELAY_MS = 500L
 
         /**
-         * Create a [TransformerExecutor] that creates a default [Transformer] using the [context].
+         * Create a [TransformerKt] that creates a default [Transformer] using the [context].
          *
          * @param[context] The [Context] to use for creating the [Transformer.Builder].
          * @param[progressPollDelayMs] The delay between progress updates in milliseconds.
@@ -174,20 +174,20 @@ public interface TransformerExecutor {
         public fun create(
             context: Context,
             progressPollDelayMs: Long = DEFAULT_PROGRESS_POLL_DELAY_MS,
-        ): TransformerExecutor {
+        ): TransformerKt {
             val transformer = Transformer.Builder(context).build()
             return create(transformer, progressPollDelayMs)
         }
 
         /**
-         * Create a [TransformerExecutor] that uses the provided [Transformer].
+         * Create a [TransformerKt] that uses the provided [Transformer].
          *
-         * @param[transformer] The [Transformer] to use for the [TransformerExecutor].
+         * @param[transformer] The [Transformer] to use for the [TransformerKt].
          * @param[progressPollDelayMs] The delay between progress updates in milliseconds.
          */
         public fun create(
             transformer: Transformer,
             progressPollDelayMs: Long = DEFAULT_PROGRESS_POLL_DELAY_MS,
-        ): TransformerExecutor = InternalTransformerExecutor(transformer, progressPollDelayMs)
+        ): TransformerKt = InternalTransformerKt(transformer, progressPollDelayMs)
     }
 }
