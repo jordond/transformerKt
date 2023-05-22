@@ -35,19 +35,19 @@ android {
 dependencies {
 
     /* Android */
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
 
     /* Kotlin */
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    api(libs.kotlinx.coroutines.android)
 
     /* Media3 Transformer */
-    api("androidx.media3:media3-transformer:1.1.0-alpha01")
-    api("androidx.media3:media3-effect:1.1.0-alpha01")
-    api("androidx.media3:media3-common:1.1.0-alpha01")
+    api(libs.media3.transformer)
+    api(libs.media3.effect)
+    api(libs.media3.common)
 
     /* Tests */
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }
