@@ -12,6 +12,10 @@ com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.8.21-1.
 
 com-github-ben-manes-versions = { id = "com.github.ben-manes.versions", version = "0.46.0" }
 
+org-jetbrains-dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
+
+gradle = { id = "gradle", version = "8.1.0-beta03" }
+
 [versions]
 
 kotlin = "1.8.21"
@@ -79,3 +83,11 @@ media3-effect = { group = "androidx.media3", name = "media3-effect", version.ref
 media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "androidx-media3" }
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+
+com-android-tools-build-gradle = "com.android.tools.build:gradle:8.1.0-beta03"
+
+dokka-analysis = "org.jetbrains.dokka:dokka-analysis:1.8.10"
+
+dokka-base = "org.jetbrains.dokka:dokka-base:1.8.10"
+
+android-documentation-plugin = "org.jetbrains.dokka:android-documentation-plugin:1.8.10"
