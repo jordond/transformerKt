@@ -27,6 +27,7 @@ android {
     }
 
     kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
         jvmTarget = "17"
     }
 }
