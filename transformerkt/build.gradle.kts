@@ -53,5 +53,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     /* Misc */
-    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.8.10")
+    dokkaPlugin(libs.android.documentation.plugin)
 }
