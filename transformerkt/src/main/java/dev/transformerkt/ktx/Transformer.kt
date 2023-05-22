@@ -1,66 +1,80 @@
 package dev.transformerkt.ktx
 
-import androidx.media3.common.MediaItem
-import androidx.media3.transformer.EditedMediaItem
+import androidx.annotation.CheckResult
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.TransformerKt
+import dev.transformerkt.internal.createTransformerCallbackFlow
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.Flow
+import java.io.File
 
 /**
- * Convenience function for creating a [MediaItem.ClippingConfiguration].
+ * Start a [Transformer] request and return a [Flow] of [TransformerKt.Status].
  *
- * @param[startMs] The start position in milliseconds.
- * @param[endMs] The end position in milliseconds.
+ * @see createTransformerCallbackFlow
+ * @param[input] The input to transform.
+ * @param[output] The output file to write to.
+ * @param[request] The [TransformationRequest] to use.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @return A [Flow] that emits [TransformerKt.Status].
  */
-public fun MediaItem.Builder.setClippingConfiguration(
-    startMs: Long,
-    endMs: Long,
-): MediaItem.Builder = setClippingConfiguration(
-    MediaItem.ClippingConfiguration.Builder()
-        .setStartPositionMs(startMs)
-        .setEndPositionMs(endMs)
-        .build(),
+@CheckResult
+public fun Transformer.start(
+    input: TransformerKt.Input,
+    output: File,
+    request: TransformationRequest,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+): Flow<TransformerKt.Status> = createTransformerCallbackFlow(
+    input = input,
+    output = output,
+    request = request,
+    progressPollDelayMs = progressPollDelayMs,
 )
 
 /**
- * Create a [EditedMediaItem] from this [MediaItem.Builder].
+ * Start a [Transformer] request in a coroutine and return a [TransformerKt.Status.Finished]
+ * when the request is finished.
  *
- * Shorthand for [MediaItem.Builder.asEditedMediaItem].
+ * For progress updates pass a [onProgress] callback.
  *
- * @receiver The [MediaItem.Builder] to use to create the [EditedMediaItem].
- * @param[block] The block to use to configure the [EditedMediaItem].
- * @return The [EditedMediaItem] created from this [EditedMediaItem.Builder].
+ * @see start
+ * @param[input] The input to transform.
+ * @param[output] The output file to write to.
+ * @param[request] The [TransformationRequest] to use.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @param[onProgress] The callback to use for progress updates.
+ * @return A [TransformerKt.Status.Finished] status.
  */
-public fun MediaItem.Builder.edited(
-    block: EditedMediaItem.Builder.() -> Unit,
-): EditedMediaItem = asEditedMediaItem(block)
+public suspend fun Transformer.start(
+    input: TransformerKt.Input,
+    output: File,
+    request: TransformationRequest,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+    onProgress: (Int) -> Unit = {},
+): TransformerKt.Status.Finished {
+    try {
+        var result: TransformerKt.Status? = null
+        start(
+            input = input,
+            output = output,
+            request = request,
+            progressPollDelayMs = progressPollDelayMs,
+        ).collect { status ->
+            result = status
+            if (status is TransformerKt.Status.Progress) {
+                onProgress(status.progress)
+            }
+        }
 
-/**
- * Create a [EditedMediaItem] from this [MediaItem.Builder].
- *
- * @receiver The [MediaItem.Builder] to use to create the [EditedMediaItem].
- * @param[block] The block to use to configure the [EditedMediaItem].
- * @return The [EditedMediaItem] created from this [EditedMediaItem.Builder].
- */
-public fun MediaItem.Builder.asEditedMediaItem(
-    block: EditedMediaItem.Builder.() -> Unit,
-): EditedMediaItem = EditedMediaItem.Builder(build()).apply(block).build()
+        if (result == null || result !is TransformerKt.Status.Finished) {
+            error("Unexpected finish result: $result")
+        }
 
-/**
- * Build upon an existing [Transformer] instance.
- *
- * @param[block] The block to use to configure the [Transformer.Builder].
- * @return The [Transformer] created from this [Transformer.Builder].
- */
-public fun Transformer.buildWith(
-    block: Transformer.Builder.() -> Unit,
-): Transformer = buildUpon().apply(block).build()
+        return result as TransformerKt.Status.Finished
+    } catch (cause: Throwable) {
+        if (cause is CancellationException) throw cause
 
-/**
- * Build upon an existing [TransformationRequest] instance.
- *
- * @param[block] The block to use to configure the [TransformationRequest.Builder].
- * @return The [TransformationRequest] created from this [TransformationRequest.Builder].
- */
-public fun TransformationRequest.buildWith(
-    block: TransformationRequest.Builder.() -> Unit,
-): TransformationRequest = buildUpon().apply(block).build()
+        return TransformerKt.Status.Failure(cause)
+    }
+}

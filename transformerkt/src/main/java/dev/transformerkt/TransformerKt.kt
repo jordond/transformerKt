@@ -12,12 +12,12 @@ import java.io.File
 /**
  * A coroutine based wrapper around the [Transformer] API.
  *
- * Example:
+ * Example using [TransformerKt]:
  *
  * ```
  * suspend fun transform(context: Context, input: Uri, output: File) {
- *    val transformer = TransformerExecutor.create(context)
- *    val result = transformer.execute(input, output) { progress ->
+ *    val transformer = TransformerKt.create(context)
+ *    val result = transformer.execute(TransformerKt.Input.from(input), output) { progress ->
  *        // Update UI with progress
  *    }
  *
@@ -28,6 +28,30 @@ import java.io.File
  *      is Status.Failure -> {
  *          // Handle failure
  *      }
+ * }
+ * ```
+ *
+ * Or you can use the extension functions on a [Transformer] instance:
+ *
+ * ```
+ * suspend fun transform(context: Context, input: Uri, output: File) {
+ *     val transformer = Transformer.Builder(context).build()
+ *     val result = transformer.start(input.asTransformerInput(), output) { progress ->
+ *         // Update UI with progress
+ *     }
+ *
+ *     // Handle the result
+ * }
+ * ```
+ *
+ * Or as a [Flow]:
+ *
+ * ```
+ * suspend fun transform(context: Context, input: Uri, output: File) {
+ *     val transformer = Transformer.Builder(context).build()
+ *     transformer.start(input.asTransformerInput(), output).collect (status) {
+ *          // Handle the result
+ *     }
  * }
  * ```
  */
@@ -41,7 +65,7 @@ public interface TransformerKt {
      *
      * ```
      * suspend fun transform(context: Context, input: Uri, output: File) {
-     *   val transformer = TransformerExecutor.create(context)
+     *   val transformer = TransformerKt.create(context)
      *   transformer.executeFlow(input, output).collect { status ->
      *       when (status) {
      *          is Status.Success -> // Handle Success
@@ -70,8 +94,8 @@ public interface TransformerKt {
      *
      * ```
      * suspend fun transform(context: Context, input: Uri, output: File) {
-     *    val transformer = TransformerExecutor.create(context)
-     *    val request = TransformerExecutor.DefaultRequest.buildWith {
+     *    val transformer = TransformerKt.create(context)
+     *    val request = TransformerKt.DefaultRequest.buildWith {
      *         setAudioMimeType(MimeTypes.AUDIO_AAC)
      *    }
      *
@@ -181,12 +205,12 @@ public interface TransformerKt {
             .setVideoMimeType(MimeTypes.VIDEO_H264)
             .build()
 
-        public val DefaultRequest: TransformationRequest = H264Request
+        public val DefaultRequest: TransformationRequest = InferRequest
 
         /**
          * The default delay between progress updates in milliseconds.
          */
-        private const val DEFAULT_PROGRESS_POLL_DELAY_MS = 500L
+        internal const val DEFAULT_PROGRESS_POLL_DELAY_MS = 500L
 
         /**
          * Create a [TransformerKt] that creates a default [Transformer] using the [context].
