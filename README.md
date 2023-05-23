@@ -2,7 +2,7 @@
    <img height="200" src="art/logo-text.png"/>
 </p>
 <p align="center">
-   <a href="https://jitpack.io/#dev.transformerkt/transformerkt"><img src="https://jitpack.io/v/dev.transformerkt/transformerkt.svg)"></a>
+   <a href="https://jitpack.io/#dev.transformerkt/transformerkt"><img src="https://jitpack.io/v/dev.transformerkt/transformerkt.svg"></a>
    <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
    <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
 </p>
