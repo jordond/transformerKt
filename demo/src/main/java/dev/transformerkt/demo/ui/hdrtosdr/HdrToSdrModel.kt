@@ -8,7 +8,7 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.processor.VideoProcessor
 import dev.transformerkt.demo.processor.VideoProcessorRepo
 import dev.transformerkt.demo.processor.model.VideoDetails
@@ -112,7 +112,7 @@ class HdrToSdrModel @Inject constructor(
         val processingFailed: String? = null,
         val selectedVideo: VideoDetails? = null,
         val converting: Boolean = false,
-        val convertResult: TransformerKt.Status? = null,
+        val convertResult: TransformerStatus? = null,
     ) {
 
         val canSelect = !processing && !converting

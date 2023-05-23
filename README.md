@@ -4,7 +4,7 @@
 <p align="center">
    <img src="https://img.shields.io/github/license/jordond/transformerkt" />
    <img src="https://img.shields.io/github/v/release/jordond/transformerkt" />
-</p
+</p>
 
 TransformerKt is a Kotlin coroutine wrapper library
 around [media3.transformer](https://developer.android.com/guide/topics/media/transformer):
@@ -13,7 +13,7 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 > applying changes like trimming a clip from a longer video, cropping a portion of the video frame,
 > applying custom effects, and other editing operations
 
-You can view the TransformerKt KDocs at [docs.transformerkt.dev](docs.transformerkt.dev)
+You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.transformerkt.dev)
 
 - Using `media3.transformer` version `1.1.0-alpha01`
 
@@ -24,6 +24,7 @@ You can view the TransformerKt KDocs at [docs.transformerkt.dev](docs.transforme
 - [Usage](#usage)
 - [Transform Requests](#transform-requests)
 - [Applying Effects](#applying-effects)
+- [Demo App](#demo-app)
 - [License](#license)
 
 ## Motivation
@@ -82,14 +83,14 @@ the [Transformer Docs](https://developer.android.com/guide/topics/media/transfor
 
 ### Inputs
 
-Then you need an input video or image file. TransformerKt supports the following inputs:
+Then you need an input video or image file. `TransformerKt` supports the following inputs:
 
 - [MediaItem](https://developer.android.com/reference/androidx/media3/common/MediaItem).
 - [EditedMediaItem](https://github.com/androidx/media/blob/0fce8f416b54124605c1ed8aa72af98c94602834/libraries/transformer/src/main/java/androidx/media3/transformer/EditedMediaItem.java).
     - Note this class is new as of `media3` version `1.1.0-alpha01`. The library changed the way you
       apply effects and customizations to the MediaItem.
 - A `Uri` pointing to somewhere on the device.
-- A `File` object pointing to a file in the _app's_ sandboxed storage.
+- A `File` object pointing to a file in the _app's_ sand-boxed storage.
     - Warning: Getting a `File` object to a file outside of the app's storage will probably cause a
       permission error.
 
@@ -99,10 +100,10 @@ Now that you have your input sorted, there are two ways to consume this library.
 
 A few extension functions have been added to the `Transformer` instance.
 
-- `suspend fun Transformer.start(): TransformerKt.Status.Finished`
-- `fun Transformer.start(): Flow<TransformerKt.Status>`
+- `suspend fun Transformer.start(): TransformerStatus.Finished`
+- `fun Transformer.start(): Flow<TransformerStatus>`
 
-There are overloads for each of the supported [TransformerKt.Input]s. For example:
+There are overloads for each of the supported inputs. For example:
 
 ```kotlin
 suspend fun transform(context: Context, input: Uri) {
@@ -112,8 +113,8 @@ suspend fun transform(context: Context, input: Uri) {
         // Update UI progress
     }
     when (result) {
-        is TransformerKt.Status.Failure -> TODO()
-        is TransformerKt.Status.Success -> TODO()
+        is TransformerStatus.Failure -> TODO()
+        is TransformerStatus.Success -> TODO()
     }
 }
 ```
@@ -126,45 +127,10 @@ fun transform(context: Context, input: Uri) {
     val transformer = Transformer.Builder(context).build()
     transformer.start(input, output, TransformerKt.H264Request).collect { status ->
         when (status) {
-            is TransformerKt.Status.Progress -> TODO()
-            is TransformerKt.Status.Success -> TODO()
-            is TransformerKt.Status.Failure -> TODO()
+            is TransformerStatus.Progress -> TODO()
+            is TransformerStatus.Success -> TODO()
+            is TransformerStatus.Failure -> TODO()
         }
-    }
-}
-```
-
-### TransformerKt class
-
-The `TransformerKt` class is a wrapper around the `Transformer` class. It exposes the same API as
-the extension functions but you do not need to create a `Transformer` instance yourself.
-
-You can create an instance like so:
-
-```kotlin
-val transformer: TransformerKt = TransformerKt.create(context)
-```
-
-Then like the extension functions you can can call `suspend fun TransformerKt.start()`:
-
-```kotlin
-// First you need to wrap the input in a TransformerKt.Input
-val input = TransformerKt.Input.from(inputUri)
-val result = transformer.start(input, output) { progress ->
-    // Handle UI progress updates
-}
-
-// Handle result
-```
-
-Or as a `Flow`:
-
-```kotlin
-transformer.start(input, output).collect { status ->
-    when (status) {
-        is TransformerKt.Status.Progress -> TODO()
-        is TransformerKt.Status.Success -> TODO()
-        is TransformerKt.Status.Failure -> TODO()
     }
 }
 ```
@@ -188,6 +154,8 @@ Currently `TransformerKt` ships with:
 
 - `TransformerKt.H264Request`
     - Converts the input to an H264 encoded MP4 file.
+- `TransformerKt.H264AndAacRequest`
+    - Converts the input to an H264 encoded MP4 file, with AAC audio.
 
 ### Example Requests
 
@@ -226,7 +194,7 @@ val editedMediaItem = MediaItem.Builder()
         setRemoveAudio(true)
     }
 
-// Pass to Transformer.start()
+val result = TransformerKt.build(context).start(editedMediaItem, File("output.mp4"))
 ```
 
 Or directly from a [MediaItem] instance:
@@ -238,8 +206,23 @@ val editedMediaItem = MediaItem
         setRemoveAudio(true)
     }
 
-// Pass to Transformer.start()
+val result = TransformerKt.build(context).start(editedMediaItem, File("output.mp4"))
 ```
+
+## Demo App
+
+A demo app is included in the `demo` module. It is a simple app that allows you to select a HDR
+video and convert it do a SDR video.
+
+To run the demo app you can follow these steps:
+
+```shell
+git clone git@github.com:jordond/transformerkt.git transformerkt
+cd transformerkt
+./gradlew assembleRelease
+```
+
+Then install the `demo/build/outputs/apk/release/demo-release.apk` file on your device.
 
 ## License
 

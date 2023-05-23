@@ -9,6 +9,7 @@ import androidx.media3.transformer.ProgressHolder
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.ktx.buildWith
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 /**
- * Converts a [Transformer] to a [Flow] that emits [TransformerKt.Status].
+ * Converts a [Transformer] to a [Flow] that emits [TransformerStatus].
  *
  * All existing listeners on [Transformer] will be removed and replaced with a new listener that
  * converts the updates to a [Flow].
@@ -35,21 +36,21 @@ import java.io.File
  * @param[output] The output file to write to.
  * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
- * @return A [Flow] that emits [TransformerKt.Status].
+ * @return A [Flow] that emits [TransformerStatus].
  */
 internal fun Transformer.createTransformerCallbackFlow(
-    input: TransformerKt.Input,
+    input: TransformerInput,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-): Flow<TransformerKt.Status> {
+): Flow<TransformerStatus> {
     val oldTransformer = this
     return callbackFlow {
         var isFinished = false
         val listener = object : Transformer.Listener {
             override fun onCompleted(composition: Composition, exportResult: ExportResult) {
                 isFinished = true
-                trySend(TransformerKt.Status.Success(output))
+                trySend(TransformerStatus.Success(output))
                 close()
             }
 
@@ -59,7 +60,7 @@ internal fun Transformer.createTransformerCallbackFlow(
                 exportException: ExportException,
             ) {
                 isFinished = true
-                trySend(TransformerKt.Status.Failure(exportException))
+                trySend(TransformerStatus.Failure(exportException))
                 close()
             }
         }
@@ -69,7 +70,7 @@ internal fun Transformer.createTransformerCallbackFlow(
             setTransformationRequest(request)
             addListener(listener)
         }
-        transformer.start(input, output)
+        transformer.startWith(input, output)
 
         val progressHolder = ProgressHolder()
         var previousProgress = 0
@@ -83,7 +84,7 @@ internal fun Transformer.createTransformerCallbackFlow(
                 val progress = progressHolder.progress
                 if (progress > previousProgress) {
                     previousProgress = progress
-                    trySend(TransformerKt.Status.Progress(progress))
+                    trySend(TransformerStatus.Progress(progress))
                 }
 
                 if (progressState != Transformer.PROGRESS_STATE_NOT_STARTED) {
@@ -100,21 +101,21 @@ internal fun Transformer.createTransformerCallbackFlow(
         }
     }.catch { cause ->
         if (cause != CancellationException()) {
-            emit(TransformerKt.Status.Failure(cause))
+            emit(TransformerStatus.Failure(cause))
         }
     }.flowOn(Dispatchers.Main)
 }
 
 /**
- * Map an [TransformerKt.Input] into a value that [Transformer] can use.
+ * Map an [TransformerInput] into a value that [Transformer] can use.
  */
-private fun Transformer.start(input: TransformerKt.Input, output: File) {
+private fun Transformer.startWith(input: TransformerInput, output: File) {
     val outputPath = output.absolutePath
     when (input) {
-        is TransformerKt.Input.MediaItem -> start(input.value, outputPath)
-        is TransformerKt.Input.EditedMediaItem -> start(input.value, outputPath)
-        is TransformerKt.Input.Uri -> start(MediaItem.fromUri(input.value), outputPath)
-        is TransformerKt.Input.File -> {
+        is TransformerInput.MediaItem -> start(input.value, outputPath)
+        is TransformerInput.EditedMediaItem -> start(input.value, outputPath)
+        is TransformerInput.Uri -> start(MediaItem.fromUri(input.value), outputPath)
+        is TransformerInput.File -> {
             start(MediaItem.fromUri(input.value.toUri()), outputPath)
         }
     }

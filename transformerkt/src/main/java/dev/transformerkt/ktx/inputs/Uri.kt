@@ -5,28 +5,22 @@ import androidx.annotation.CheckResult
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
+import dev.transformerkt.internal.TransformerInput
 import dev.transformerkt.internal.createTransformerCallbackFlow
-import dev.transformerkt.ktx.start
+import dev.transformerkt.internal.start
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 /**
- * Create a [TransformerKt.Input] from this [Uri].
- */
-public fun Uri.asTransformerInput(): TransformerKt.Input {
-    return TransformerKt.Input.Uri(this)
-}
-
-
-/**
- * Start a [Transformer] request for a [Uri] and return a [Flow] of [TransformerKt.Status].
+ * Start a [Transformer] request for a [Uri] and return a [Flow] of [TransformerStatus].
  *
  * @see createTransformerCallbackFlow
  * @param[input] The input to transform.
  * @param[output] The output file to write to.
  * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
- * @return A [Flow] that emits [TransformerKt.Status].
+ * @return A [Flow] that emits [TransformerStatus].
  */
 @CheckResult
 public fun Transformer.start(
@@ -34,8 +28,8 @@ public fun Transformer.start(
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-): Flow<TransformerKt.Status> = start(
-    input = TransformerKt.Input.Uri(input),
+): Flow<TransformerStatus> = start(
+    input = TransformerInput.Uri(input),
     output = output,
     request = request,
     progressPollDelayMs = progressPollDelayMs,
@@ -43,7 +37,7 @@ public fun Transformer.start(
 
 /**
  * Start a [Transformer] request for a [Uri] in a coroutine and return
- * a [TransformerKt.Status.Finished] when the request is finished.
+ * a [TransformerStatus.Finished] when the request is finished.
  *
  * For progress updates pass a [onProgress] callback.
  *
@@ -53,7 +47,7 @@ public fun Transformer.start(
  * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @param[onProgress] The callback to use for progress updates.
- * @return A [TransformerKt.Status.Finished] status.
+ * @return A [TransformerStatus.Finished] status.
  */
 public suspend fun Transformer.start(
     input: Uri,
@@ -61,8 +55,8 @@ public suspend fun Transformer.start(
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
-): TransformerKt.Status.Finished = start(
-    input = TransformerKt.Input.Uri(input),
+): TransformerStatus.Finished = start(
+    input = TransformerInput.Uri(input),
     output = output,
     request = request,
     progressPollDelayMs = progressPollDelayMs,
