@@ -31,7 +31,8 @@ $dokka.location:dev.transformerkt/TransformerStatus.Progress///PointingToDeclara
 $dokka.location:dev.transformerkt/TransformerStatus.Progress/Progress/#kotlin.Int/PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-progress/-progress.html
 $dokka.location:dev.transformerkt/TransformerStatus.Progress/progress/#/PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-progress/progress.html
 $dokka.location:dev.transformerkt/TransformerStatus.Success///PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-success/index.html
-$dokka.location:dev.transformerkt/TransformerStatus.Success/Success/#java.io.File/PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-success/-success.html
+$dokka.location:dev.transformerkt/TransformerStatus.Success/Success/#java.io.File#androidx.media3.transformer.ExportResult/PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-success/-success.html
+$dokka.location:dev.transformerkt/TransformerStatus.Success/exportResult/#/PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-success/export-result.html
 $dokka.location:dev.transformerkt/TransformerStatus.Success/output/#/PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/-success/output.html
 $dokka.location:dev.transformerkt/TransformerStatus///PointingToDeclaration/transformerkt/dev.transformerkt/-transformer-status/index.html
 dev.transformerkt
