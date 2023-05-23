@@ -2,8 +2,9 @@
    <img height="200" src="art/logo-text.png"/>
 </p>
 <p align="center">
-   <img src="https://img.shields.io/github/license/jordond/transformerkt" />
-   <img src="https://img.shields.io/github/v/release/jordond/transformerkt" />
+   <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/jordond/transformerKt">
+   <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
+   <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
 </p>
 
 TransformerKt is a Kotlin coroutine wrapper library
