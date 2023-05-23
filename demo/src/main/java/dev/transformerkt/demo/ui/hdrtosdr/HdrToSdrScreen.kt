@@ -31,13 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.ui.components.VideoPlayer
 
 private val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
 
-@RootNavGraph(start = true)
 @Destination
 @Composable
 fun HdrToSdrScreen() {

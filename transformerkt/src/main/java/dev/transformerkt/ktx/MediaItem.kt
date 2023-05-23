@@ -4,6 +4,16 @@ import androidx.media3.common.MediaItem
 import androidx.media3.transformer.EditedMediaItem
 
 /**
+ * Build upon this [MediaItem] to create a new [MediaItem].
+ *
+ * @param[block] The block to use to configure the [MediaItem.Builder].
+ * @return The [MediaItem] created from this [MediaItem.Builder].
+ */
+public fun MediaItem.buildWith(
+    block: MediaItem.Builder.() -> Unit,
+): MediaItem = buildUpon().apply(block).build()
+
+/**
  * Convenience function for creating a [MediaItem.ClippingConfiguration].
  *
  * @param[startMs] The start position in milliseconds.
