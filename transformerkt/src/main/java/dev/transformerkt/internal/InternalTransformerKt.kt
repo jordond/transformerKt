@@ -2,8 +2,9 @@ package dev.transformerkt.internal
 
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.TransformerInput
 import dev.transformerkt.TransformerKt
-import dev.transformerkt.TransformerKt.Status
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.ktx.start
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -19,10 +20,10 @@ internal class InternalTransformerKt(
      * @see TransformerKt.start
      */
     override fun start(
-        input: TransformerKt.Input,
+        input: TransformerInput,
         output: File,
         request: TransformationRequest,
-    ): Flow<Status> = transformer.createTransformerCallbackFlow(
+    ): Flow<TransformerStatus> = transformer.createTransformerCallbackFlow(
         input = input,
         output = output,
         request = request,
@@ -35,11 +36,11 @@ internal class InternalTransformerKt(
      * @see TransformerKt.start
      */
     override suspend fun start(
-        input: TransformerKt.Input,
+        input: TransformerInput,
         output: File,
         request: TransformationRequest,
         onProgress: (Int) -> Unit,
-    ): Status.Finished = transformer.start(
+    ): TransformerStatus.Finished = transformer.start(
         input = input,
         output = output,
         request = request,

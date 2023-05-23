@@ -4,7 +4,9 @@ import androidx.annotation.CheckResult
 import androidx.media3.common.MediaItem
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.TransformerInput
 import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.internal.createTransformerCallbackFlow
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
@@ -22,11 +24,11 @@ import java.io.File
  */
 @CheckResult
 public fun Transformer.start(
-    input: TransformerKt.Input,
+    input: TransformerInput,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-): Flow<TransformerKt.Status> = createTransformerCallbackFlow(
+): Flow<TransformerStatus> = createTransformerCallbackFlow(
     input = input,
     output = output,
     request = request,
@@ -48,14 +50,14 @@ public fun Transformer.start(
  * @return A [TransformerKt.Status.Finished] status.
  */
 public suspend fun Transformer.start(
-    input: TransformerKt.Input,
+    input: TransformerInput,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
-): TransformerKt.Status.Finished {
+): TransformerStatus.Finished {
     try {
-        var result: TransformerKt.Status? = null
+        var result: TransformerStatus? = null
         start(
             input = input,
             output = output,
@@ -63,20 +65,20 @@ public suspend fun Transformer.start(
             progressPollDelayMs = progressPollDelayMs,
         ).collect { status ->
             result = status
-            if (status is TransformerKt.Status.Progress) {
+            if (status is TransformerStatus.Progress) {
                 onProgress(status.progress)
             }
         }
 
-        if (result == null || result !is TransformerKt.Status.Finished) {
+        if (result == null || result !is TransformerStatus.Finished) {
             error("Unexpected finish result: $result")
         }
 
-        return result as TransformerKt.Status.Finished
+        return result as TransformerStatus.Finished
     } catch (cause: Throwable) {
         if (cause is CancellationException) throw cause
 
-        return TransformerKt.Status.Failure(cause)
+        return TransformerStatus.Failure(cause)
     }
 }
 
@@ -86,8 +88,8 @@ public suspend fun Transformer.start(
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
-):TransformerKt.Status.Finished = start(
-    input = TransformerKt.Input.MediaItem(input),
+): TransformerStatus.Finished = start(
+    input = TransformerInput.MediaItem(input),
     output = output,
     request = request,
     progressPollDelayMs = progressPollDelayMs,

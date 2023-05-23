@@ -4,7 +4,9 @@ import android.net.Uri
 import androidx.annotation.CheckResult
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.TransformerInput
 import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.internal.createTransformerCallbackFlow
 import dev.transformerkt.ktx.start
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +15,8 @@ import java.io.File
 /**
  * Create a [TransformerKt.Input] from this [Uri].
  */
-public fun Uri.asTransformerInput(): TransformerKt.Input {
-    return TransformerKt.Input.Uri(this)
+public fun Uri.asTransformerInput(): TransformerInput {
+    return TransformerInput.Uri(this)
 }
 
 
@@ -34,8 +36,8 @@ public fun Transformer.start(
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-): Flow<TransformerKt.Status> = start(
-    input = TransformerKt.Input.Uri(input),
+): Flow<TransformerStatus> = start(
+    input = TransformerInput.Uri(input),
     output = output,
     request = request,
     progressPollDelayMs = progressPollDelayMs,
@@ -61,8 +63,8 @@ public suspend fun Transformer.start(
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
-): TransformerKt.Status.Finished = start(
-    input = TransformerKt.Input.Uri(input),
+): TransformerStatus.Finished = start(
+    input = TransformerInput.Uri(input),
     output = output,
     request = request,
     progressPollDelayMs = progressPollDelayMs,

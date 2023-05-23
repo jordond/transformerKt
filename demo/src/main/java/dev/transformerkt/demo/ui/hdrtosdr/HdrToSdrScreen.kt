@@ -32,7 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
-import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.ui.components.VideoPlayer
 
 private val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
@@ -115,24 +115,24 @@ fun HdrToSdrScreen() {
                 val result = state.convertResult
                 if (result != null) {
                     when (result) {
-                        is TransformerKt.Status.Failure -> {
+                        is TransformerStatus.Failure -> {
                             Text(text = "Unable to convert to SDR!")
                             Text(
                                 text = result.cause.message ?: "Unknown error",
                                 color = MaterialTheme.colorScheme.error,
                             )
                         }
-                        is TransformerKt.Status.Progress -> {
+                        is TransformerStatus.Progress -> {
                             Text(text = "Progress: ${result.progress}")
                             LinearProgressIndicator(progress = result.progress / 100f)
                         }
-                        is TransformerKt.Status.Success -> {
+                        is TransformerStatus.Success -> {
                             Text(text = "Success!")
                         }
                     }
                 }
 
-                if (!state.converting && result != null && result is TransformerKt.Status.Success) {
+                if (!state.converting && result != null && result is TransformerStatus.Success) {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally,

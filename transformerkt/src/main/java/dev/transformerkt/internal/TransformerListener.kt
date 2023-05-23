@@ -8,7 +8,9 @@ import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.ProgressHolder
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.transformerkt.TransformerInput
 import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.ktx.buildWith
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -38,18 +40,18 @@ import java.io.File
  * @return A [Flow] that emits [TransformerKt.Status].
  */
 internal fun Transformer.createTransformerCallbackFlow(
-    input: TransformerKt.Input,
+    input: TransformerInput,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-): Flow<TransformerKt.Status> {
+): Flow<TransformerStatus> {
     val oldTransformer = this
     return callbackFlow {
         var isFinished = false
         val listener = object : Transformer.Listener {
             override fun onCompleted(composition: Composition, exportResult: ExportResult) {
                 isFinished = true
-                trySend(TransformerKt.Status.Success(output))
+                trySend(TransformerStatus.Success(output))
                 close()
             }
 
@@ -59,7 +61,7 @@ internal fun Transformer.createTransformerCallbackFlow(
                 exportException: ExportException,
             ) {
                 isFinished = true
-                trySend(TransformerKt.Status.Failure(exportException))
+                trySend(TransformerStatus.Failure(exportException))
                 close()
             }
         }
@@ -83,7 +85,7 @@ internal fun Transformer.createTransformerCallbackFlow(
                 val progress = progressHolder.progress
                 if (progress > previousProgress) {
                     previousProgress = progress
-                    trySend(TransformerKt.Status.Progress(progress))
+                    trySend(TransformerStatus.Progress(progress))
                 }
 
                 if (progressState != Transformer.PROGRESS_STATE_NOT_STARTED) {
@@ -100,7 +102,7 @@ internal fun Transformer.createTransformerCallbackFlow(
         }
     }.catch { cause ->
         if (cause != CancellationException()) {
-            emit(TransformerKt.Status.Failure(cause))
+            emit(TransformerStatus.Failure(cause))
         }
     }.flowOn(Dispatchers.Main)
 }
@@ -108,13 +110,13 @@ internal fun Transformer.createTransformerCallbackFlow(
 /**
  * Map an [TransformerKt.Input] into a value that [Transformer] can use.
  */
-private fun Transformer.start(input: TransformerKt.Input, output: File) {
+private fun Transformer.start(input: TransformerInput, output: File) {
     val outputPath = output.absolutePath
     when (input) {
-        is TransformerKt.Input.MediaItem -> start(input.value, outputPath)
-        is TransformerKt.Input.EditedMediaItem -> start(input.value, outputPath)
-        is TransformerKt.Input.Uri -> start(MediaItem.fromUri(input.value), outputPath)
-        is TransformerKt.Input.File -> {
+        is TransformerInput.MediaItem -> start(input.value, outputPath)
+        is TransformerInput.EditedMediaItem -> start(input.value, outputPath)
+        is TransformerInput.Uri -> start(MediaItem.fromUri(input.value), outputPath)
+        is TransformerInput.File -> {
             start(MediaItem.fromUri(input.value.toUri()), outputPath)
         }
     }

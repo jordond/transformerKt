@@ -6,6 +6,7 @@ import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.transformerkt.TransformerKt
+import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.processor.model.VideoDetails
 import dev.transformerkt.ktx.buildWith
 import dev.transformerkt.ktx.inputs.start
@@ -20,8 +21,8 @@ class TransformerRepo @Inject constructor(
 
     suspend fun convertToSdr(
         input: VideoDetails,
-        onProgress: (TransformerKt.Status.Progress) -> Unit,
-    ): TransformerKt.Status.Finished {
+        onProgress: (TransformerStatus.Progress) -> Unit,
+    ): TransformerStatus.Finished {
         val output = hdrToSdrOutput(context)
         val request = TransformerKt.H264Request.buildWith {
             setHdrMode(TransformationRequest.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
@@ -29,7 +30,7 @@ class TransformerRepo @Inject constructor(
         }
 
         return transformer.start(input.uri, output, request) { progress ->
-            onProgress(TransformerKt.Status.Progress(progress))
+            onProgress(TransformerStatus.Progress(progress))
         }
     }
 
