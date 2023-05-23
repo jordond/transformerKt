@@ -80,9 +80,3 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: assembleRelease --scan
-
-      - uses: actions/upload-artifact@v3
-        if: ${{ github.ref == 'ref/heads/main' }}
-        with:
-          name: transformerkt-demo
-          path: demo/build/outputs/apk/release/demo-release.apk
