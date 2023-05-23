@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.dokka")
+    id("maven-publish")
 }
 
 android {
@@ -54,4 +55,17 @@ dependencies {
 
     /* Misc */
     dokkaPlugin(libs.android.documentation.plugin)
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "dev.transformerkt"
+            artifactId = "transformerkt"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
 }
