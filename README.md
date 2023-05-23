@@ -3,6 +3,7 @@
 </p>
 <p align="center">
    <img src="https://img.shields.io/github/license/jordond/transformerkt" />
+   <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
    <img src="https://img.shields.io/github/v/release/jordond/transformerkt" />
 </p>
 
