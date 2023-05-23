@@ -1,5 +1,6 @@
 package dev.transformerkt.demo.ui.components
 
+import android.net.Uri
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.foundation.layout.Column
@@ -24,15 +25,37 @@ fun VideoPlayer(
     modifier: Modifier = Modifier,
     play: Boolean = true,
 ) {
-    val context = LocalContext.current
-
     val mediaItem by remember(file) {
         derivedStateOf {
-            MediaItem.Builder()
-                .setUri(file.toUri())
-                .build()
+            MediaItem.fromUri(file.toUri())
         }
     }
+
+    VideoPlayer(mediaItem, modifier, play)
+}
+
+@Composable
+fun VideoPlayer(
+    uri: Uri,
+    modifier: Modifier = Modifier,
+    play: Boolean = true,
+) {
+    val mediaItem by remember(uri) {
+        derivedStateOf {
+            MediaItem.fromUri(uri)
+        }
+    }
+
+    VideoPlayer(mediaItem, modifier, play)
+}
+
+@Composable
+fun VideoPlayer(
+    mediaItem: MediaItem,
+    modifier: Modifier = Modifier,
+    play: Boolean = true,
+) {
+    val context = LocalContext.current
 
     val exoPlayer by remember(mediaItem) {
         derivedStateOf {

@@ -7,6 +7,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -90,16 +91,17 @@ fun HdrToSdrScreen() {
                             color = MaterialTheme.colorScheme.error,
                         )
                     }
+                    state.selectedVideo?.isHdr == false -> {
+                        Text(
+                            text = "SDR video selected!",
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                        Text(text = "Please select an HDR video")
+                    }
                     state.canConvert && state.converting.not() -> {
                         if (state.selectedVideo?.isHdr == true) {
                             Text(text = "HDR video selected")
                             Text(text = "Ready to Convert!")
-                        } else {
-                            Text(
-                                text = "SDR video selected!",
-                                color = MaterialTheme.colorScheme.error,
-                            )
-                            Text(text = "Please select an HDR video")
                         }
                     }
                     state.converting -> {
@@ -128,13 +130,18 @@ fun HdrToSdrScreen() {
                     }
                 }
 
-                if (!state.converting && result != null) {
+                if (!state.converting && result != null && result is TransformerKt.Status.Success) {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        if (result is TransformerKt.Status.Success) {
-                            VideoPlayer(file = result.output, modifier = Modifier.height(200.dp))
-                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "Before - HDR")
+                        VideoPlayer(uri = state.selectedVideo!!.uri, modifier = Modifier.height(200.dp))
+
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "After - SDR")
+                        VideoPlayer(file = result.output, modifier = Modifier.height(200.dp))
                     }
                 }
             } else {

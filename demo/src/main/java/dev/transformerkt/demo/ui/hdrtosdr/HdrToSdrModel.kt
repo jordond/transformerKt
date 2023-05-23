@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.transformerkt.TransformerKt
-import dev.transformerkt.demo.transformer.TransformerRepo
 import dev.transformerkt.demo.processor.VideoProcessor
 import dev.transformerkt.demo.processor.VideoProcessorRepo
 import dev.transformerkt.demo.processor.model.VideoDetails
+import dev.transformerkt.demo.transformer.TransformerRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -68,7 +68,13 @@ class HdrToSdrModel @Inject constructor(
     }
 
     private suspend fun processVideo(uri: Uri) {
-        _state.update { it.copy(processing = true, processingFailed = null) }
+        _state.update { state ->
+            state.copy(
+                processing = true,
+                processingFailed = null,
+                convertResult = null,
+            )
+        }
 
         when (val processed = videoProcessorRepo.process(uri)) {
             is VideoProcessor.Result.Success -> _state.update { state ->
