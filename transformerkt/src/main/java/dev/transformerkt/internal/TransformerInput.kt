@@ -29,14 +29,4 @@ internal sealed interface TransformerInput {
     value class EditedMediaItem(
         val value: androidx.media3.transformer.EditedMediaItem,
     ) : TransformerInput
-
-    companion object {
-
-        fun of(uri: android.net.Uri): Uri = Uri(uri)
-        fun of(file: java.io.File): File = File(file)
-        fun of(item: androidx.media3.common.MediaItem): MediaItem = MediaItem(item)
-        fun of(
-            item: androidx.media3.transformer.EditedMediaItem,
-        ): EditedMediaItem = EditedMediaItem(item)
-    }
 }
