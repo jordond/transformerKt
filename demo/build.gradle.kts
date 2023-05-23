@@ -60,6 +60,7 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.activity.compose)

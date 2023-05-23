@@ -1,4 +1,4 @@
-package dev.transformerkt.demo.theme
+package dev.transformerkt.demo.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

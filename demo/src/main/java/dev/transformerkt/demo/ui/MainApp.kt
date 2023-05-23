@@ -9,7 +9,7 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.rememberNavHostEngine
-import dev.transformerkt.demo.theme.TransformerKtDemoTheme
+import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable

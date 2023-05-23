@@ -24,7 +24,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import com.ramcosta.composedestinations.navigation.popUpTo
 import com.ramcosta.composedestinations.spec.Direction
-import dev.transformerkt.demo.theme.TransformerKtDemoTheme
+import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
+import dev.transformerkt.demo.ui.destinations.HdrToSdrScreenDestination
 import dev.transformerkt.demo.ui.destinations.HomeScreenDestination
 
 @RootNavGraph(start = true)
@@ -47,7 +48,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            Button(onClick = { }) {
+            Button(onClick = { navigator.nav(HdrToSdrScreenDestination) }) {
                 Text(text = "Convert HDR to SDR")
             }
             Button(onClick = { }) {

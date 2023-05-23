@@ -1,4 +1,4 @@
-package dev.transformerkt.demo.theme
+package dev.transformerkt.demo.ui.theme
 
 import android.app.Activity
 import android.os.Build

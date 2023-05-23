@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
-import dev.transformerkt.demo.theme.TransformerKtDemoTheme
 import dev.transformerkt.demo.ui.MainApp
+import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
 
 class MainActivity : ComponentActivity() {
 
