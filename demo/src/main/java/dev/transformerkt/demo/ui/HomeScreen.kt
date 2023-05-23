@@ -26,9 +26,10 @@ import com.ramcosta.composedestinations.navigation.popUpTo
 import com.ramcosta.composedestinations.spec.Direction
 import dev.transformerkt.demo.ui.destinations.HdrToSdrScreenDestination
 import dev.transformerkt.demo.ui.destinations.HomeScreenDestination
+import dev.transformerkt.demo.ui.destinations.TrimScreenDestination
 import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
 
-@RootNavGraph(start = false)
+@RootNavGraph(start = true)
 @Destination
 @Composable
 fun HomeScreen(
@@ -50,6 +51,9 @@ fun HomeScreen(
         ) {
             Button(onClick = { navigator.nav(HdrToSdrScreenDestination) }) {
                 Text(text = "Convert HDR to SDR")
+            }
+            Button(onClick = { navigator.nav(TrimScreenDestination) }) {
+                Text(text = "Trim Video")
             }
         }
     }
