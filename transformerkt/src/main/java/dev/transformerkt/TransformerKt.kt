@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
  * ```
  * suspend fun transform(context: Context, input: Uri, output: File) {
  *     val transformer = Transformer.Builder(context).build()
- *     val result = transformer.start(input.asTransformerInput(), output) { progress ->
+ *     val result = transformer.start(input, output) { progress ->
  *         // Update UI with progress
  *     }
  *
@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.Flow
  * ```
  * suspend fun transform(context: Context, input: Uri, output: File) {
  *     val transformer = Transformer.Builder(context).build()
- *     transformer.start(input.asTransformerInput(), output).collect (status) {
+ *     transformer.start(input, output).collect (status) {
  *          // Handle the result
  *     }
  * }
