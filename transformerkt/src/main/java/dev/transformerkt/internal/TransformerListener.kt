@@ -8,7 +8,6 @@ import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.ProgressHolder
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
-import dev.transformerkt.TransformerInput
 import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerStatus
 import dev.transformerkt.ktx.buildWith
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 /**
- * Converts a [Transformer] to a [Flow] that emits [TransformerKt.Status].
+ * Converts a [Transformer] to a [Flow] that emits [TransformerStatus].
  *
  * All existing listeners on [Transformer] will be removed and replaced with a new listener that
  * converts the updates to a [Flow].
@@ -37,7 +36,7 @@ import java.io.File
  * @param[output] The output file to write to.
  * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
- * @return A [Flow] that emits [TransformerKt.Status].
+ * @return A [Flow] that emits [TransformerStatus].
  */
 internal fun Transformer.createTransformerCallbackFlow(
     input: TransformerInput,
@@ -71,7 +70,7 @@ internal fun Transformer.createTransformerCallbackFlow(
             setTransformationRequest(request)
             addListener(listener)
         }
-        transformer.start(input, output)
+        transformer.startWith(input, output)
 
         val progressHolder = ProgressHolder()
         var previousProgress = 0
@@ -108,9 +107,9 @@ internal fun Transformer.createTransformerCallbackFlow(
 }
 
 /**
- * Map an [TransformerKt.Input] into a value that [Transformer] can use.
+ * Map an [TransformerInput] into a value that [Transformer] can use.
  */
-private fun Transformer.start(input: TransformerInput, output: File) {
+private fun Transformer.startWith(input: TransformerInput, output: File) {
     val outputPath = output.absolutePath
     when (input) {
         is TransformerInput.MediaItem -> start(input.value, outputPath)

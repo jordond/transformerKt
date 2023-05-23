@@ -99,10 +99,10 @@ Now that you have your input sorted, there are two ways to consume this library.
 
 A few extension functions have been added to the `Transformer` instance.
 
-- `suspend fun Transformer.start(): TransformerKt.Status.Finished`
-- `fun Transformer.start(): Flow<TransformerKt.Status>`
+- `suspend fun Transformer.start(): TransformerStatus.Finished`
+- `fun Transformer.start(): Flow<TransformerStatus>`
 
-There are overloads for each of the supported [TransformerKt.Input]s. For example:
+There are overloads for each of the supported [TransformerInput]s. For example:
 
 ```kotlin
 suspend fun transform(context: Context, input: Uri) {
@@ -112,8 +112,8 @@ suspend fun transform(context: Context, input: Uri) {
         // Update UI progress
     }
     when (result) {
-        is TransformerKt.Status.Failure -> TODO()
-        is TransformerKt.Status.Success -> TODO()
+        is TransformerStatus.Failure -> TODO()
+        is TransformerStatus.Success -> TODO()
     }
 }
 ```
@@ -126,9 +126,9 @@ fun transform(context: Context, input: Uri) {
     val transformer = Transformer.Builder(context).build()
     transformer.start(input, output, TransformerKt.H264Request).collect { status ->
         when (status) {
-            is TransformerKt.Status.Progress -> TODO()
-            is TransformerKt.Status.Success -> TODO()
-            is TransformerKt.Status.Failure -> TODO()
+            is TransformerStatus.Progress -> TODO()
+            is TransformerStatus.Success -> TODO()
+            is TransformerStatus.Failure -> TODO()
         }
     }
 }
@@ -148,8 +148,8 @@ val transformer: TransformerKt = TransformerKt.create(context)
 Then like the extension functions you can can call `suspend fun TransformerKt.start()`:
 
 ```kotlin
-// First you need to wrap the input in a TransformerKt.Input
-val input = TransformerKt.Input.from(inputUri)
+// First you need to wrap the input in a TransformerInput
+val input = TransformerInput.from(inputUri)
 val result = transformer.start(input, output) { progress ->
     // Handle UI progress updates
 }
@@ -162,9 +162,9 @@ Or as a `Flow`:
 ```kotlin
 transformer.start(input, output).collect { status ->
     when (status) {
-        is TransformerKt.Status.Progress -> TODO()
-        is TransformerKt.Status.Success -> TODO()
-        is TransformerKt.Status.Failure -> TODO()
+        is TransformerStatus.Progress -> TODO()
+        is TransformerStatus.Success -> TODO()
+        is TransformerStatus.Failure -> TODO()
     }
 }
 ```

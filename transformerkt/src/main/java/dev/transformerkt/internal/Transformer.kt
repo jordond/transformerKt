@@ -1,29 +1,26 @@
-package dev.transformerkt.ktx
+package dev.transformerkt.internal
 
 import androidx.annotation.CheckResult
-import androidx.media3.common.MediaItem
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
-import dev.transformerkt.TransformerInput
 import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerStatus
-import dev.transformerkt.internal.createTransformerCallbackFlow
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 /**
- * Start a [Transformer] request and return a [Flow] of [TransformerKt.Status].
+ * Start a [Transformer] request and return a [Flow] of [TransformerStatus].
  *
  * @see createTransformerCallbackFlow
  * @param[input] The input to transform.
  * @param[output] The output file to write to.
  * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
- * @return A [Flow] that emits [TransformerKt.Status].
+ * @return A [Flow] that emits [TransformerStatus].
  */
 @CheckResult
-public fun Transformer.start(
+internal fun Transformer.start(
     input: TransformerInput,
     output: File,
     request: TransformationRequest,
@@ -36,7 +33,7 @@ public fun Transformer.start(
 )
 
 /**
- * Start a [Transformer] request in a coroutine and return a [TransformerKt.Status.Finished]
+ * Start a [Transformer] request in a coroutine and return a [TransformerStatus.Finished]
  * when the request is finished.
  *
  * For progress updates pass a [onProgress] callback.
@@ -47,9 +44,9 @@ public fun Transformer.start(
  * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @param[onProgress] The callback to use for progress updates.
- * @return A [TransformerKt.Status.Finished] status.
+ * @return A [TransformerStatus.Finished] status.
  */
-public suspend fun Transformer.start(
+internal suspend fun Transformer.start(
     input: TransformerInput,
     output: File,
     request: TransformationRequest,
@@ -81,17 +78,3 @@ public suspend fun Transformer.start(
         return TransformerStatus.Failure(cause)
     }
 }
-
-public suspend fun Transformer.start(
-    input: MediaItem,
-    output: File,
-    request: TransformationRequest,
-    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
-    onProgress: (Int) -> Unit = {},
-): TransformerStatus.Finished = start(
-    input = TransformerInput.MediaItem(input),
-    output = output,
-    request = request,
-    progressPollDelayMs = progressPollDelayMs,
-    onProgress = onProgress,
-)
