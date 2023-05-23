@@ -44,12 +44,12 @@ jobs:
       - name: Lint
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: lint
+          arguments: lint --scan
 
       - name: Test
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: test
+          arguments: test --scan
   build:
     name: "Build"
     needs: [ verify ]
@@ -79,7 +79,7 @@ jobs:
       - name: Build
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: assembleRelease
+          arguments: assembleRelease --scan
 
       - uses: actions/upload-artifact@v3
         if: ${{ github.ref == 'ref/heads/main' }}
