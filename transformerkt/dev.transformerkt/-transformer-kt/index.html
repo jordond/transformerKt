@@ -58,73 +58,88 @@
   <div class="breadcrumbs"><a href="../../../index.html">transformerkt</a><span class="delimiter">/</span><a href="../index.html">dev.transformerkt</a><span class="delimiter">/</span><span class="current">TransformerKt</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Transformer</span><wbr></wbr><span><span>Kt</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TransformerKt</a></div><p class="paragraph">A coroutine based wrapper around the <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a> API.</p><p class="paragraph">Example using <a href="index.html">TransformerKt</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">suspend fun transform(context: Context, input: Uri, output: File) {<br>   val transformer = TransformerKt.create(context)<br>   val result = transformer.execute(TransformerKt.Input.from(input), output) { progress -&gt;<br>       // Update UI with progress<br>   }<br><br>   when (result) {<br>     is Status.Success -&gt; {<br>         // Handle success<br>     }<br>     is Status.Failure -&gt; {<br>         // Handle failure<br>     }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Or you can use the extension functions on a <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a> instance:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">suspend fun transform(context: Context, input: Uri, output: File) {<br>    val transformer = Transformer.Builder(context).build()<br>    val result = transformer.start(input.asTransformerInput(), output) { progress -&gt;<br>        // Update UI with progress<br>    }<br><br>    // Handle the result<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Or as a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">suspend fun transform(context: Context, input: Uri, output: File) {<br>    val transformer = Transformer.Builder(context).build()<br>    transformer.start(input.asTransformerInput(), output).collect (status) {<br>         // Handle the result<br>    }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">TransformerKt</a></div><p class="paragraph">A Kotlin coroutine wrapper around Media3's <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a> API.</p><p class="paragraph">Use the extension functions on a <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a> instance:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">suspend fun transform(context: Context, input: Uri, output: File) {<br>    val transformer = Transformer.Builder(context).build()<br>    val result = transformer.start(input, output) { progress -&gt;<br>        // Update UI with progress<br>    }<br><br>    // Handle the result<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Or as a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">suspend fun transform(context: Context, input: Uri, output: File) {<br>    val transformer = Transformer.Builder(context).build()<br>    transformer.start(input, output).collect (status) {<br>         // Handle the result<br>    }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
     <div class="tabs-section-body">
-      <div data-togglable="TYPE">
-        <h2 class="">Types</h2>
-        <div class="table"><a data-name="-1549680361%2FClasslikes%2F61283810" anchor-label="Companion" id="-1549680361%2FClasslikes%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1998911320%2FFunctions%2F61283810" anchor-label="build" id="1998911320%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
           <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1549680361%2FClasslikes%2F61283810"></span>
+                  <div><a href="build.html"><span><span>build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1998911320%2FFunctions%2F61283810"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1733261543%2FClasslikes%2F61283810" anchor-label="Input" id="-1733261543%2FClasslikes%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
-          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="-input/index.html"><span><span>Input</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1733261543%2FClasslikes%2F61283810"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-input/index.html">Input</a></div><div class="brief "><p class="paragraph">A wrapper for all available inputs for <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a>.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="713037645%2FClasslikes%2F61283810" anchor-label="Status" id="713037645%2FClasslikes%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
-          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="-status/index.html"><span><span>Status</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="713037645%2FClasslikes%2F61283810"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-status/index.html">Status</a></div><div class="brief "><p class="paragraph">Defines the possible states of a <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a> execution.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="build.html"><span class="token function">build</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.Builder.html">Transformer.Builder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a></div><div class="brief "><p class="paragraph">Build a <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/Transformer.html">Transformer</a> instance.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div data-togglable="FUNCTION">
-        <h2 class="">Functions</h2>
-        <div class="table"><a data-name="-306088916%2FFunctions%2F61283810" anchor-label="start" id="-306088916%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1638684188%2FProperties%2F61283810" anchor-label="DefaultRequest" id="1638684188%2FProperties%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
           <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="start.html"><span><span>start</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-306088916%2FFunctions%2F61283810"></span>
+                  <div><a href="-default-request.html"><span>Default</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1638684188%2FProperties%2F61283810"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">input<span class="token operator">: </span><a href="-input/index.html">TransformerKt.Input</a><span class="token punctuation">, </span></span><span class="parameter ">output<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/io/File.html">File</a><span class="token punctuation">, </span></span><span class="parameter ">request<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a><span class="token operator"> = </span>DefaultRequest</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-status/index.html">TransformerKt.Status</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Execute a <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a> on the given <a href="start.html">input</a> and write the result to <a href="start.html">output</a> and receive a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span> of <a href="-status/index.html">Status</a>.</p></div><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">input<span class="token operator">: </span><a href="-input/index.html">TransformerKt.Input</a><span class="token punctuation">, </span></span><span class="parameter ">output<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/io/File.html">File</a><span class="token punctuation">, </span></span><span class="parameter ">request<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a><span class="token operator"> = </span>DefaultRequest<span class="token punctuation">, </span></span><span class="parameter ">onProgress<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-status/-finished/index.html">TransformerKt.Status.Finished</a></div><div class="brief "><p class="paragraph">Execute a <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a> on the given <a href="start.html">input</a> and write the result to the <a href="start.html">output</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-default-request.html">DefaultRequest</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1222988939%2FProperties%2F61283810" anchor-label="H264AndAacRequest" id="-1222988939%2FProperties%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h264-and-aac-request.html"><span>H264And</span><wbr></wbr><span>Aac</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1222988939%2FProperties%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-h264-and-aac-request.html">H264AndAacRequest</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a> that transforms the video to H264 and audio to AAC.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-553134935%2FProperties%2F61283810" anchor-label="H264Request" id="-553134935%2FProperties%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h264-request.html"><span><span>H264Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-553134935%2FProperties%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-h264-request.html">H264Request</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a> that transforms the video to H264.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2124528791%2FProperties%2F61283810" anchor-label="InferRequest" id="-2124528791%2FProperties%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-infer-request.html"><span>Infer</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124528791%2FProperties%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-infer-request.html">InferRequest</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/TransformationRequest.html">TransformationRequest</a> that uses the default values.</p></div></div></div>
                 </div>
               </div>
             </div>
