@@ -1,6 +1,7 @@
 package dev.transformerkt
 
 import androidx.annotation.IntRange
+import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 import java.io.File
@@ -27,7 +28,10 @@ public sealed interface TransformerStatus {
      *
      * @param[output] The output [File] of the [Transformer] execution.
      */
-    public data class Success(val output: File) : TransformerStatus, Finished
+    public data class Success(
+        val output: File,
+        val exportResult: ExportResult,
+    ) : TransformerStatus, Finished
 
     /**
      * [Transformer] encountered a failure.

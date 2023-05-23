@@ -50,7 +50,7 @@ internal fun Transformer.createTransformerCallbackFlow(
         val listener = object : Transformer.Listener {
             override fun onCompleted(composition: Composition, exportResult: ExportResult) {
                 isFinished = true
-                trySend(TransformerStatus.Success(output))
+                trySend(TransformerStatus.Success(output, exportResult))
                 close()
             }
 

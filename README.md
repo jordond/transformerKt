@@ -184,7 +184,7 @@ Starting with version `1.1.0-alpha01`, the `Transformer` library changed the way
 Instead of applying the effects to the `Transformer.Builder` you now create a `EditedMediaItem` and
 apply the affects there.
 
-To make that API a bit easier, an extension function has been added to `MediaItem.Builder`:
+To make that API a bit easier, an extension function `.edited {}` has been added to `MediaItem.Builder`:
 
 ```kotlin
 val editedMediaItem = MediaItem.Builder()
