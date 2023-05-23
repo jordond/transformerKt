@@ -50,6 +50,8 @@ androidx-hilt-navigation-compose = "1.0.0"
 
 androidx-lifecycle-viewmodel-compose = "2.6.1"
 
+google-accompanist = "0.30.1"
+
 [libraries]
 
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
@@ -139,3 +141,7 @@ kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", versio
 symbol-processing-api = "com.google.devtools.ksp:symbol-processing-api:1.8.21-1.0.11"
 
 symbol-processing-cmdline = "com.google.devtools.ksp:symbol-processing-cmdline:1.8.21-1.0.11"
+
+lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+
+accompanist-navigation-material = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "google-accompanist" }
