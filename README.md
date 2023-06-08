@@ -2,9 +2,10 @@
    <img height="200" src="art/logo-text.png"/>
 </p>
 <p align="center">
-   <a href="https://jitpack.io/#dev.transformerkt/transformerkt"><img src="https://jitpack.io/v/dev.transformerkt/transformerkt.svg"></a>
-   <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
-   <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
+    <a href="https://jitpack.io/#dev.transformerkt/transformerkt"><img src="https://jitpack.io/v/dev.transformerkt/transformerkt.svg"></a>
+    <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
+    <a href="https://developer.android.com/jetpack/androidx/releases/media3#1.1.0-beta01"><img src="https://img.shields.io/badge/media3-1.1.0--beta01-brightgreen" /></a>
+    <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
 </p>
 
 TransformerKt is a Kotlin coroutine wrapper library
@@ -16,7 +17,8 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 
 You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.transformerkt.dev)
 
-- Using `media3.transformer` version `1.1.0-alpha01`
+- Using `media3.transformer`
+  version [`1.1.0-beta01`](https://developer.android.com/jetpack/androidx/releases/media3#1.1.0-beta01)
 
 ## Table of Contents
 
