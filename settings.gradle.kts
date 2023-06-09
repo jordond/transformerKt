@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import de.fayard.refreshVersions.core.StabilityLevel
-
 pluginManagement {
     repositories {
         google()
