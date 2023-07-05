@@ -52,7 +52,6 @@ jobs:
           arguments: test --scan
   build:
     name: "Build"
-    needs: [ verify ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
