@@ -1,16 +1,16 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.dokka)
     id("maven-publish")
 }
 
 android {
     namespace = "dev.transformerkt"
-    compileSdk = 33
+    compileSdk = libs.versions.sdk.compile.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+        minSdk = libs.versions.sdk.min.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -49,12 +49,10 @@ dependencies {
     api(libs.media3.common)
 
     /* Tests */
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.junit)
 
     /* Misc */
-    dokkaPlugin(libs.android.documentation.plugin)
+    dokkaPlugin(libs.dokka.android)
 }
 
 publishing {
