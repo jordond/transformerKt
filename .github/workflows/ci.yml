@@ -15,6 +15,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     name: "Verify"
@@ -52,7 +56,6 @@ jobs:
           arguments: test --scan
   build:
     name: "Build"
-    needs: [ verify ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
