@@ -7,6 +7,8 @@ import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerStatus
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.lastOrNull
+import kotlinx.coroutines.flow.onEach
 import java.io.File
 
 /**
@@ -54,24 +56,22 @@ internal suspend fun Transformer.start(
     onProgress: (Int) -> Unit = {},
 ): TransformerStatus.Finished {
     try {
-        var result: TransformerStatus? = null
-        start(
+        val result: TransformerStatus? = start(
             input = input,
             output = output,
             request = request,
             progressPollDelayMs = progressPollDelayMs,
-        ).collect { status ->
-            result = status
+        ).onEach { status ->
             if (status is TransformerStatus.Progress) {
                 onProgress(status.progress)
             }
-        }
+        }.lastOrNull()
 
         if (result == null || result !is TransformerStatus.Finished) {
             error("Unexpected finish result: $result")
         }
 
-        return result as TransformerStatus.Finished
+        return result
     } catch (cause: Throwable) {
         if (cause is CancellationException) throw cause
 

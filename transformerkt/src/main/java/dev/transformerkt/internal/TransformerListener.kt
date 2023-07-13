@@ -65,12 +65,13 @@ internal fun Transformer.createTransformerCallbackFlow(
             }
         }
 
-        val transformer = oldTransformer.buildWith {
-            removeAllListeners()
-            setTransformationRequest(request)
-            addListener(listener)
-        }
-        transformer.startWith(input, output)
+        val transformer = oldTransformer
+            .buildWith {
+                removeAllListeners()
+                setTransformationRequest(request)
+                addListener(listener)
+            }
+            .startWith(input, output)
 
         val progressHolder = ProgressHolder()
         var previousProgress = 0
@@ -109,7 +110,7 @@ internal fun Transformer.createTransformerCallbackFlow(
 /**
  * Map an [TransformerInput] into a value that [Transformer] can use.
  */
-private fun Transformer.startWith(input: TransformerInput, output: File) {
+private fun Transformer.startWith(input: TransformerInput, output: File): Transformer = apply {
     val outputPath = output.absolutePath
     when (input) {
         is TransformerInput.MediaItem -> start(input.value, outputPath)
