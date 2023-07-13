@@ -21,16 +21,19 @@ public sealed interface TransformerStatus {
      *
      * @param[progress] Integer progress value between 0-100
      */
-    public data class Progress(@IntRange(from = 0, to = 100) val progress: Int) : TransformerStatus
+    public class Progress(
+        @IntRange(from = 0, to = 100)
+        public val progress: Int,
+    ) : TransformerStatus
 
     /**
      * A successful [Transformer] execution.
      *
      * @param[output] The output [File] of the [Transformer] execution.
      */
-    public data class Success(
-        val output: File,
-        val exportResult: ExportResult,
+    public class Success(
+        public val output: File,
+        public val exportResult: ExportResult,
     ) : TransformerStatus, Finished
 
     /**
@@ -38,5 +41,5 @@ public sealed interface TransformerStatus {
      *
      * @param[cause] The [Throwable] that caused the failure.
      */
-    public data class Failure(val cause: Throwable) : TransformerStatus, Finished
+    public class Failure(public val cause: Throwable) : TransformerStatus, Finished
 }
