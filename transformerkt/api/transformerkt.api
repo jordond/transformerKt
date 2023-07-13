@@ -1,0 +1,85 @@
+public final class dev/transformerkt/TransformerKt {
+	public static final field INSTANCE Ldev/transformerkt/TransformerKt;
+	public final fun build (Landroid/content/Context;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Transformer;
+	public static synthetic fun build$default (Ldev/transformerkt/TransformerKt;Landroid/content/Context;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/Transformer;
+	public final fun getDefaultRequest ()Landroidx/media3/transformer/TransformationRequest;
+	public final fun getH264AndAacRequest ()Landroidx/media3/transformer/TransformationRequest;
+	public final fun getH264Request ()Landroidx/media3/transformer/TransformationRequest;
+	public final fun getInferRequest ()Landroidx/media3/transformer/TransformationRequest;
+}
+
+public abstract interface class dev/transformerkt/TransformerStatus {
+}
+
+public final class dev/transformerkt/TransformerStatus$Failure : dev/transformerkt/TransformerStatus, dev/transformerkt/TransformerStatus$Finished {
+	public fun <init> (Ljava/lang/Throwable;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCause ()Ljava/lang/Throwable;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/transformerkt/TransformerStatus$Finished : dev/transformerkt/TransformerStatus {
+}
+
+public final class dev/transformerkt/TransformerStatus$Progress : dev/transformerkt/TransformerStatus {
+	public fun <init> (I)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProgress ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/transformerkt/TransformerStatus$Success : dev/transformerkt/TransformerStatus, dev/transformerkt/TransformerStatus$Finished {
+	public fun <init> (Ljava/io/File;Landroidx/media3/transformer/ExportResult;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExportResult ()Landroidx/media3/transformer/ExportResult;
+	public final fun getOutput ()Ljava/io/File;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/transformerkt/ktx/MediaItemKt {
+	public static final fun buildWith (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Landroidx/media3/common/MediaItem;
+	public static final fun edited (Landroidx/media3/common/MediaItem$Builder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static final fun edited (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static final fun setClippingConfiguration (Landroidx/media3/common/MediaItem$Builder;JJ)Landroidx/media3/common/MediaItem$Builder;
+}
+
+public final class dev/transformerkt/ktx/TransformationRequestKt {
+	public static final fun buildWith (Landroidx/media3/transformer/TransformationRequest;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/TransformationRequest;
+}
+
+public final class dev/transformerkt/ktx/TransformerBuilderKt {
+	public static final fun buildWith (Landroidx/media3/transformer/Transformer$Builder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Transformer;
+	public static final fun buildWith (Landroidx/media3/transformer/Transformer;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Transformer;
+}
+
+public final class dev/transformerkt/ktx/inputs/EditedMediaItemKt {
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/EditedMediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/EditedMediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/EditedMediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/EditedMediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class dev/transformerkt/ktx/inputs/FileKt {
+	public static final fun start (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
+	public static final fun start (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class dev/transformerkt/ktx/inputs/MediaItemKt {
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/common/MediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/common/MediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroidx/media3/common/MediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroidx/media3/common/MediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class dev/transformerkt/ktx/inputs/UriKt {
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
