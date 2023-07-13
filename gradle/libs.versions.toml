@@ -23,6 +23,7 @@ androidx-lifecycle-viewmodel-compose = "2.6.1"
 google-accompanist = "0.30.1"
 compose-destiantions = "1.9.50"
 napier = "2.6.1"
+binaryCompatibility = "0.12.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -65,3 +66,4 @@ kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "kotiln-ksp" }
 dependencies = { id = "com.github.ben-manes.versions", version.ref = "versions" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+binaryCompatibility = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibility" }

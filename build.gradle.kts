@@ -6,4 +6,9 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.dokka)
     alias(libs.plugins.dependencies)
+    alias(libs.plugins.binaryCompatibility)
+}
+
+apiValidation {
+    ignoredProjects.add("demo")
 }
