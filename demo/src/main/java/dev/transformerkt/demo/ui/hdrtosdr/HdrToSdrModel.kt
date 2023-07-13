@@ -3,6 +3,7 @@ package dev.transformerkt.demo.ui.hdrtosdr
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.view.Display
 import android.view.WindowManager
 import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModel
@@ -34,7 +35,7 @@ class HdrToSdrModel @Inject constructor(
     private var convertJob: Job? = null
 
     fun init(activityContext: Context) {
-        val capabilities = activityContext.display()?.hdrCapabilities?.supportedHdrTypes
+        val capabilities = activityContext.display()?.hdrCapabilities()
         val supportsHdr = capabilities?.isNotEmpty() == true
         _state.update { it.copy(supportsHdr = supportsHdr) }
     }
@@ -121,9 +122,12 @@ class HdrToSdrModel @Inject constructor(
     }
 }
 
-private fun Context.display() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-    display
-} else {
-    @Suppress("DEPRECATION")
-    getSystemService<WindowManager>()?.defaultDisplay
-}
+@Suppress("DEPRECATION")
+private fun Context.display() =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) display
+    else getSystemService<WindowManager>()?.defaultDisplay
+
+@Suppress("DEPRECATION")
+private fun Display.hdrCapabilities(): IntArray =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) mode.supportedHdrTypes
+    else hdrCapabilities.supportedHdrTypes
