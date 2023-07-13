@@ -75,7 +75,7 @@ Then add the dependency to your app level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("dev.transformerkt:transformerkt::1.0.0")
+    implementation("dev.transformerkt:transformerkt::2.0.0")
 }
 ```
 
