@@ -4,6 +4,7 @@ import androidx.annotation.IntRange
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
+import dev.drewhamilton.poko.Poko
 import java.io.File
 
 /**
@@ -21,16 +22,21 @@ public sealed interface TransformerStatus {
      *
      * @param[progress] Integer progress value between 0-100
      */
-    public data class Progress(@IntRange(from = 0, to = 100) val progress: Int) : TransformerStatus
+    @Poko
+    public class Progress(
+        @IntRange(from = 0, to = 100)
+        public val progress: Int,
+    ) : TransformerStatus
 
     /**
      * A successful [Transformer] execution.
      *
      * @param[output] The output [File] of the [Transformer] execution.
      */
-    public data class Success(
-        val output: File,
-        val exportResult: ExportResult,
+    @Poko
+    public class Success(
+        public val output: File,
+        public val exportResult: ExportResult,
     ) : TransformerStatus, Finished
 
     /**
@@ -38,5 +44,6 @@ public sealed interface TransformerStatus {
      *
      * @param[cause] The [Throwable] that caused the failure.
      */
-    public data class Failure(val cause: Throwable) : TransformerStatus, Finished
+    @Poko
+    public class Failure(public val cause: Throwable) : TransformerStatus, Finished
 }
