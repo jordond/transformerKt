@@ -19,3 +19,6 @@ dependencyResolutionManagement {
 rootProject.name = "TransformerKt"
 include(":demo")
 include(":transformerkt")
+
+gradle.extra.set("androidxMediaModulePrefix", "media3-")
+apply(from = file("./media3/core_settings.gradle"))

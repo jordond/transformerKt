@@ -50,3 +50,7 @@ public fun MediaItem.Builder.edited(
 public fun MediaItem.edited(
     block: EditedMediaItem.Builder.() -> Unit,
 ): EditedMediaItem = buildUpon().edited(block)
+
+public fun MediaItem.asEdited(
+    block: EditedMediaItem.Builder.() -> Unit = {},
+): EditedMediaItem = edited(block)

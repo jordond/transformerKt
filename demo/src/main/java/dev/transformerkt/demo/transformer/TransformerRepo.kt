@@ -3,16 +3,19 @@ package dev.transformerkt.demo.transformer
 import android.content.Context
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
-import androidx.media3.transformer.TransformationRequest
+import androidx.media3.transformer.Composition
+import androidx.media3.transformer.EditedMediaItemSequence
 import androidx.media3.transformer.Transformer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.processor.model.VideoDetails
+import dev.transformerkt.ktx.asEdited
 import dev.transformerkt.ktx.buildWith
 import dev.transformerkt.ktx.inputs.start
 import dev.transformerkt.ktx.setClippingConfiguration
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import java.io.File
 import javax.inject.Inject
 
@@ -28,7 +31,7 @@ class TransformerRepo @Inject constructor(
     ): TransformerStatus.Finished {
         val output = hdrToSdrOutput(context)
         val request = TransformerKt.H264Request.buildWith {
-            setHdrMode(TransformationRequest.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
+            setHdrMode(Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
             setAudioMimeType(MimeTypes.AUDIO_AAC)
         }
 
@@ -51,6 +54,16 @@ class TransformerRepo @Inject constructor(
         return transformer.start(mediaItem, output, request)
     }
 
+    fun concat(inputs: List<VideoDetails>): Flow<TransformerStatus> {
+        val mediaItems = inputs.map { MediaItem.fromUri(it.uri).asEdited() }
+        val sequence = EditedMediaItemSequence(mediaItems)
+        val composition = Composition.Builder(listOf(sequence)).build()
+
+        val output = concatOutput(context)
+        val request = TransformerKt.DefaultRequest
+        return transformer.start(composition, output, request)
+    }
+
     companion object {
 
         fun hdrToSdrOutput(context: Context) =
@@ -58,5 +71,8 @@ class TransformerRepo @Inject constructor(
 
         fun trimOutput(context: Context) =
             File(context.cacheDir, "trim_output.mp4")
+
+        fun concatOutput(context: Context) =
+            File(context.cacheDir, "concat_output.mp4")
     }
 }
