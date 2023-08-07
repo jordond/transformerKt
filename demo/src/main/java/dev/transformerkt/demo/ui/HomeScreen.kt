@@ -25,6 +25,7 @@ import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import com.ramcosta.composedestinations.navigation.popUpTo
 import com.ramcosta.composedestinations.spec.Direction
 import dev.transformerkt.demo.ui.destinations.ConcatScreenDestination
+import dev.transformerkt.demo.ui.destinations.EffectsScreenDestination
 import dev.transformerkt.demo.ui.destinations.HdrToSdrScreenDestination
 import dev.transformerkt.demo.ui.destinations.HomeScreenDestination
 import dev.transformerkt.demo.ui.destinations.TrimScreenDestination
@@ -58,6 +59,9 @@ fun HomeScreen(
             }
             Button(onClick = { navigator.nav(ConcatScreenDestination) }) {
                 Text(text = "Concat Video")
+            }
+            Button(onClick = { navigator.nav(EffectsScreenDestination) }) {
+                Text(text = "Effects")
             }
         }
     }

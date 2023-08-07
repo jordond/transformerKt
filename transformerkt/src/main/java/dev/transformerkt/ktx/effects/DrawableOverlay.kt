@@ -1,10 +1,10 @@
-package dev.transformerkt.effects
+package dev.transformerkt.ktx.effects
 
 import android.graphics.drawable.Drawable
 import androidx.media3.effect.DrawableOverlay
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
-import dev.transformerkt.ktx.effects.EffectsBuilder
+import dev.transformerkt.dsl.effects.EffectsBuilder
 import com.google.common.collect.ImmutableList
 
 public fun drawableOverlayEffect(
@@ -19,5 +19,5 @@ public fun EffectsBuilder.drawableOverlay(
     drawable: Drawable,
     settings: OverlaySettings,
 ): EffectsBuilder = apply {
-    add(drawableOverlayEffect(drawable, settings))
+    video(drawableOverlayEffect(drawable, settings))
 }

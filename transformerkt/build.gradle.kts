@@ -48,6 +48,7 @@ dependencies {
 //    api(libs.media3.transformer)
 //    api(libs.media3.effect)
 //    api(libs.media3.common)
+
     api(project(":media3-lib-transformer"))
     api(project(":media3-lib-effect"))
     api(project(":media3-lib-common"))

@@ -33,6 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.ui.components.VideoPlayer
+import dev.transformerkt.demo.ui.effects.EffectsModel
 import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
 
 private val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
@@ -40,7 +41,7 @@ private val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualM
 @Destination
 @Composable
 fun ConcatScreen() {
-    val model = hiltViewModel<ConcatModel>()
+    val model = hiltViewModel<EffectsModel>()
     val state by model.state.collectAsStateWithLifecycle()
 
     val mediaPickerLauncher = rememberLauncherForActivityResult(
@@ -141,7 +142,7 @@ fun ConcatScreen() {
 
 @Preview
 @Composable
-fun TrimScreenPreview() {
+private fun ConcatScreenPreview() {
     TransformerKtDemoTheme {
         ConcatScreen()
     }

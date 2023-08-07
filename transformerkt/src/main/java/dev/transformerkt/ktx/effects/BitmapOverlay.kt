@@ -1,4 +1,4 @@
-package dev.transformerkt.effects
+package dev.transformerkt.ktx.effects
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -6,14 +6,16 @@ import android.net.Uri
 import androidx.media3.effect.BitmapOverlay
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
-import dev.transformerkt.ktx.effects.EffectsBuilder
 import com.google.common.collect.ImmutableList
+import dev.transformerkt.dsl.effects.EffectsBuilder
 
 public fun bitmapOverlayEffect(
     bitmap: Bitmap,
-    settings: OverlaySettings,
+    settings: OverlaySettings? = null,
 ): OverlayEffect {
-    val overlay = BitmapOverlay.createStaticBitmapOverlay(bitmap, settings)
+    val overlay =
+        if (settings == null) BitmapOverlay.createStaticBitmapOverlay(bitmap)
+        else BitmapOverlay.createStaticBitmapOverlay(bitmap, settings)
     return OverlayEffect(ImmutableList.of(overlay))
 }
 
@@ -28,9 +30,9 @@ public fun bitmapOverlayEffect(
 
 public fun EffectsBuilder.bitmapOverlay(
     bitmap: Bitmap,
-    settings: OverlaySettings,
+    settings: OverlaySettings? = null,
 ): EffectsBuilder = apply {
-    add(bitmapOverlayEffect(bitmap, settings))
+    video(bitmapOverlayEffect(bitmap, settings))
 }
 
 public fun EffectsBuilder.bitmapOverlay(
@@ -38,5 +40,5 @@ public fun EffectsBuilder.bitmapOverlay(
     uri: Uri,
     settings: OverlaySettings,
 ): EffectsBuilder = apply {
-    add(bitmapOverlayEffect(context, uri, settings))
+    video(bitmapOverlayEffect(context, uri, settings))
 }

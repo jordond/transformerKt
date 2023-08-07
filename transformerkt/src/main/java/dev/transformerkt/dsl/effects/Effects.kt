@@ -1,4 +1,4 @@
-package dev.transformerkt.ktx.effects
+package dev.transformerkt.dsl.effects
 
 import androidx.media3.common.MediaItem
 import androidx.media3.transformer.Composition
@@ -6,14 +6,14 @@ import androidx.media3.transformer.EditedMediaItem
 import androidx.media3.transformer.Effects
 import dev.transformerkt.ktx.edited
 
-public fun effects(
+public fun buildEffects(
     block: EffectsBuilder.() -> Unit,
 ): Effects = DefaultEffectsBuilder().apply(block).build()
 
 public fun EditedMediaItem.Builder.setEffects(
     block: EffectsBuilder.() -> Unit,
 ): EditedMediaItem.Builder = apply {
-    setEffects(effects(block))
+    setEffects(buildEffects(block))
 }
 
 public fun MediaItem.withEffects(
@@ -25,5 +25,5 @@ public fun MediaItem.withEffects(
 public fun Composition.Builder.setEffects(
     block: EffectsBuilder.() -> Unit,
 ): Composition.Builder = apply {
-    setEffects(effects(block))
+    setEffects(buildEffects(block))
 }

@@ -1,10 +1,10 @@
-package dev.transformerkt.effects
+package dev.transformerkt.ktx.effects
 
 import android.text.SpannableString
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
 import androidx.media3.effect.TextOverlay
-import dev.transformerkt.ktx.effects.EffectsBuilder
+import dev.transformerkt.dsl.effects.EffectsBuilder
 import com.google.common.collect.ImmutableList
 
 public fun textOverlayEffect(
@@ -22,5 +22,5 @@ public fun EffectsBuilder.textOverlay(
     text: SpannableString,
     settings: OverlaySettings? = null,
 ): EffectsBuilder = apply {
-    add(textOverlayEffect(text, settings))
+    video(textOverlayEffect(text, settings))
 }
