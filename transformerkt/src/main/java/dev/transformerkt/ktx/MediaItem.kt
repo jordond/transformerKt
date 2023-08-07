@@ -2,6 +2,7 @@ package dev.transformerkt.ktx
 
 import androidx.media3.common.MediaItem
 import androidx.media3.transformer.EditedMediaItem
+import androidx.media3.transformer.EditedMediaItemSequence
 
 /**
  * Build upon this [MediaItem] to create a new [MediaItem].
@@ -54,3 +55,15 @@ public fun MediaItem.edited(
 public fun MediaItem.asEdited(
     block: EditedMediaItem.Builder.() -> Unit = {},
 ): EditedMediaItem = edited(block)
+
+public fun EditedMediaItem.toSequence(isLooping: Boolean = false): EditedMediaItemSequence =
+    EditedMediaItemSequence(listOf(this), isLooping)
+
+public fun List<EditedMediaItem>.toSequence(isLooping: Boolean = false): EditedMediaItemSequence =
+    EditedMediaItemSequence(this, isLooping)
+
+public operator fun EditedMediaItem.plus(other: EditedMediaItem): EditedMediaItemSequence =
+    EditedMediaItemSequence(listOf(this, other), false)
+
+public operator fun EditedMediaItemSequence.plus(other: EditedMediaItem): EditedMediaItemSequence =
+    EditedMediaItemSequence(editedMediaItems.toList() + other, false)

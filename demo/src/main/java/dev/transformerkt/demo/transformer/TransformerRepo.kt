@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
 import androidx.media3.transformer.Composition
+import androidx.media3.transformer.Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL
 import androidx.media3.transformer.EditedMediaItemSequence
 import androidx.media3.transformer.Transformer
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -15,7 +16,6 @@ import dev.transformerkt.ktx.buildWith
 import dev.transformerkt.ktx.inputs.start
 import dev.transformerkt.ktx.setClippingConfiguration
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import java.io.File
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class TransformerRepo @Inject constructor(
     ): TransformerStatus.Finished {
         val output = hdrToSdrOutput(context)
         val request = TransformerKt.H264Request.buildWith {
-            setHdrMode(Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
+            setHdrMode(HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
             setAudioMimeType(MimeTypes.AUDIO_AAC)
         }
 

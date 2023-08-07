@@ -1,6 +1,5 @@
 package dev.transformerkt.internal
 
-import androidx.media3.transformer.Composition
 import androidx.media3.transformer.Transformer
 
 /**
@@ -34,5 +33,5 @@ internal sealed interface TransformerInput {
     @JvmInline
     value class Composition(
         val value: androidx.media3.transformer.Composition,
-    ): TransformerInput
+    ) : TransformerInput
 }
