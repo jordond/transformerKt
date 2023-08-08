@@ -21,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
@@ -40,8 +41,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.ui.components.VideoPlayer
+import dev.transformerkt.demo.ui.components.UriVideoPlayer
 import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
-import io.github.aakira.napier.Napier
 
 private val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
 
@@ -110,9 +111,27 @@ fun EffectsContent(
             Text(text = "Options:")
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.padding(horizontal = 16.dp),
             ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    var volume by remember(state.settings.volume) {
+                        mutableFloatStateOf(state.settings.volume)
+                    }
+                    Text(text = "Video Volume:", modifier = Modifier.width(100.dp))
+                    Slider(
+                        valueRange = 0f..1f,
+                        value = volume,
+                        onValueChange = { volume = it },
+                        onValueChangeFinished = {
+                            updateSettings(state.settings.copy(volume = volume))
+                        },
+                    )
+                }
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -158,7 +177,7 @@ fun EffectsContent(
                         mutableFloatStateOf(state.settings.audioOverlay?.volume ?: 1f)
                     }
                     Text(text = "Audio Overlay:")
-                    Button(onClick = { audioPickerLauncher.launch("audio/*") }) {
+                    OutlinedButton(onClick = { audioPickerLauncher.launch("audio/*") }) {
                         Text(text = "Select")
                     }
                     if (state.settings.audioOverlay != null) {
@@ -187,7 +206,7 @@ fun EffectsContent(
                     )
                 }
                 state.canStart && state.inProgress.not() -> {
-                    Text("Ready to Concat!")
+                    Text("Ready to Transform!")
                     Text("Selected videos: ${state.selectedVideos.size}, duration: ${state.duration}")
                 }
                 state.inProgress -> {
@@ -200,7 +219,7 @@ fun EffectsContent(
             if (result != null) {
                 when (result) {
                     is TransformerStatus.Failure -> {
-                        Text(text = "Unable to concat video!")
+                        Text(text = "Unable to transform video!")
                         Text(
                             text = result.cause.message ?: "Unknown error",
                             color = MaterialTheme.colorScheme.error,
@@ -216,6 +235,20 @@ fun EffectsContent(
                 }
             }
 
+            if (state.selectedVideos.isNotEmpty()) {
+                val videos = remember(state.selectedVideos) {
+                    state.selectedVideos.map { it.uri }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(text = "Preview:", style = MaterialTheme.typography.titleMedium)
+                UriVideoPlayer(
+                    uris = videos,
+                    play = true,
+                    modifier = Modifier.height(200.dp),
+                    effectsSettings = state.settings,
+                )
+            }
+
             if (!state.inProgress && result != null && result is TransformerStatus.Success) {
                 var play by remember { mutableStateOf(true) }
                 Column(
@@ -223,7 +256,7 @@ fun EffectsContent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(text = "Result")
+                    Text(text = "Result", style = MaterialTheme.typography.titleMedium)
                     VideoPlayer(
                         file = result.output,
                         play = play,

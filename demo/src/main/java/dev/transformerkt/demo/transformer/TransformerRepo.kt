@@ -82,8 +82,13 @@ class TransformerRepo @Inject constructor(
     ): Flow<TransformerStatus> {
         val composition = compositionOf {
             sequence(videos) { video ->
+                val inputChannels = video.uri.inputChannels(context)
+                    ?: error("Failed to extract number of tracks")
+
                 MediaItem.fromUri(video.uri).edited {
                     setEffects {
+                        volume(settings.volume, inputChannels = inputChannels)
+
                         if (settings.brightness != 0f) {
                             brightness(settings.brightness)
                         }
