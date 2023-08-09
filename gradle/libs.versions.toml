@@ -25,8 +25,10 @@ compose-destiantions = "1.9.51"
 napier = "2.6.1"
 binaryCompatibility = "0.13.2"
 poko = "0.14.0"
+coil = "2.4.0"
 
 [libraries]
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }

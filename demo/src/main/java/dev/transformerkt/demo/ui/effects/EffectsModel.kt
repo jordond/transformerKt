@@ -111,6 +111,10 @@ class EffectsModel @Inject constructor(
         _state.update { it.copy(inProgress = true) }
 
         transformerRepo.transform(videos, state.value.settings).collect { status ->
+            if (status is TransformerStatus.Failure) {
+                Napier.e(status.cause) { "Failed to transform video" }
+            }
+
             _state.update { state ->
                 state.copy(
                     inProgress = status !is TransformerStatus.Finished,

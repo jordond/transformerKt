@@ -1,12 +1,14 @@
 package dev.transformerkt.ktx.effects
 
 import android.text.SpannableString
+import androidx.annotation.CheckResult
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
 import androidx.media3.effect.TextOverlay
 import dev.transformerkt.dsl.effects.EffectsBuilder
 import com.google.common.collect.ImmutableList
 
+@CheckResult
 public fun textOverlayEffect(
     text: SpannableString,
     settings: OverlaySettings? = null,

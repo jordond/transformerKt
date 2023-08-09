@@ -37,8 +37,8 @@ public interface CompositionBuilder {
 
     public fun add(
         isLooping: Boolean = false,
-        block: () -> EditedMediaItem,
-    ): CompositionBuilder = add(block().toSequence(isLooping))
+        block: SequenceBuilder.() -> EditedMediaItem,
+    ): CompositionBuilder
 
     public fun effects(block: EffectsBuilder.() -> Unit): CompositionBuilder
 
@@ -47,6 +47,7 @@ public interface CompositionBuilder {
 
 internal class DefaultCompositionBuilder : CompositionBuilder {
 
+    private val sequenceBuilder = DefaultSequenceBuilder()
     private val sequences: MutableList<EditedMediaItemSequence> = mutableListOf()
     private var effects: Effects = Effects.EMPTY
 
@@ -59,19 +60,24 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
         sequences += sequence
     }
 
+    override fun add(
+        isLooping: Boolean,
+        block: SequenceBuilder.() -> EditedMediaItem,
+    ): CompositionBuilder = add(block(sequenceBuilder).toSequence(isLooping))
+
     override fun <T> sequence(
         items: List<T>,
         isLooping: Boolean,
         block: SequenceBuilder.(T) -> EditedMediaItem,
     ): CompositionBuilder = apply {
-        sequences += items.map { block(DefaultSequenceBuilder, it) }.toSequence(isLooping)
+        sequences += items.map { block(sequenceBuilder, it) }.toSequence(isLooping)
     }
 
     override fun sequence(
         isLooping: Boolean,
         block: SequenceBuilder.() -> List<EditedMediaItem>,
     ): CompositionBuilder = apply {
-        sequences += block(DefaultSequenceBuilder).toSequence(isLooping)
+        sequences += block(sequenceBuilder).toSequence(isLooping)
     }
 
     override fun effects(block: EffectsBuilder.() -> Unit): CompositionBuilder = apply {

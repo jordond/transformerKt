@@ -8,6 +8,7 @@ data class EffectSettings(
     val contrast: Float = 0f,
     val audioOverlay: AudioOverlay? = null,
     val overlay: Uri? = null,
+    val speed: Float = 1f,
 )
 
 data class AudioOverlay(

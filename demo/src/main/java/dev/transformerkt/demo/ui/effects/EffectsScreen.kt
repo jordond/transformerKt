@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -38,13 +39,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.ramcosta.composedestinations.annotation.Destination
 import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.ui.components.VideoPlayer
-import dev.transformerkt.demo.ui.components.UriVideoPlayer
 import dev.transformerkt.demo.ui.theme.TransformerKtDemoTheme
 
-private val request = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
+private val videoRequest = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
+private val imageRequest = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
 
 @Destination
 @Composable
@@ -77,6 +79,11 @@ fun EffectsContent(
         onResult = { uris -> onSelectUri(uris) },
     )
 
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> updateSettings(state.settings.copy(overlay = uri)) },
+    )
+
     val audioPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri -> if (uri != null) onSelectAudioUri(uri) },
@@ -95,7 +102,7 @@ fun EffectsContent(
             Row {
                 Button(
                     enabled = state.canSelect,
-                    onClick = { mediaPickerLauncher.launch(request) },
+                    onClick = { mediaPickerLauncher.launch(videoRequest) },
                 ) {
                     Text(text = "Select videos")
                 }
@@ -171,6 +178,26 @@ fun EffectsContent(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    var speed by remember(state.settings.speed) {
+                        mutableFloatStateOf(state.settings.speed)
+                    }
+                    Text(text = "Speed:", modifier = Modifier.width(100.dp))
+                    Text(text = String.format("%.2fx", speed))
+                    Slider(
+                        valueRange = -0.5f..2f,
+                        steps = 4,
+                        value = speed,
+                        onValueChange = { speed = it },
+                        onValueChangeFinished = {
+                            updateSettings(state.settings.copy(speed = speed))
+                        },
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     var volume by remember(state.settings.audioOverlay?.volume) {
@@ -191,6 +218,24 @@ fun EffectsContent(
                         )
                     }
                 }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(text = "Image Overlay:")
+                    OutlinedButton(onClick = { imagePickerLauncher.launch(imageRequest) }) {
+                        Text(text = "Select")
+                    }
+                    if (state.settings.overlay != null) {
+                        AsyncImage(
+                            model = state.settings.overlay,
+                            contentDescription = null,
+                            modifier = Modifier.size(64.dp),
+                        )
+                    }
+                }
             }
 
             when {
@@ -206,7 +251,6 @@ fun EffectsContent(
                     )
                 }
                 state.canStart && state.inProgress.not() -> {
-                    Text("Ready to Transform!")
                     Text("Selected videos: ${state.selectedVideos.size}, duration: ${state.duration}")
                 }
                 state.inProgress -> {
@@ -229,25 +273,23 @@ fun EffectsContent(
                         Text(text = "Progress: ${result.progress}")
                         LinearProgressIndicator(progress = result.progress / 100f)
                     }
-                    is TransformerStatus.Success -> {
-                        Text(text = "Success!")
-                    }
+                    is TransformerStatus.Success -> {}
                 }
             }
 
-            if (state.selectedVideos.isNotEmpty()) {
-                val videos = remember(state.selectedVideos) {
-                    state.selectedVideos.map { it.uri }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Preview:", style = MaterialTheme.typography.titleMedium)
-                UriVideoPlayer(
-                    uris = videos,
-                    play = true,
-                    modifier = Modifier.height(200.dp),
-                    effectsSettings = state.settings,
-                )
-            }
+//            if (state.selectedVideos.isNotEmpty()) {
+//                val videos = remember(state.selectedVideos) {
+//                    state.selectedVideos.map { it.uri }
+//                }
+//                Spacer(modifier = Modifier.height(16.dp))
+//                Text(text = "Preview:", style = MaterialTheme.typography.titleMedium)
+//                UriVideoPlayer(
+//                    uris = videos,
+//                    play = true,
+//                    modifier = Modifier.height(200.dp),
+//                    effectsSettings = state.settings,
+//                )
+//            }
 
             if (!state.inProgress && result != null && result is TransformerStatus.Success) {
                 var play by remember { mutableStateOf(true) }

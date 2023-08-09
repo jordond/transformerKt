@@ -3,12 +3,14 @@ package dev.transformerkt.ktx.effects
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.annotation.CheckResult
 import androidx.media3.effect.BitmapOverlay
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
 import com.google.common.collect.ImmutableList
 import dev.transformerkt.dsl.effects.EffectsBuilder
 
+@CheckResult
 public fun bitmapOverlayEffect(
     bitmap: Bitmap,
     settings: OverlaySettings? = null,
@@ -19,6 +21,7 @@ public fun bitmapOverlayEffect(
     return OverlayEffect(ImmutableList.of(overlay))
 }
 
+@CheckResult
 public fun bitmapOverlayEffect(
     context: Context,
     uri: Uri,

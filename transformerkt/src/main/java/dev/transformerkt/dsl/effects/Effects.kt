@@ -13,7 +13,14 @@ public fun buildEffects(
 public fun EditedMediaItem.Builder.setEffects(
     block: EffectsBuilder.() -> Unit,
 ): EditedMediaItem.Builder = apply {
-    setEffects(buildEffects(block))
+    val oldEffects = build().effects
+    val newEffects = buildEffects(block)
+    val merged = Effects(
+        oldEffects.audioProcessors + newEffects.audioProcessors,
+        oldEffects.videoEffects + newEffects.videoEffects,
+    )
+
+    setEffects(merged)
 }
 
 public fun MediaItem.withEffects(

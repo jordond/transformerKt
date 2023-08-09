@@ -1,7 +1,8 @@
 package dev.transformerkt.demo.transformer
 
 import android.content.Context
-import android.media.MediaMetadataRetriever
+import android.media.MediaExtractor
+import android.media.MediaFormat
 import android.net.Uri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
@@ -17,13 +18,13 @@ import dev.transformerkt.demo.processor.model.VideoDetails
 import dev.transformerkt.demo.ui.effects.EffectSettings
 import dev.transformerkt.dsl.composition.compositionOf
 import dev.transformerkt.dsl.effects.setEffects
-import dev.transformerkt.dsl.effects.withEffects
 import dev.transformerkt.ktx.asEdited
 import dev.transformerkt.ktx.buildWith
-import dev.transformerkt.ktx.edited
+import dev.transformerkt.ktx.effects.audioSampleRate
 import dev.transformerkt.ktx.effects.bitmapOverlay
 import dev.transformerkt.ktx.effects.brightness
 import dev.transformerkt.ktx.effects.contrast
+import dev.transformerkt.ktx.effects.speed.speed
 import dev.transformerkt.ktx.effects.volume
 import dev.transformerkt.ktx.inputs.start
 import dev.transformerkt.ktx.setClippingConfiguration
@@ -82,12 +83,23 @@ class TransformerRepo @Inject constructor(
     ): Flow<TransformerStatus> {
         val composition = compositionOf {
             sequence(videos) { video ->
-                val inputChannels = video.uri.inputChannels(context)
-                    ?: error("Failed to extract number of tracks")
+                item(video.uri) {
+                    if (settings.speed != 1f) {
+                        setRemoveAudio(true)
+                    }
 
-                MediaItem.fromUri(video.uri).edited {
                     setEffects {
-                        volume(settings.volume, inputChannels = inputChannels)
+                        val inputChannels = video.uri.audioTracks(context)
+                        if (settings.speed == 1f) {
+                            if (settings.volume != 1f) {
+                                volume(settings.volume, inputChannels = inputChannels)
+                            }
+                            if (settings.audioOverlay != null) {
+                                audioSampleRate(44100)
+                            }
+                        } else {
+                            speed(settings.speed)
+                        }
 
                         if (settings.brightness != 0f) {
                             brightness(settings.brightness)
@@ -98,7 +110,10 @@ class TransformerRepo @Inject constructor(
                         }
 
                         if (settings.overlay != null) {
-                            val overlaySettings = OverlaySettings.Builder().build()
+                            val overlaySettings = OverlaySettings.Builder()
+                                .setScale(.2f, .2f)
+                                .setVideoFrameAnchor(.8f, -.8f)
+                                .build()
                             bitmapOverlay(context, settings.overlay, overlaySettings)
                         }
                     }
@@ -106,12 +121,13 @@ class TransformerRepo @Inject constructor(
             }
 
             if (settings.audioOverlay != null) {
-                val inputChannels = settings.audioOverlay.uri.inputChannels(context)
-                    ?: error("Failed to extract number of tracks")
-
                 add(isLooping = true) {
-                    MediaItem.fromUri(settings.audioOverlay.uri).withEffects {
-                        volume(settings.audioOverlay.volume, inputChannels = inputChannels)
+                    val inputChannels = settings.audioOverlay.uri.audioTracks(context)
+                    item(settings.audioOverlay.uri) {
+                        setEffects {
+                            audioSampleRate(44100)
+                            volume(settings.audioOverlay.volume, inputChannels = inputChannels)
+                        }
                     }
                 }
             }
@@ -121,12 +137,13 @@ class TransformerRepo @Inject constructor(
         return transformer.start(composition, output, TransformerKt.DefaultRequest)
     }
 
-    private fun Uri.inputChannels(context: Context): Int? {
-        val retriever = MediaMetadataRetriever().apply { setDataSource(context, this@inputChannels) }
-        return retriever
-            .extractMetadata(MediaMetadataRetriever.METADATA_KEY_NUM_TRACKS)
-            ?.toIntOrNull()
-            .also { retriever.release() }
+    private fun Uri.audioTracks(context: Context): Int {
+        val e = MediaExtractor().apply { this.setDataSource(context, this@audioTracks, null) }
+        val audioFormat = List(e.trackCount) { e.getTrackFormat(it) }.firstOrNull { format ->
+            (format.getString("mime") ?: "").startsWith("audio/")
+        } ?: return 0
+
+        return audioFormat.getInteger(MediaFormat.KEY_CHANNEL_COUNT).also { e.release() }
     }
 
     companion object {
