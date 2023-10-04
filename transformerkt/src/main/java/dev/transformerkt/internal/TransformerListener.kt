@@ -68,7 +68,9 @@ internal fun Transformer.createTransformerCallbackFlow(
         val transformer = oldTransformer
             .buildWith {
                 removeAllListeners()
-                setTransformationRequest(request)
+//                setTransformationRequest(request)
+                request.audioMimeType?.let { setAudioMimeType(it) }
+                request.videoMimeType?.let { setVideoMimeType(it) }
                 addListener(listener)
             }
             .startWith(input, output)
@@ -119,5 +121,6 @@ private fun Transformer.startWith(input: TransformerInput, output: File): Transf
         is TransformerInput.File -> {
             start(MediaItem.fromUri(input.value.toUri()), outputPath)
         }
+        is TransformerInput.Composition -> start(input.value, outputPath)
     }
 }
