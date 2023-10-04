@@ -27,6 +27,7 @@ You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.tr
 - [Usage](#usage)
 - [Transform Requests](#transform-requests)
 - [Applying Effects](#applying-effects)
+- [Composition](#composition)
 - [Demo App](#demo-app)
 - [License](#license)
 
@@ -75,7 +76,7 @@ Then add the dependency to your app level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("dev.transformerkt:transformerkt::2.0.0")
+    implementation("dev.transformerkt:transformerkt::3.0.0")
 }
 ```
 
@@ -211,6 +212,31 @@ val editedMediaItem = MediaItem
 
 val result = TransformerKt.build(context).start(editedMediaItem, File("output.mp4"))
 ```
+
+## Composition
+
+Transformer now supports `Composition` which allows you to combine multiple inputs into a single
+output. You can apply effects to the whole composition or on a per input basis:
+
+```kotlin
+compositionOf {
+    speed(2f)
+
+    sequence(videos) { uri ->
+        item(uri) {
+            bitmapOverlay(context, R.drawable.watermark) {
+                setScale(.2f, .2f)
+                setOverlayFrameAnchor(.8f, .8f)
+            }
+        }
+    }
+
+}
+```
+
+Checkout
+the [`TransformerRepo.kt`](demo/src/main/java/dev/transformerkt/demo/transformer/TransformerRepo.kt)
+file for more examples.
 
 ## Demo App
 
