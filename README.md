@@ -18,7 +18,7 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.transformerkt.dev)
 
 - Using `media3.transformer`
-  version [`1.1.0`](https://developer.android.com/jetpack/androidx/releases/media3#1.1.0)
+  version [`1.2.0-alpha02`](https://github.com/androidx/media/releases)
 
 ## Table of Contents
 

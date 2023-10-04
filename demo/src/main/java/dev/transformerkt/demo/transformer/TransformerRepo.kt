@@ -6,7 +6,6 @@ import android.media.MediaFormat
 import android.net.Uri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
-import androidx.media3.effect.OverlaySettings
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL
 import androidx.media3.transformer.EditedMediaItemSequence
@@ -17,14 +16,14 @@ import dev.transformerkt.TransformerStatus
 import dev.transformerkt.demo.processor.model.VideoDetails
 import dev.transformerkt.demo.ui.effects.EffectSettings
 import dev.transformerkt.dsl.composition.compositionOf
+import dev.transformerkt.dsl.effects.bitmapOverlay
 import dev.transformerkt.dsl.effects.setEffects
 import dev.transformerkt.ktx.asEdited
 import dev.transformerkt.ktx.buildWith
 import dev.transformerkt.ktx.effects.audioSampleRate
-import dev.transformerkt.ktx.effects.bitmapOverlay
 import dev.transformerkt.ktx.effects.brightness
 import dev.transformerkt.ktx.effects.contrast
-import dev.transformerkt.ktx.effects.speed.speed
+import dev.transformerkt.ktx.effects.speed
 import dev.transformerkt.ktx.effects.volume
 import dev.transformerkt.ktx.inputs.start
 import dev.transformerkt.ktx.setClippingConfiguration
@@ -110,11 +109,10 @@ class TransformerRepo @Inject constructor(
                         }
 
                         if (settings.overlay != null) {
-                            val overlaySettings = OverlaySettings.Builder()
-                                .setScale(.2f, .2f)
-                                .setVideoFrameAnchor(.8f, -.8f)
-                                .build()
-                            bitmapOverlay(context, settings.overlay, overlaySettings)
+                            bitmapOverlay(context, settings.overlay) {
+                                setScale(.2f, .2f)
+                                setOverlayFrameAnchor(.8f, .8f)
+                            }
                         }
                     }
                 }

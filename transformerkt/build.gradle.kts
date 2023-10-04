@@ -45,13 +45,9 @@ dependencies {
     api(libs.kotlinx.coroutines.android)
 
     /* Media3 Transformer */
-//    api(libs.media3.transformer)
-//    api(libs.media3.effect)
-//    api(libs.media3.common)
-
-    api(project(":media3-lib-transformer"))
-    api(project(":media3-lib-effect"))
-    api(project(":media3-lib-common"))
+    api(libs.media3.transformer)
+    api(libs.media3.effect)
+    api(libs.media3.common)
 
     /* Tests */
     testImplementation(libs.junit)
