@@ -220,8 +220,12 @@ output. You can apply effects to the whole composition or on a per input basis:
 
 ```kotlin
 compositionOf {
-    speed(2f)
+    // Apply effects to the whole composition
+    effects {
+        speed(2f)
+    }
 
+    // Create a sequence of inputs
     sequence(videos) { uri ->
         item(uri) {
             bitmapOverlay(context, R.drawable.watermark) {

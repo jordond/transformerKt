@@ -19,13 +19,13 @@ public interface CompositionBuilder {
 
     public fun add(sequence: EditedMediaItemSequence): CompositionBuilder
 
-    public fun <T> sequence(
+    public fun <T> sequenceOf(
         items: List<T>,
         isLooping: Boolean = false,
         block: SequenceBuilder.(T) -> EditedMediaItem,
     ): CompositionBuilder
 
-    public fun sequence(
+    public fun sequenceOf(
         isLooping: Boolean = false,
         block: SequenceBuilder.() -> List<EditedMediaItem>,
     ): CompositionBuilder
@@ -65,7 +65,7 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
         block: SequenceBuilder.() -> EditedMediaItem,
     ): CompositionBuilder = add(block(sequenceBuilder).toSequence(isLooping))
 
-    override fun <T> sequence(
+    override fun <T> sequenceOf(
         items: List<T>,
         isLooping: Boolean,
         block: SequenceBuilder.(T) -> EditedMediaItem,
@@ -73,7 +73,7 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
         sequences += items.map { block(sequenceBuilder, it) }.toSequence(isLooping)
     }
 
-    override fun sequence(
+    override fun sequenceOf(
         isLooping: Boolean,
         block: SequenceBuilder.() -> List<EditedMediaItem>,
     ): CompositionBuilder = apply {

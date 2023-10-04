@@ -24,6 +24,31 @@ public interface SequenceBuilder {
         path: String,
         block: EditedMediaItem.Builder.() -> Unit = {},
     ): EditedMediaItem = item(File(path), block)
+
+    public fun image(
+        uri: Uri,
+        durationMs: Long,
+        frameRate: Int = 30,
+        block: EditedMediaItem.Builder.() -> Unit = {},
+    ): EditedMediaItem = item(uri) {
+        setDurationUs(durationMs * 1000)
+        setFrameRate(frameRate)
+        apply(block)
+    }
+
+    public fun image(
+        file: File,
+        durationMs: Long,
+        frameRate: Int = 30,
+        block: EditedMediaItem.Builder.() -> Unit = {},
+    ): EditedMediaItem = image(file.toUri(), durationMs, frameRate, block)
+
+    public fun image(
+        path: String,
+        durationMs: Long,
+        frameRate: Int = 30,
+        block: EditedMediaItem.Builder.() -> Unit = {},
+    ): EditedMediaItem = image(File(path), durationMs, frameRate, block)
 }
 
 internal class DefaultSequenceBuilder : SequenceBuilder {
