@@ -29,4 +29,9 @@ internal sealed interface TransformerInput {
     value class EditedMediaItem(
         val value: androidx.media3.transformer.EditedMediaItem,
     ) : TransformerInput
+
+    @JvmInline
+    value class Composition(
+        val value: androidx.media3.transformer.Composition,
+    ) : TransformerInput
 }

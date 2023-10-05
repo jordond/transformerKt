@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.ui)
     implementation(libs.compose.destinations)
+    implementation(libs.coil.compose)
     ksp(libs.compose.destinations.ksp)
 
     implementation(libs.napier)

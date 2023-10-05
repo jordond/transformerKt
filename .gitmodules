@@ -1,0 +1,4 @@
+[submodule "media3"]
+	path = media3
+	url = git@github.com:androidx/media
+	branch = main

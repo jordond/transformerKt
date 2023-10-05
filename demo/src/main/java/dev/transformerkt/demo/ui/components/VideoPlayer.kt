@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -17,6 +18,11 @@ import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import dev.transformerkt.demo.ui.effects.EffectSettings
+import dev.transformerkt.dsl.effects.buildEffects
+import dev.transformerkt.ktx.effects.brightness
+import dev.transformerkt.ktx.effects.contrast
+import io.github.aakira.napier.Napier
 import java.io.File
 
 @Composable
@@ -24,6 +30,7 @@ fun VideoPlayer(
     file: File,
     modifier: Modifier = Modifier,
     play: Boolean = true,
+    effectsSettings: EffectSettings = EffectSettings(),
 ) {
     val mediaItem by remember(file) {
         derivedStateOf {
@@ -31,7 +38,7 @@ fun VideoPlayer(
         }
     }
 
-    VideoPlayer(mediaItem, modifier, play)
+    VideoPlayer(listOf(mediaItem), modifier, play, effectsSettings)
 }
 
 @Composable
@@ -39,6 +46,7 @@ fun VideoPlayer(
     uri: Uri,
     modifier: Modifier = Modifier,
     play: Boolean = true,
+    effectsSettings: EffectSettings = EffectSettings(),
 ) {
     val mediaItem by remember(uri) {
         derivedStateOf {
@@ -46,24 +54,46 @@ fun VideoPlayer(
         }
     }
 
-    VideoPlayer(mediaItem, modifier, play)
+    VideoPlayer(listOf(mediaItem), modifier, play, effectsSettings)
+}
+
+@Composable
+fun UriVideoPlayer(
+    uris: List<Uri>,
+    modifier: Modifier = Modifier,
+    play: Boolean = true,
+    effectsSettings: EffectSettings = EffectSettings(),
+) {
+    val mediaItems = remember(uris) {
+        uris.map { MediaItem.fromUri(it) }
+    }
+
+    VideoPlayer(mediaItems, modifier, play, effectsSettings)
 }
 
 @Composable
 fun VideoPlayer(
-    mediaItem: MediaItem,
+    mediaItems: List<MediaItem>,
     modifier: Modifier = Modifier,
     play: Boolean = true,
+    effectsSettings: EffectSettings = EffectSettings(),
 ) {
     val context = LocalContext.current
 
-    val exoPlayer by remember(mediaItem) {
-        derivedStateOf {
-            ExoPlayer.Builder(context).build().also { player ->
-                player.addMediaItem(mediaItem)
-                player.repeatMode = ExoPlayer.REPEAT_MODE_ONE
-                player.prepare()
-            }
+    val exoPlayer = remember(mediaItems, effectsSettings) {
+        val effects = buildEffects {
+            brightness(effectsSettings.brightness)
+            contrast(effectsSettings.contrast)
+
+            // TODO: Add picture overlay
+        }
+
+        ExoPlayer.Builder(context).build().also { player ->
+            mediaItems.forEach { player.addMediaItem(it) }
+            player.repeatMode = ExoPlayer.REPEAT_MODE_ONE
+            player.setVideoEffects(effects.videoEffects)
+            Napier.e("Effects: $effects")
+            player.prepare()
         }
     }
 
