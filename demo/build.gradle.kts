@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "dev.transformerkt.demo"
-        minSdk = libs.versions.sdk.min.get().toInt()
+        minSdk = 26 // libs.versions.sdk.min.get().toInt()
         targetSdk = libs.versions.sdk.target.get().toInt()
         versionCode = 1
         versionName = "1.0"
