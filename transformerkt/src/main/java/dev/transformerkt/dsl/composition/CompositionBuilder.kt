@@ -1,5 +1,6 @@
 package dev.transformerkt.dsl.composition
 
+import androidx.media3.effect.VideoCompositorSettings
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.Composition.HdrMode
 import androidx.media3.transformer.EditedMediaItem
@@ -12,42 +13,145 @@ import dev.transformerkt.ktx.toSequence
 @CompositionDsl
 public interface CompositionBuilder {
 
+    /**
+     * Sets whether the output file should always contain an audio track.
+     *
+     * The default value is false.
+     *
+     * - If true, the output will always contain an audio track.
+     * - If false:
+     *      - If the Composition export doesn't produce any audio at timestamp 0, but produces audio
+     *        later on, the export is aborted.
+     *      - If the Composition doesn't produce any audio during the entire export, the output won't
+     *        contain any audio.
+     *      - If the Composition export produces audio at timestamp 0, the output will contain an
+     *        audio track.
+     *
+     * If the output contains an audio track, silent audio will be generated for the segments
+     * where the Composition export doesn't produce any audio.
+     *
+     * The MIME type of the output's audio track can be set
+     * using `Transformer.Builder.setAudioMimeType(String)`. The sample rate and channel count can
+     * be set by passing relevant AudioProcessor instances to the Composition.
+     *
+     * Forcing an audio track and requesting audio transmuxing are not allowed together because
+     * generating silence requires transcoding.
+     *
+     * **This is experimental and may be removed or changed without warning.**
+     */
     public var forceAudioTrack: Boolean
+
+    /**
+     * Sets whether to transmux the media items' audio tracks.
+     *
+     * The default value is false.
+     *
+     * If the Composition contains one MediaItem, the value set is ignored. The audio track
+     * will only be transcoded if necessary.
+     *
+     * If the input Composition contains multiple media items, all the audio tracks are transcoded
+     * by default. They are all transmuxed if [transmuxAudio] is true. Transmuxed tracks must
+     * be compatible (typically, all the MediaItem instances containing the track to transmux are
+     * concatenated in a single [EditedMediaItemSequence] and have the same sample format
+     * for that track).
+     *
+     * Requesting audio transmuxing and forcing an audio track are not allowed together
+     * because generating silence requires transcoding.
+     */
     public var transmuxAudio: Boolean
+
+    /**
+     * Sets whether to transmux the media items' video tracks.
+     *
+     * The default value is false.
+     *
+     * If the [Composition] contains one [MediaItem], the value set is ignored. The video track
+     * will only be transcoded if necessary.
+     *
+     * If the input [Composition] contains multiple media items, all the video tracks are
+     * transcoded by default. They are all transmuxed if transmuxVideo is `true`.
+     * Transmuxed tracks must be compatible (typically, all the MediaItem instances containing
+     * the track to transmux are concatenated in a single EditedMediaItemSequence and have the
+     * same sample format for that track).
+     */
     public var transmuxVideo: Boolean
+
+    /**
+     * Sets the [Composition.HdrMode] for HDR video input.
+     *
+     * The default value is [Composition.HDR_MODE_KEEP_HDR]. Apps that need to tone-map HDR to SDR
+     * should generally prefer [Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL] over
+     * [Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_MEDIACODEC], because its behavior is likely
+     * to be more consistent across devices.
+     */
     public var hdrMode: @HdrMode Int
 
+    /**
+     * Sets the VideoCompositorSettings to apply to the Composition.
+     *
+     * The default value is [VideoCompositorSettings.DEFAULT].
+     */
+    public var videoCompositorSettings: VideoCompositorSettings
+
+    /**
+     * Adds a [EditedMediaItemSequence] to the [Composition].
+     *
+     * @param[sequence] The [EditedMediaItemSequence] to add.
+     */
     public fun add(sequence: EditedMediaItemSequence): CompositionBuilder
 
-    public fun <T> sequenceOf(
-        items: List<T>,
-        isLooping: Boolean = false,
-        block: SequenceBuilder.(T) -> EditedMediaItem,
-    ): CompositionBuilder
-
+    /**
+     * Build a [EditedMediaItemSequence] from a [block] and add it to the [Composition]
+     *
+     * @param[isLooping] Whether the sequence should loop.
+     * @param[block] A block to configure and build the [EditedMediaItemSequence].
+     */
     public fun sequenceOf(
         isLooping: Boolean = false,
-        block: SequenceBuilder.() -> List<EditedMediaItem>,
+        block: SequenceBuilder.() -> Unit,
     ): CompositionBuilder
 
+    /**
+     * Add a single [EditedMediaItem] as a [EditedMediaItemSequence] to the [Composition].
+     *
+     * @param[isLooping] Whether the sequence should loop.
+     * @param[item] The [EditedMediaItem] to add.
+     */
     public fun add(
         isLooping: Boolean = false,
         item: EditedMediaItem,
     ): CompositionBuilder = add(item.toSequence(isLooping))
 
+    /**
+     * Build a [EditedMediaItem] from a [block] and add it as a [EditedMediaItemSequence] to the
+     * [Composition].
+     *
+     * @param[isLooping] Whether the sequence should loop.
+     * @param[block] A block to configure and build the [EditedMediaItem].
+     */
     public fun add(
         isLooping: Boolean = false,
-        block: SequenceBuilder.() -> EditedMediaItem,
+        block: EditedMediaItemBuilder.() -> EditedMediaItem,
     ): CompositionBuilder
 
+    /**
+     * Add [Effects] to the entire [Composition].
+     *
+     * @param[block] A block to configure and build the [Effects].
+     */
     public fun effects(block: EffectsBuilder.() -> Unit): CompositionBuilder
 
+    /**
+     * Build the [Composition].
+     *
+     * @return The [Composition] built.
+     */
     public fun build(): Composition
 }
 
 internal class DefaultCompositionBuilder : CompositionBuilder {
 
-    private val sequenceBuilder = DefaultSequenceBuilder()
+    private val editedMediaItemBuilder = DefaultEditedMediaItemBuilder()
     private val sequences: MutableList<EditedMediaItemSequence> = mutableListOf()
     private var effects: Effects = Effects.EMPTY
 
@@ -55,6 +159,7 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
     override var transmuxAudio: Boolean = false
     override var transmuxVideo: Boolean = false
     override var hdrMode: Int = Composition.HDR_MODE_KEEP_HDR
+    override var videoCompositorSettings: VideoCompositorSettings = VideoCompositorSettings.DEFAULT
 
     override fun add(sequence: EditedMediaItemSequence): CompositionBuilder = apply {
         sequences += sequence
@@ -62,22 +167,14 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
 
     override fun add(
         isLooping: Boolean,
-        block: SequenceBuilder.() -> EditedMediaItem,
-    ): CompositionBuilder = add(block(sequenceBuilder).toSequence(isLooping))
-
-    override fun <T> sequenceOf(
-        items: List<T>,
-        isLooping: Boolean,
-        block: SequenceBuilder.(T) -> EditedMediaItem,
-    ): CompositionBuilder = apply {
-        sequences += items.map { block(sequenceBuilder, it) }.toSequence(isLooping)
-    }
+        block: EditedMediaItemBuilder.() -> EditedMediaItem,
+    ): CompositionBuilder = add(block(editedMediaItemBuilder).toSequence(isLooping))
 
     override fun sequenceOf(
         isLooping: Boolean,
-        block: SequenceBuilder.() -> List<EditedMediaItem>,
+        block: SequenceBuilder.() -> Unit,
     ): CompositionBuilder = apply {
-        sequences += block(sequenceBuilder).toSequence(isLooping)
+        sequences += SequenceBuilder().apply(block).items.toSequence(isLooping)
     }
 
     override fun effects(block: EffectsBuilder.() -> Unit): CompositionBuilder = apply {
@@ -94,6 +191,7 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
         .setTransmuxAudio(transmuxAudio)
         .setTransmuxVideo(transmuxVideo)
         .setHdrMode(hdrMode)
+        .setVideoCompositorSettings(videoCompositorSettings)
         .build()
 }
 

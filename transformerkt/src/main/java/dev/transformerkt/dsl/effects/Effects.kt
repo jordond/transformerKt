@@ -23,6 +23,10 @@ public fun EditedMediaItem.Builder.setEffects(
     setEffects(merged)
 }
 
+public fun EditedMediaItem.Builder.effects(
+    block: EffectsBuilder.() -> Unit,
+): EditedMediaItem.Builder = setEffects(block)
+
 public fun MediaItem.withEffects(
     block: EffectsBuilder.() -> Unit,
 ): EditedMediaItem = edited {

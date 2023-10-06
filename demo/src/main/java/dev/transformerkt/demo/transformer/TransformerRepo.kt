@@ -17,6 +17,7 @@ import dev.transformerkt.demo.processor.model.VideoDetails
 import dev.transformerkt.demo.ui.effects.EffectSettings
 import dev.transformerkt.dsl.composition.compositionOf
 import dev.transformerkt.dsl.effects.bitmapOverlay
+import dev.transformerkt.dsl.effects.effects
 import dev.transformerkt.dsl.effects.setEffects
 import dev.transformerkt.ktx.asEdited
 import dev.transformerkt.ktx.buildWith
@@ -80,14 +81,14 @@ class TransformerRepo @Inject constructor(
         videos: List<VideoDetails>,
         settings: EffectSettings,
     ): Flow<TransformerStatus> {
-        val composition = compositionOf {
-            sequenceOf(videos) { video ->
-                item(video.uri) {
+        val composition: Composition = compositionOf {
+            sequenceOf {
+                items(videos, { it.uri }) { video ->
                     if (settings.speed != 1f) {
                         setRemoveAudio(true)
                     }
 
-                    setEffects {
+                    effects {
                         val inputChannels = video.uri.audioTracks(context)
                         if (settings.speed == 1f) {
                             if (settings.volume != 1f) {
@@ -116,6 +117,8 @@ class TransformerRepo @Inject constructor(
                         }
                     }
                 }
+
+                item(File(""))
             }
 
             if (settings.audioOverlay != null) {
