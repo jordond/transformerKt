@@ -9,30 +9,75 @@ import dev.transformerkt.dsl.effects.setEffects
 import dev.transformerkt.ktx.edited
 import java.io.File
 
+@Suppress("MemberVisibilityCanBePrivate")
 @CompositionDsl
-public interface SequenceBuilder {
+public class SequenceBuilder {
+
+    private val _items = mutableListOf<EditedMediaItem>()
+    internal val items: List<EditedMediaItem>
+        get() = _items.toList()
 
     public fun item(
-        uri: Uri,
+        item: Uri,
+        configure: MediaItem.Builder.() -> Unit = {},
         block: EditedMediaItem.Builder.() -> Unit = {},
-    ): EditedMediaItem
+    ): SequenceBuilder = apply {
+        val editedItem = MediaItem.fromUri(item).buildUpon().apply(configure).build().edited(block)
+        _items.add(editedItem)
+    }
 
     public fun item(
-        file: File,
+        item: File,
+        configure: MediaItem.Builder.() -> Unit = {},
         block: EditedMediaItem.Builder.() -> Unit = {},
-    ): EditedMediaItem = item(file.toUri(), block)
+    ): SequenceBuilder = item(item.toUri(), configure, block)
 
     public fun item(
-        path: String,
+        mediaItem: MediaItem,
         block: EditedMediaItem.Builder.() -> Unit = {},
-    ): EditedMediaItem = item(File(path), block)
+    ): SequenceBuilder = apply {
+        _items += mediaItem.edited(block)
+    }
+
+    public fun <T> items(
+        items: List<T>,
+        selector: (T) -> Uri,
+        configure: MediaItem.Builder.(T) -> Unit = {},
+        block: EditedMediaItem.Builder.(T) -> Unit = {},
+    ): SequenceBuilder = apply {
+        _items += items.map { item ->
+            val uri = selector(item)
+            MediaItem.fromUri(uri).buildUpon()
+                .apply { configure(item) }
+                .edited { block(item) }
+        }
+    }
+
+    public fun items(
+        uris: List<Uri>,
+        configure: MediaItem.Builder.(Uri) -> Unit = {},
+        block: EditedMediaItem.Builder.(Uri) -> Unit = {},
+    ): SequenceBuilder = items(uris, { it }, configure, block)
+
+    public fun files(
+        files: List<File>,
+        configure: MediaItem.Builder.(File) -> Unit = {},
+        block: EditedMediaItem.Builder.(File) -> Unit = {},
+    ): SequenceBuilder = items(files, { it.toUri() }, configure, block)
+
+    public fun mediaItems(
+        mediaItems: List<MediaItem>,
+        block: EditedMediaItem.Builder.(MediaItem) -> Unit = {},
+    ): SequenceBuilder = apply {
+        _items += mediaItems.map { it.edited { block(it) } }
+    }
 
     public fun image(
         uri: Uri,
         durationMs: Long,
         frameRate: Int = 30,
         block: EffectsBuilder.() -> Unit = {},
-    ): EditedMediaItem = item(uri) {
+    ): SequenceBuilder = item(uri) {
         setDurationUs(durationMs * 1000)
         setFrameRate(frameRate)
         setEffects(block)
@@ -43,19 +88,5 @@ public interface SequenceBuilder {
         durationMs: Long,
         frameRate: Int = 30,
         block: EffectsBuilder.() -> Unit = {},
-    ): EditedMediaItem = image(file.toUri(), durationMs, frameRate, block)
-
-    public fun image(
-        path: String,
-        durationMs: Long,
-        frameRate: Int = 30,
-        block: EffectsBuilder.() -> Unit = {},
-    ): EditedMediaItem = image(File(path), durationMs, frameRate, block)
-}
-
-internal class DefaultSequenceBuilder : SequenceBuilder {
-
-    override fun item(uri: Uri, block: EditedMediaItem.Builder.() -> Unit): EditedMediaItem {
-        return MediaItem.fromUri(uri).edited(block)
-    }
+    ): SequenceBuilder = image(file.toUri(), durationMs, frameRate, block)
 }
