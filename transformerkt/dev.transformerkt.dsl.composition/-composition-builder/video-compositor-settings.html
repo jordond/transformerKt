@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>transmuxAudio</title>
+    <title>videoCompositorSettings</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
@@ -61,12 +61,12 @@
                 <div class="sidebar--inner" id="sideMenu"></div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="member" id="content" pageIds="transformerkt::dev.transformerkt.dsl.composition/CompositionBuilder/transmuxAudio/#/PointingToDeclaration//61283810">
-  <div class="breadcrumbs"><a href="../../../index.html">transformerkt</a><span class="delimiter">/</span><a href="../index.html">dev.transformerkt.dsl.composition</a><span class="delimiter">/</span><a href="index.html">CompositionBuilder</a><span class="delimiter">/</span><span class="current">transmuxAudio</span></div>
+<div class="main-content" data-page-type="member" id="content" pageIds="transformerkt::dev.transformerkt.dsl.composition/CompositionBuilder/videoCompositorSettings/#/PointingToDeclaration//61283810">
+  <div class="breadcrumbs"><a href="../../../index.html">transformerkt</a><span class="delimiter">/</span><a href="../index.html">dev.transformerkt.dsl.composition</a><span class="delimiter">/</span><a href="index.html">CompositionBuilder</a><span class="delimiter">/</span><span class="current">videoCompositorSettings</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>transmux</span><wbr></wbr><span><span>Audio</span></span></h1>
+    <h1 class="cover"><span>video</span><wbr></wbr><span>Compositor</span><wbr></wbr><span><span>Settings</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">var </span><a href="transmux-audio.html">transmuxAudio</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><p class="paragraph">Sets whether to transmux the media items' audio tracks.</p><p class="paragraph">The default value is false.</p><p class="paragraph">If the Composition contains one MediaItem, the value set is ignored. The audio track will only be transcoded if necessary.</p><p class="paragraph">If the input Composition contains multiple media items, all the audio tracks are transcoded by default. They are all transmuxed if <a href="transmux-audio.html">transmuxAudio</a> is true. Transmuxed tracks must be compatible (typically, all the MediaItem instances containing the track to transmux are concatenated in a single <a href="https://developer.android.com/reference/kotlin/androidx/media3/transformer/EditedMediaItemSequence.html">EditedMediaItemSequence</a> and have the same sample format for that track).</p><p class="paragraph">Requesting audio transmuxing and forcing an audio track are not allowed together because generating silence requires transcoding.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">var </span><a href="video-compositor-settings.html">videoCompositorSettings</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/effect/VideoCompositorSettings.html">VideoCompositorSettings</a></div><p class="paragraph">Sets the VideoCompositorSettings to apply to the Composition.</p><p class="paragraph">The default value is <a href="https://developer.android.com/reference/kotlin/androidx/media3/effect/VideoCompositorSettings.html#default">VideoCompositorSettings.DEFAULT</a>.</p></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
