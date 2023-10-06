@@ -39,11 +39,132 @@ public final class dev/transformerkt/TransformerStatus$Success : dev/transformer
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract interface class dev/transformerkt/dsl/composition/CompositionBuilder {
+	public abstract fun add (Landroidx/media3/transformer/EditedMediaItemSequence;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public abstract fun add (ZLandroidx/media3/transformer/EditedMediaItem;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public abstract fun add (ZLkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public abstract fun build ()Landroidx/media3/transformer/Composition;
+	public abstract fun effects (Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public abstract fun getForceAudioTrack ()Z
+	public abstract fun getHdrMode ()I
+	public abstract fun getTransmuxAudio ()Z
+	public abstract fun getTransmuxVideo ()Z
+	public abstract fun sequenceOf (ZLkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public abstract fun setForceAudioTrack (Z)V
+	public abstract fun setHdrMode (I)V
+	public abstract fun setTransmuxAudio (Z)V
+	public abstract fun setTransmuxVideo (Z)V
+}
+
+public final class dev/transformerkt/dsl/composition/CompositionBuilder$DefaultImpls {
+	public static fun add (Ldev/transformerkt/dsl/composition/CompositionBuilder;ZLandroidx/media3/transformer/EditedMediaItem;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public static synthetic fun add$default (Ldev/transformerkt/dsl/composition/CompositionBuilder;ZLandroidx/media3/transformer/EditedMediaItem;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public static synthetic fun add$default (Ldev/transformerkt/dsl/composition/CompositionBuilder;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public static synthetic fun sequenceOf$default (Ldev/transformerkt/dsl/composition/CompositionBuilder;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+}
+
+public final class dev/transformerkt/dsl/composition/CompositionBuilderKt {
+	public static final fun compositionOf (Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition;
+}
+
+public abstract interface class dev/transformerkt/dsl/composition/EditedMediaItemBuilder {
+	public abstract fun image (Landroid/net/Uri;JILkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public abstract fun image (Ljava/io/File;JILkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public abstract fun image (Ljava/lang/String;JILkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public abstract fun item (Landroid/net/Uri;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public abstract fun item (Ljava/io/File;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public abstract fun item (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+}
+
+public final class dev/transformerkt/dsl/composition/EditedMediaItemBuilder$DefaultImpls {
+	public static fun image (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Landroid/net/Uri;JILkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static fun image (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/io/File;JILkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static fun image (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/lang/String;JILkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun image$default (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Landroid/net/Uri;JILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun image$default (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/io/File;JILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun image$default (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/lang/String;JILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
+	public static fun item (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/io/File;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static fun item (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun item$default (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Landroid/net/Uri;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun item$default (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun item$default (Ldev/transformerkt/dsl/composition/EditedMediaItemBuilder;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
+}
+
+public final class dev/transformerkt/dsl/composition/SequenceBuilder {
+	public fun <init> ()V
+	public final fun files (Ljava/util/List;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun files$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Ljava/util/List;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun image (Landroid/net/Uri;JILkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun image (Ljava/io/File;JILkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun image$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Landroid/net/Uri;JILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun image$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Ljava/io/File;JILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun item (Landroid/net/Uri;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun item (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun item (Ljava/io/File;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun item$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Landroid/net/Uri;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun item$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun item$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Ljava/io/File;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun items (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun items (Ljava/util/List;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun items$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun items$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Ljava/util/List;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public final fun mediaItems (Ljava/util/List;Lkotlin/jvm/functions/Function2;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+	public static synthetic fun mediaItems$default (Ldev/transformerkt/dsl/composition/SequenceBuilder;Ljava/util/List;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/transformerkt/dsl/composition/SequenceBuilder;
+}
+
+public abstract interface class dev/transformerkt/dsl/effects/EffectsBuilder {
+	public abstract fun audio (Landroidx/media3/common/audio/AudioProcessor;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public abstract fun audio (Ljava/util/List;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public abstract fun audio ([Landroidx/media3/common/audio/AudioProcessor;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public abstract fun build ()Landroidx/media3/transformer/Effects;
+	public abstract fun video (Landroidx/media3/common/Effect;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public abstract fun video (Ljava/util/List;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public abstract fun video ([Landroidx/media3/common/Effect;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+}
+
+public final class dev/transformerkt/dsl/effects/EffectsBuilder$DefaultImpls {
+	public static fun audio (Ldev/transformerkt/dsl/effects/EffectsBuilder;[Landroidx/media3/common/audio/AudioProcessor;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static fun video (Ldev/transformerkt/dsl/effects/EffectsBuilder;[Landroidx/media3/common/Effect;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+}
+
+public final class dev/transformerkt/dsl/effects/EffectsBuilderKt {
+	public static final fun plus (Landroidx/media3/common/Effect;Landroidx/media3/common/Effect;)Ljava/util/List;
+	public static final fun plus (Landroidx/media3/common/audio/AudioProcessor;Landroidx/media3/common/audio/AudioProcessor;)Ljava/util/List;
+}
+
+public final class dev/transformerkt/dsl/effects/EffectsKt {
+	public static final fun buildEffects (Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Effects;
+	public static final fun effects (Landroidx/media3/transformer/EditedMediaItem$Builder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem$Builder;
+	public static final fun setEffects (Landroidx/media3/transformer/Composition$Builder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition$Builder;
+	public static final fun setEffects (Landroidx/media3/transformer/EditedMediaItem$Builder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem$Builder;
+	public static final fun withEffects (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+}
+
+public final class dev/transformerkt/dsl/effects/OverlaySettingsKt {
+	public static final fun bitmapOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/content/Context;Landroid/net/Uri;Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun bitmapOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/graphics/Bitmap;Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun overlaySettings (Ldev/transformerkt/dsl/effects/EffectsBuilder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/effect/OverlaySettings;
+}
+
+public final class dev/transformerkt/ktx/CompositionKt {
+	public static final fun composition (Landroidx/media3/transformer/EditedMediaItemSequence;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition;
+	public static final fun composition (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition;
+	public static final fun composition ([Landroidx/media3/transformer/EditedMediaItemSequence;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition;
+}
+
 public final class dev/transformerkt/ktx/MediaItemKt {
+	public static final fun asEdited (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static synthetic fun asEdited$default (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItem;
 	public static final fun buildWith (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Landroidx/media3/common/MediaItem;
 	public static final fun edited (Landroidx/media3/common/MediaItem$Builder;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
 	public static final fun edited (Landroidx/media3/common/MediaItem;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/EditedMediaItem;
+	public static final fun plus (Landroidx/media3/transformer/EditedMediaItem;Landroidx/media3/transformer/EditedMediaItem;)Landroidx/media3/transformer/EditedMediaItemSequence;
+	public static final fun plus (Landroidx/media3/transformer/EditedMediaItemSequence;Landroidx/media3/transformer/EditedMediaItem;)Landroidx/media3/transformer/EditedMediaItemSequence;
 	public static final fun setClippingConfiguration (Landroidx/media3/common/MediaItem$Builder;JJ)Landroidx/media3/common/MediaItem$Builder;
+	public static final fun toSequence (Landroidx/media3/transformer/EditedMediaItem;Z)Landroidx/media3/transformer/EditedMediaItemSequence;
+	public static final fun toSequence (Ljava/util/List;Z)Landroidx/media3/transformer/EditedMediaItemSequence;
+	public static synthetic fun toSequence$default (Landroidx/media3/transformer/EditedMediaItem;ZILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItemSequence;
+	public static synthetic fun toSequence$default (Ljava/util/List;ZILjava/lang/Object;)Landroidx/media3/transformer/EditedMediaItemSequence;
 }
 
 public final class dev/transformerkt/ktx/TransformationRequestKt {
@@ -55,6 +176,96 @@ public final class dev/transformerkt/ktx/TransformerBuilderKt {
 	public static final fun buildWith (Landroidx/media3/transformer/Transformer;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Transformer;
 }
 
+public final class dev/transformerkt/ktx/effects/AudioSampleRateKt {
+	public static final fun audioSampleRate (Ldev/transformerkt/dsl/effects/EffectsBuilder;I)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun audioSampleRateEffect (I)Landroidx/media3/common/audio/AudioProcessor;
+}
+
+public final class dev/transformerkt/ktx/effects/BitmapOverlayKt {
+	public static final fun bitmapOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/content/Context;ILandroidx/media3/effect/OverlaySettings;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun bitmapOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/content/Context;Landroid/net/Uri;Landroidx/media3/effect/OverlaySettings;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun bitmapOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/graphics/Bitmap;Landroidx/media3/effect/OverlaySettings;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun bitmapOverlay$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/content/Context;ILandroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun bitmapOverlay$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/graphics/Bitmap;Landroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun bitmapOverlayEffect (Landroid/content/Context;ILandroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
+	public static final fun bitmapOverlayEffect (Landroid/content/Context;Landroid/net/Uri;Landroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
+	public static final fun bitmapOverlayEffect (Landroid/graphics/Bitmap;Landroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
+	public static synthetic fun bitmapOverlayEffect$default (Landroid/content/Context;ILandroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Landroidx/media3/effect/OverlayEffect;
+	public static synthetic fun bitmapOverlayEffect$default (Landroid/graphics/Bitmap;Landroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Landroidx/media3/effect/OverlayEffect;
+}
+
+public final class dev/transformerkt/ktx/effects/BrightnessKt {
+	public static final fun brightness (Ldev/transformerkt/dsl/effects/EffectsBuilder;F)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+}
+
+public final class dev/transformerkt/ktx/effects/ContrastKt {
+	public static final fun contrast (Ldev/transformerkt/dsl/effects/EffectsBuilder;F)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+}
+
+public final class dev/transformerkt/ktx/effects/DrawableOverlayKt {
+	public static final fun drawableOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/graphics/drawable/Drawable;Landroidx/media3/effect/OverlaySettings;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun drawableOverlayEffect (Landroid/graphics/drawable/Drawable;Landroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
+}
+
+public abstract class dev/transformerkt/ktx/effects/LayoutScale {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class dev/transformerkt/ktx/effects/LayoutScale$Fill : dev/transformerkt/ktx/effects/LayoutScale {
+	public static final field INSTANCE Ldev/transformerkt/ktx/effects/LayoutScale$Fill;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/transformerkt/ktx/effects/LayoutScale$Fit : dev/transformerkt/ktx/effects/LayoutScale {
+	public static final field INSTANCE Ldev/transformerkt/ktx/effects/LayoutScale$Fit;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/transformerkt/ktx/effects/LayoutScale$Stretch : dev/transformerkt/ktx/effects/LayoutScale {
+	public static final field INSTANCE Ldev/transformerkt/ktx/effects/LayoutScale$Stretch;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/transformerkt/ktx/effects/ResolutionKt {
+	public static final fun resolution (Ldev/transformerkt/dsl/effects/EffectsBuilder;FLdev/transformerkt/ktx/effects/LayoutScale;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun resolution (Ldev/transformerkt/dsl/effects/EffectsBuilder;I)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun resolution (Ldev/transformerkt/dsl/effects/EffectsBuilder;IILdev/transformerkt/ktx/effects/LayoutScale;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun resolutionEffect (FLdev/transformerkt/ktx/effects/LayoutScale;)Landroidx/media3/effect/Presentation;
+	public static final fun resolutionEffect (I)Landroidx/media3/effect/Presentation;
+	public static final fun resolutionEffect (IILdev/transformerkt/ktx/effects/LayoutScale;)Landroidx/media3/effect/Presentation;
+}
+
+public final class dev/transformerkt/ktx/effects/SpeedKt {
+	public static final fun speed (Ldev/transformerkt/dsl/effects/EffectsBuilder;F)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+}
+
+public final class dev/transformerkt/ktx/effects/TextOverlayKt {
+	public static final fun textOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun textOverlay$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun textOverlayEffect (Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
+	public static synthetic fun textOverlayEffect$default (Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Landroidx/media3/effect/OverlayEffect;
+}
+
+public final class dev/transformerkt/ktx/effects/VolumeKt {
+	public static final fun volume (Ldev/transformerkt/dsl/effects/EffectsBuilder;FII)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun volume$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;FIIILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun volumeEffect (FII)Landroidx/media3/common/audio/AudioProcessor;
+	public static synthetic fun volumeEffect$default (FIIILjava/lang/Object;)Landroidx/media3/common/audio/AudioProcessor;
+}
+
+public final class dev/transformerkt/ktx/inputs/CompositionKt {
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/Composition;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
+	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/Composition;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/Composition;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/Composition;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
 public final class dev/transformerkt/ktx/inputs/EditedMediaItemKt {
 	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/EditedMediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
 	public static final fun start (Landroidx/media3/transformer/Transformer;Landroidx/media3/transformer/EditedMediaItem;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -63,6 +274,10 @@ public final class dev/transformerkt/ktx/inputs/EditedMediaItemKt {
 }
 
 public final class dev/transformerkt/ktx/inputs/FileKt {
+	public static final fun imageToVideo (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun imageToVideo (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun imageToVideo$default (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun imageToVideo$default (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun start (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
 	public static final fun start (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Ljava/io/File;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
@@ -77,6 +292,10 @@ public final class dev/transformerkt/ktx/inputs/MediaItemKt {
 }
 
 public final class dev/transformerkt/ktx/inputs/UriKt {
+	public static final fun imageToVideo (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun imageToVideo (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun imageToVideo$default (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun imageToVideo$default (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JIJLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun start (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;J)Lkotlinx/coroutines/flow/Flow;
 	public static final fun start (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun start$default (Landroidx/media3/transformer/Transformer;Landroid/net/Uri;Ljava/io/File;Landroidx/media3/transformer/TransformationRequest;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
