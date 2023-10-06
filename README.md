@@ -219,22 +219,52 @@ Transformer now supports `Composition` which allows you to combine multiple inpu
 output. You can apply effects to the whole composition or on a per input basis:
 
 ```kotlin
-compositionOf {
+data class MyComplexItem(val tag: String, val uri: Uri, val startMs: Long, val endMs: Long)
+
+val items: List<Uri>
+val complexItems: List<MyComplexItem>
+val endCredits: File
+val audioOverlay: File
+val composition = compositionOf {
     // Apply effects to the whole composition
     effects {
-        speed(2f)
+        resolution(1920, 1080, LayoutScale.Fit)
     }
 
     // Create a sequence of inputs
-    sequence(videos) { uri ->
-        item(uri) {
-            bitmapOverlay(context, R.drawable.watermark) {
-                setScale(.2f, .2f)
-                setOverlayFrameAnchor(.8f, .8f)
+    sequenceOf {
+        items(items) { uri ->
+            effects {
+                bitmapOverlay(context, R.drawable.watermark) {
+                    setScale(.2f, .2f)
+                    setOverlayFrameAnchor(.8f, .8f)
+                }
             }
         }
+
+        items(
+            items = complexItems,
+            selector = { it.uri },
+            configure = { complexItem ->
+                // Configure the MediaItem instance
+                setTag(complexItem.tag)
+                setClippingConfiguration(complexItem.startMs, complexItem.endMs)
+            },
+        ) { complexItem ->
+            setRemoveAudio(true)
+
+            effects {
+                speed(2f)
+                brightness(0.5f)
+            }
+        }
+
+        item(endCredits)
     }
 
+    sequenceOf(isLooping = true) {
+        item(audioOverlay)
+    }
 }
 ```
 

@@ -3,6 +3,7 @@ package dev.transformerkt.dsl.effects
 import androidx.media3.common.Effect
 import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.transformer.Effects
+import dev.transformerkt.dsl.composition.CompositionDsl
 
 @DslMarker
 internal annotation class EffectsDsl
