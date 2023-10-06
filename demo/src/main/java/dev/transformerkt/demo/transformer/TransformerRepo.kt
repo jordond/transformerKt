@@ -81,9 +81,9 @@ class TransformerRepo @Inject constructor(
         videos: List<VideoDetails>,
         settings: EffectSettings,
     ): Flow<TransformerStatus> {
-        val composition = compositionOf {
+        val composition: Composition = compositionOf {
             sequenceOf {
-                items(videos, { it.uri }, {setM}) { video ->
+                items(videos, { it.uri }) { video ->
                     if (settings.speed != 1f) {
                         setRemoveAudio(true)
                     }
