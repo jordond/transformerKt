@@ -61,7 +61,7 @@ public fun Transformer.imageToVideo(
     effectsBlock: EffectsBuilder.() -> Unit = {},
 ): Flow<TransformerStatus> {
     val composition = compositionOf {
-        add {
+        sequenceOf {
             image(input, durationMs, frameRate, effectsBlock)
         }
     }
@@ -128,7 +128,7 @@ public suspend fun Transformer.imageToVideo(
     onProgress: (Int) -> Unit = {},
 ): TransformerStatus.Finished {
     val composition = compositionOf {
-        add {
+        sequenceOf {
             image(input, durationMs, frameRate, effectsBlock)
         }
     }

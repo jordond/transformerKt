@@ -9,11 +9,14 @@ import dev.transformerkt.dsl.effects.setEffects
 import dev.transformerkt.ktx.edited
 import java.io.File
 
+@DslMarker
+internal annotation class SequenceBuilderDsl
+
 /**
  * A DSL builder for creating a [EditedMediaItem] sequence.
  */
 @Suppress("MemberVisibilityCanBePrivate")
-@CompositionDsl
+@SequenceBuilderDsl
 public class SequenceBuilder {
 
     private val _items = mutableListOf<EditedMediaItem>()
