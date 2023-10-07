@@ -18,7 +18,6 @@ import dev.transformerkt.demo.ui.effects.EffectSettings
 import dev.transformerkt.dsl.composition.compositionOf
 import dev.transformerkt.dsl.effects.bitmapOverlay
 import dev.transformerkt.dsl.effects.effects
-import dev.transformerkt.dsl.effects.setEffects
 import dev.transformerkt.ktx.asEdited
 import dev.transformerkt.ktx.buildWith
 import dev.transformerkt.ktx.effects.audioSampleRate
@@ -122,13 +121,11 @@ class TransformerRepo @Inject constructor(
             }
 
             if (settings.audioOverlay != null) {
-                add(isLooping = true) {
+                add(settings.audioOverlay.uri, isLooping = true) {
                     val inputChannels = settings.audioOverlay.uri.audioTracks(context)
-                    item(settings.audioOverlay.uri) {
-                        setEffects {
-                            audioSampleRate(44100)
-                            volume(settings.audioOverlay.volume, inputChannels = inputChannels)
-                        }
+                    effects {
+                        audioSampleRate(44100)
+                        volume(settings.audioOverlay.volume, inputChannels = inputChannels)
                     }
                 }
             }
