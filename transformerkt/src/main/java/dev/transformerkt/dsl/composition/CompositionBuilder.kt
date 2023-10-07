@@ -1,5 +1,8 @@
 package dev.transformerkt.dsl.composition
 
+import android.net.Uri
+import androidx.core.net.toUri
+import androidx.media3.common.MediaItem
 import androidx.media3.effect.VideoCompositorSettings
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.Composition.HdrMode
@@ -8,7 +11,9 @@ import androidx.media3.transformer.EditedMediaItemSequence
 import androidx.media3.transformer.Effects
 import dev.transformerkt.dsl.effects.EffectsBuilder
 import dev.transformerkt.dsl.effects.buildEffects
+import dev.transformerkt.ktx.edited
 import dev.transformerkt.ktx.toSequence
+import java.io.File
 
 @CompositionDsl
 public interface CompositionBuilder {
@@ -94,13 +99,6 @@ public interface CompositionBuilder {
     public var videoCompositorSettings: VideoCompositorSettings
 
     /**
-     * Adds a [EditedMediaItemSequence] to the [Composition].
-     *
-     * @param[sequence] The [EditedMediaItemSequence] to add.
-     */
-    public fun add(sequence: EditedMediaItemSequence): CompositionBuilder
-
-    /**
      * Build a [EditedMediaItemSequence] from a [block] and add it to the [Composition]
      *
      * @param[isLooping] Whether the sequence should loop.
@@ -112,26 +110,68 @@ public interface CompositionBuilder {
     ): CompositionBuilder
 
     /**
-     * Add a single [EditedMediaItem] as a [EditedMediaItemSequence] to the [Composition].
+     * Adds a [EditedMediaItemSequence] to the [Composition].
      *
-     * @param[isLooping] Whether the sequence should loop.
-     * @param[item] The [EditedMediaItem] to add.
+     * @param[sequence] The [EditedMediaItemSequence] to add.
      */
-    public fun add(
-        isLooping: Boolean = false,
-        item: EditedMediaItem,
-    ): CompositionBuilder = add(item.toSequence(isLooping))
+    public fun add(sequence: EditedMediaItemSequence): CompositionBuilder
 
     /**
-     * Build a [EditedMediaItem] from a [block] and add it as a [EditedMediaItemSequence] to the
-     * [Composition].
+     * Add a single item [EditedMediaItemSequence] to the [Composition].
      *
-     * @param[isLooping] Whether the sequence should loop.
+     * @param[uri] The [Uri] of the item to add.
+     * @param[isLooping] Whether the item should loop.
+     * @param[configure] A block to configure and build the [MediaItem].
      * @param[block] A block to configure and build the [EditedMediaItem].
      */
     public fun add(
+        uri: Uri,
         isLooping: Boolean = false,
-        block: EditedMediaItemBuilder.() -> EditedMediaItem,
+        configure: MediaItem.Builder.() -> Unit = {},
+        block: EditedMediaItem.Builder.() -> Unit = {},
+    ): CompositionBuilder = add(
+        mediaItem = MediaItem.Builder().setUri(uri).apply(configure).build(),
+        isLooping = isLooping,
+        block = block,
+    )
+
+    /**
+     * Add a single item [EditedMediaItemSequence] to the [Composition].
+     *
+     * @param[file] The [File] of the item to add.
+     * @param[isLooping] Whether the item should loop.
+     * @param[configure] A block to configure and build the [MediaItem].
+     * @param[block] A block to configure and build the [EditedMediaItem].
+     */
+    public fun add(
+        file: File,
+        isLooping: Boolean = false,
+        configure: MediaItem.Builder.() -> Unit = {},
+        block: EditedMediaItem.Builder.() -> Unit = {},
+    ): CompositionBuilder = add(file.toUri(), isLooping, configure, block)
+
+    /**
+     * Add a single item [EditedMediaItemSequence] to the [Composition].
+     *
+     * @param[mediaItem] The [MediaItem] to add.
+     * @param[isLooping] Whether the item should loop.
+     * @param[block] A block to configure and build the [EditedMediaItem].
+     */
+    public fun add(
+        mediaItem: MediaItem,
+        isLooping: Boolean = false,
+        block: EditedMediaItem.Builder.() -> Unit = {},
+    ): CompositionBuilder = add(mediaItem.edited(block), isLooping)
+
+    /**
+     * Add a single item [EditedMediaItemSequence] to the [Composition].
+     *
+     * @param[editedMediaItem] The [EditedMediaItem] to add.
+     * @param[isLooping] Whether the item should loop.
+     */
+    public fun add(
+        editedMediaItem: EditedMediaItem,
+        isLooping: Boolean = false,
     ): CompositionBuilder
 
     /**
@@ -151,7 +191,6 @@ public interface CompositionBuilder {
 
 internal class DefaultCompositionBuilder : CompositionBuilder {
 
-    private val editedMediaItemBuilder = DefaultEditedMediaItemBuilder()
     private val sequences: MutableList<EditedMediaItemSequence> = mutableListOf()
     private var effects: Effects = Effects.EMPTY
 
@@ -166,9 +205,9 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
     }
 
     override fun add(
+        editedMediaItem: EditedMediaItem,
         isLooping: Boolean,
-        block: EditedMediaItemBuilder.() -> EditedMediaItem,
-    ): CompositionBuilder = add(block(editedMediaItemBuilder).toSequence(isLooping))
+    ): CompositionBuilder = add(editedMediaItem.toSequence(isLooping))
 
     override fun sequenceOf(
         isLooping: Boolean,
