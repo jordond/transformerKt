@@ -60,7 +60,7 @@ public fun EffectsBuilder.resolution(
     height: Int,
     scale: LayoutScale,
 ): EffectsBuilder = apply {
-    video(resolutionEffect(height, width, scale))
+    video(resolutionEffect(width = width, height = height, scale = scale))
 }
 
 /**
@@ -74,7 +74,7 @@ public fun EffectsBuilder.resolution(
 public fun EffectsBuilder.resolution(
     height: Int,
 ): EffectsBuilder = apply {
-    video(resolutionEffect(height))
+    video(resolutionEffect(height = height))
 }
 
 /**
@@ -90,7 +90,7 @@ public fun EffectsBuilder.resolution(
     aspectRatio: Float,
     scale: LayoutScale,
 ): EffectsBuilder = apply {
-    video(resolutionEffect(aspectRatio, scale))
+    video(resolutionEffect(aspectRatio = aspectRatio, scale = scale))
 }
 
 /**
