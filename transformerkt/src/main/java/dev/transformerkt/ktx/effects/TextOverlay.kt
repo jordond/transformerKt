@@ -1,7 +1,9 @@
 package dev.transformerkt.ktx.effects
 
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import androidx.annotation.CheckResult
+import androidx.core.text.toSpannable
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
 import androidx.media3.effect.TextOverlay
@@ -25,4 +27,11 @@ public fun EffectsBuilder.textOverlay(
     settings: OverlaySettings? = null,
 ): EffectsBuilder = apply {
     video(textOverlayEffect(text, settings))
+}
+
+public inline fun buildSpannableString(
+    builderAction: SpannableStringBuilder.() -> Unit,
+): SpannableString {
+    val builder = SpannableStringBuilder().apply(builderAction)
+    return SpannableString.valueOf(builder.toSpannable())
 }
