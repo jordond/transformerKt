@@ -17,7 +17,6 @@ import java.io.File
  * @see createTransformerCallbackFlow
  * @param[input] The input to transform.
  * @param[output] The output file to write to.
- * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @return A [Flow] that emits [TransformerStatus].
  */
@@ -25,12 +24,10 @@ import java.io.File
 internal fun Transformer.start(
     input: TransformerInput,
     output: File,
-    request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
 ): Flow<TransformerStatus> = createTransformerCallbackFlow(
     input = input,
     output = output,
-    request = request,
     progressPollDelayMs = progressPollDelayMs,
 )
 
@@ -43,7 +40,6 @@ internal fun Transformer.start(
  * @see start
  * @param[input] The input to transform.
  * @param[output] The output file to write to.
- * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @param[onProgress] The callback to use for progress updates.
  * @return A [TransformerStatus.Finished] status.
@@ -51,7 +47,6 @@ internal fun Transformer.start(
 internal suspend fun Transformer.start(
     input: TransformerInput,
     output: File,
-    request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
 ): TransformerStatus.Finished {
@@ -59,7 +54,6 @@ internal suspend fun Transformer.start(
         val result: TransformerStatus? = start(
             input = input,
             output = output,
-            request = request,
             progressPollDelayMs = progressPollDelayMs,
         ).onEach { status ->
             if (status is TransformerStatus.Progress) {

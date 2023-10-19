@@ -23,16 +23,35 @@ import java.io.File
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @return A [Flow] that emits [TransformerStatus].
  */
+@Deprecated(
+    "Using TransformerRequest has been deprecated",
+    ReplaceWith("start(input, output, progressPollDelayMs)"),
+)
 @CheckResult
 public fun Transformer.start(
     input: File,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+): Flow<TransformerStatus> = start(input, output, progressPollDelayMs)
+
+/**
+ * Start a [Transformer] request for a [File] and return a [Flow] of [TransformerStatus].
+ *
+ * @see createTransformerCallbackFlow
+ * @param[input] The input to transform.
+ * @param[output] The output file to write to.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @return A [Flow] that emits [TransformerStatus].
+ */
+@CheckResult
+public fun Transformer.start(
+    input: File,
+    output: File,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
 ): Flow<TransformerStatus> = start(
     input = TransformerInput.File(input),
     output = output,
-    request = request,
     progressPollDelayMs = progressPollDelayMs,
 )
 
@@ -50,11 +69,39 @@ public fun Transformer.start(
  * @param[effectsBlock] A block to customize the effects for the final video.
  * @return A [Flow] that emits [TransformerStatus].
  */
+@Deprecated(
+    "Using TransformerRequest has been deprecated",
+    ReplaceWith("imageToVideo(input, output, durationMs, frameRate, progressPollDelayMs, effectsBlock)"),
+)
 @CheckResult
 public fun Transformer.imageToVideo(
     input: File,
     output: File,
     request: TransformationRequest,
+    durationMs: Long,
+    frameRate: Int = 30,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+    effectsBlock: EffectsBuilder.() -> Unit = {},
+): Flow<TransformerStatus> =
+    imageToVideo(input, output, durationMs, frameRate, progressPollDelayMs, effectsBlock)
+
+/**
+ * Convert an image to a video.
+ *
+ * Use [effectsBlock] to customize the effects for the final video.
+ *
+ * @param[input] The input image to transform.
+ * @param[output] The output file to write to.
+ * @param[durationMs] The duration of the final video.
+ * @param[frameRate] The frame rate of the final video.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @param[effectsBlock] A block to customize the effects for the final video.
+ * @return A [Flow] that emits [TransformerStatus].
+ */
+@CheckResult
+public fun Transformer.imageToVideo(
+    input: File,
+    output: File,
     durationMs: Long,
     frameRate: Int = 30,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
@@ -69,7 +116,6 @@ public fun Transformer.imageToVideo(
     return start(
         input = composition,
         output = output,
-        request = request,
         progressPollDelayMs = progressPollDelayMs,
     )
 }
@@ -88,16 +134,39 @@ public fun Transformer.imageToVideo(
  * @param[onProgress] The callback to use for progress updates.
  * @return A [TransformerStatus.Finished] status.
  */
+@Deprecated(
+    "Using TransformerRequest has been deprecated",
+    ReplaceWith("start(input, output, progressPollDelayMs, onProgress)"),
+)
 public suspend fun Transformer.start(
     input: File,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
+): TransformerStatus.Finished = start(input, output, progressPollDelayMs, onProgress)
+
+/**
+ * Start a [Transformer] request for a [File] in a coroutine and return
+ * a [TransformerStatus.Finished] when the request is finished.
+ *
+ * For progress updates pass a [onProgress] callback.
+ *
+ * @see start
+ * @param[input] The input to transform.
+ * @param[output] The output file to write to.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @param[onProgress] The callback to use for progress updates.
+ * @return A [TransformerStatus.Finished] status.
+ */
+public suspend fun Transformer.start(
+    input: File,
+    output: File,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+    onProgress: (Int) -> Unit = {},
 ): TransformerStatus.Finished = start(
     input = TransformerInput.File(input),
     output = output,
-    request = request,
     progressPollDelayMs = progressPollDelayMs,
     onProgress = onProgress,
 )
@@ -117,10 +186,39 @@ public suspend fun Transformer.start(
  * @param[onProgress] The callback to use for progress updates.
  * @return A [TransformerStatus.Finished] status.
  */
+@Deprecated(
+    "Using TransformerRequest has been deprecated",
+    ReplaceWith("imageToVideo(input, output, durationMs, frameRate, progressPollDelayMs, effectsBlock, onProgress)"),
+)
 public suspend fun Transformer.imageToVideo(
     input: File,
     output: File,
     request: TransformationRequest,
+    durationMs: Long,
+    frameRate: Int = 30,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+    effectsBlock: EffectsBuilder.() -> Unit = {},
+    onProgress: (Int) -> Unit = {},
+): TransformerStatus.Finished =
+    imageToVideo(input, output, durationMs, frameRate, progressPollDelayMs, effectsBlock, onProgress)
+
+/**
+ * Convert an image to a video in a coroutine.
+ *
+ * Use [effectsBlock] to customize the effects for the final video.
+ *
+ * @param[input] The input image to transform.
+ * @param[output] The output file to write to.
+ * @param[durationMs] The duration of the final video.
+ * @param[frameRate] The frame rate of the final video.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @param[effectsBlock] A block to customize the effects for the final video.
+ * @param[onProgress] The callback to use for progress updates.
+ * @return A [TransformerStatus.Finished] status.
+ */
+public suspend fun Transformer.imageToVideo(
+    input: File,
+    output: File,
     durationMs: Long,
     frameRate: Int = 30,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
@@ -136,7 +234,6 @@ public suspend fun Transformer.imageToVideo(
     return start(
         input = composition,
         output = output,
-        request = request,
         progressPollDelayMs = progressPollDelayMs,
         onProgress = onProgress,
     )

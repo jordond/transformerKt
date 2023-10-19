@@ -25,7 +25,6 @@ You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.tr
 - [Motivation](#motivation)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Transform Requests](#transform-requests)
 - [Applying Effects](#applying-effects)
 - [Composition](#composition)
 - [Demo App](#demo-app)
@@ -112,8 +111,10 @@ There are overloads for each of the supported inputs. For example:
 ```kotlin
 suspend fun transform(context: Context, input: Uri) {
     val output = File(context.filesDir, "output.mp4")
-    val transformer = Transformer.Builder(context).build()
-    val result = transformer.start(input, output, TransformerKt.H264Request) { progress ->
+    val transformer = TransformerKt.build(context) {
+        setVideoMimeType(MimeTypes.VIDEO_H264)
+    }
+    val result = transformer.start(input, output) { progress ->
         // Update UI progress
     }
     when (result) {
@@ -128,8 +129,8 @@ Or you can use the `Flow` version instead:
 ```kotlin
 fun transform(context: Context, input: Uri) {
     val output = File(context.filesDir, "output.mp4")
-    val transformer = Transformer.Builder(context).build()
-    transformer.start(input, output, TransformerKt.H264Request).collect { status ->
+    val transformer = Transformer.build(context) { setVideoMimeType(MimeTypes.VIDEO_H264) }
+    transformer.start(input, output).collect { status ->
         when (status) {
             is TransformerStatus.Progress -> TODO()
             is TransformerStatus.Success -> TODO()
@@ -139,56 +140,14 @@ fun transform(context: Context, input: Uri) {
 }
 ```
 
-## Transform Requests
-
-Now that you understand _how_ to use the library, you need to understand _what_ you can do with it.
-
-First take a look at
-the [Transformer Transformation Docs](https://developer.android.com/guide/topics/media/transformer/transformations)
-so you can see what is possible.
-
-**Note:** The documentation is currently not up to date with the latest version of `media3`. So some
-things may be different.
-
-By default, the library uses a default instance of `TransformationRequest` which most likely will
-not do anything to your input file. Therefore you need to provide your own `TransformationRequest`
-to the library, or use one of the predefined ones.
-
-Currently `TransformerKt` ships with:
-
-- `TransformerKt.H264Request`
-    - Converts the input to an H264 encoded MP4 file.
-- `TransformerKt.H264AndAacRequest`
-    - Converts the input to an H264 encoded MP4 file, with AAC audio.
-
-### Example Requests
-
-You can modify this request by using the provided `buildWith {}` extension function
-for `TransformationRequest.Builder`.
-
-Convert a video to an H264 encoded MP4 file, with AAC audio:
-
-```kotlin
-val request = TransformerKt.H264Request.buildWith {
-    setAudioMimeType(MimeTypes.AUDIO_AAC)
-}
-```
-
-Convert a HDR video to a SDR video:
-
-```kotlin
-val request = TransformerKt.H264Request.buildWith {
-    setHdrMode(TransformationRequest.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
-}
-```
-
 ## Applying Effects
 
 Starting with version `1.1.0-alpha01`, the `Transformer` library changed the way you apply effects.
 Instead of applying the effects to the `Transformer.Builder` you now create a `EditedMediaItem` and
 apply the affects there.
 
-To make that API a bit easier, an extension function `.edited {}` has been added to `MediaItem.Builder`:
+To make that API a bit easier, an extension function `.edited {}` has been added
+to `MediaItem.Builder`:
 
 ```kotlin
 val editedMediaItem = MediaItem.Builder()

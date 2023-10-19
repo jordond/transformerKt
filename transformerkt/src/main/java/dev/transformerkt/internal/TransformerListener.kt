@@ -6,7 +6,6 @@ import androidx.media3.transformer.Composition
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.ProgressHolder
-import androidx.media3.transformer.TransformationRequest
 import androidx.media3.transformer.Transformer
 import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerStatus
@@ -34,14 +33,12 @@ import java.io.File
  * @receiver The [Transformer] instance to start a transformation.
  * @param[input] The input to transform.
  * @param[output] The output file to write to.
- * @param[request] The [TransformationRequest] to use.
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @return A [Flow] that emits [TransformerStatus].
  */
 internal fun Transformer.createTransformerCallbackFlow(
     input: TransformerInput,
     output: File,
-    request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
 ): Flow<TransformerStatus> {
     val oldTransformer = this
@@ -68,9 +65,6 @@ internal fun Transformer.createTransformerCallbackFlow(
         val transformer = oldTransformer
             .buildWith {
                 removeAllListeners()
-//                setTransformationRequest(request)
-                request.audioMimeType?.let { setAudioMimeType(it) }
-                request.videoMimeType?.let { setVideoMimeType(it) }
                 addListener(listener)
             }
             .startWith(input, output)
