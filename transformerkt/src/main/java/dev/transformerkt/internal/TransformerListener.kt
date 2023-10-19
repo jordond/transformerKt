@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
@@ -43,10 +44,8 @@ internal fun Transformer.createTransformerCallbackFlow(
 ): Flow<TransformerStatus> {
     val oldTransformer = this
     return callbackFlow {
-        var isFinished = false
         val listener = object : Transformer.Listener {
             override fun onCompleted(composition: Composition, exportResult: ExportResult) {
-                isFinished = true
                 trySend(TransformerStatus.Success(output, exportResult))
                 close()
             }
@@ -56,7 +55,6 @@ internal fun Transformer.createTransformerCallbackFlow(
                 exportResult: ExportResult,
                 exportException: ExportException,
             ) {
-                isFinished = true
                 trySend(TransformerStatus.Failure(exportException))
                 close()
             }
@@ -69,32 +67,34 @@ internal fun Transformer.createTransformerCallbackFlow(
             }
             .startWith(input, output)
 
+        trySend(TransformerStatus.Progress(0))
+
         val progressHolder = ProgressHolder()
+        var progressState = Transformer.PROGRESS_STATE_NOT_STARTED
         var previousProgress = 0
-        val progressJob = launch {
-            while (isActive) {
-                if (isFinished) {
+        val progressJob = launch(Dispatchers.Default) {
+            while (isActive && progressState != Transformer.PROGRESS_STATE_UNAVAILABLE) {
+                progressState = withContext(Dispatchers.Main) {
+                    transformer.getProgress(progressHolder)
+                }
+
+                if (progressState == Transformer.PROGRESS_STATE_AVAILABLE) {
+                    val progress = progressHolder.progress
+                    if (progress > previousProgress) {
+                        previousProgress = progress
+                        trySend(TransformerStatus.Progress(progress))
+                    }
+                } else if (progressState == Transformer.PROGRESS_STATE_UNAVAILABLE) {
                     break
                 }
 
-                val progressState = transformer.getProgress(progressHolder)
-                val progress = progressHolder.progress
-                if (progress > previousProgress) {
-                    previousProgress = progress
-                    trySend(TransformerStatus.Progress(progress))
-                }
-
-                if (progressState != Transformer.PROGRESS_STATE_NOT_STARTED) {
-                    delay(progressPollDelayMs)
-                }
+                delay(progressPollDelayMs)
             }
         }
 
         awaitClose {
             progressJob.cancel()
-            if (!isFinished) {
-                transformer.cancel()
-            }
+            transformer.cancel()
         }
     }.catch { cause ->
         if (cause != CancellationException()) {
