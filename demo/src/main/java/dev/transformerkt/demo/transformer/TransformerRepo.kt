@@ -34,7 +34,9 @@ class TransformerRepo @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
 
-    private val transformer = TransformerKt.build(context)
+    private val transformer = TransformerKt.build(context) {
+        setTransformationRequest()
+    }
 
     suspend fun convertToSdr(
         input: VideoDetails,
