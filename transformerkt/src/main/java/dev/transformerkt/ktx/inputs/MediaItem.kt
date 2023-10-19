@@ -22,16 +22,35 @@ import java.io.File
  * @param[progressPollDelayMs] The delay between polling for progress.
  * @return A [Flow] that emits [TransformerStatus].
  */
+@Deprecated(
+    "Using TransformerRequest has been deprecated",
+    ReplaceWith("start(input, output, progressPollDelayMs)"),
+)
 @CheckResult
 public fun Transformer.start(
     input: MediaItem,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+): Flow<TransformerStatus> = start(input, output, progressPollDelayMs)
+
+/**
+ * Start a [Transformer] request for a [MediaItem] and return a [Flow] of [TransformerStatus].
+ *
+ * @see createTransformerCallbackFlow
+ * @param[input] The input to transform.
+ * @param[output] The output file to write to.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @return A [Flow] that emits [TransformerStatus].
+ */
+@CheckResult
+public fun Transformer.start(
+    input: MediaItem,
+    output: File,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
 ): Flow<TransformerStatus> = start(
     input = TransformerInput.MediaItem(input),
     output = output,
-    request = request,
     progressPollDelayMs = progressPollDelayMs,
 )
 
@@ -49,16 +68,39 @@ public fun Transformer.start(
  * @param[onProgress] The callback to use for progress updates.
  * @return A [TransformerStatus.Finished] status.
  */
+@Deprecated(
+    "Using TransformerRequest has been deprecated",
+    ReplaceWith("start(input, output, progressPollDelayMs)"),
+)
 public suspend fun Transformer.start(
     input: MediaItem,
     output: File,
     request: TransformationRequest,
     progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
     onProgress: (Int) -> Unit = {},
+): TransformerStatus.Finished = start(input, output, progressPollDelayMs, onProgress)
+
+/**
+ * Start a [Transformer] request for a [MediaItem] in a coroutine and return
+ * a [TransformerStatus.Finished] when the request is finished.
+ *
+ * For progress updates pass a [onProgress] callback.
+ *
+ * @see start
+ * @param[input] The input to transform.
+ * @param[output] The output file to write to.
+ * @param[progressPollDelayMs] The delay between polling for progress.
+ * @param[onProgress] The callback to use for progress updates.
+ * @return A [TransformerStatus.Finished] status.
+ */
+public suspend fun Transformer.start(
+    input: MediaItem,
+    output: File,
+    progressPollDelayMs: Long = TransformerKt.DEFAULT_PROGRESS_POLL_DELAY_MS,
+    onProgress: (Int) -> Unit = {},
 ): TransformerStatus.Finished = start(
     input = TransformerInput.MediaItem(input),
     output = output,
-    request = request,
     progressPollDelayMs = progressPollDelayMs,
     onProgress = onProgress,
 )

@@ -40,11 +40,13 @@ public object TransformerKt {
     /**
      * A [TransformationRequest] that uses the default values.
      */
+    @Deprecated("Use setAudioMimeType(String), setVideoMimeType(String) and Composition.Builder.setHdrMode(int) instead")
     public val InferRequest: TransformationRequest = TransformationRequest.Builder().build()
 
     /**
      * A [TransformationRequest] that transforms the video to H264.
      */
+    @Deprecated("Use setAudioMimeType(String), setVideoMimeType(String) and Composition.Builder.setHdrMode(int) instead")
     public val H264Request: TransformationRequest = TransformationRequest.Builder()
         .setVideoMimeType(MimeTypes.VIDEO_H264)
         .build()
@@ -52,10 +54,12 @@ public object TransformerKt {
     /**
      * A [TransformationRequest] that transforms the video to H264 and audio to AAC.
      */
+    @Deprecated("Use setAudioMimeType(String), setVideoMimeType(String) and Composition.Builder.setHdrMode(int) instead")
     public val H264AndAacRequest: TransformationRequest = H264Request.buildWith {
         setAudioMimeType(MimeTypes.AUDIO_AAC)
     }
 
+    @Deprecated("Use setAudioMimeType(String), setVideoMimeType(String) and Composition.Builder.setHdrMode(int) instead")
     public val DefaultRequest: TransformationRequest = InferRequest
 
     /**

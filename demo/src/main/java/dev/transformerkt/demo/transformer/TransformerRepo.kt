@@ -9,7 +9,6 @@ import androidx.media3.common.MimeTypes
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.Composition.HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL
 import androidx.media3.transformer.EditedMediaItemSequence
-import androidx.media3.transformer.Transformer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.transformerkt.TransformerKt
 import dev.transformerkt.TransformerStatus
@@ -35,19 +34,23 @@ class TransformerRepo @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
 
-    private val transformer = Transformer.Builder(context).build()
+    private val transformer = TransformerKt.build(context)
 
     suspend fun convertToSdr(
         input: VideoDetails,
         onProgress: (TransformerStatus.Progress) -> Unit,
     ): TransformerStatus.Finished {
         val output = hdrToSdrOutput(context)
-        val request = TransformerKt.H264Request.buildWith {
-            setHdrMode(HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL)
+        val composition = compositionOf {
+            hdrMode = HDR_MODE_TONE_MAP_HDR_TO_SDR_USING_OPEN_GL
+            add(input.uri)
+        }
+
+        val transformer = TransformerKt.build(context) {
             setAudioMimeType(MimeTypes.AUDIO_AAC)
         }
 
-        return transformer.start(input.uri, output, request) { progress ->
+        return transformer.start(composition, output) { progress ->
             onProgress(TransformerStatus.Progress(progress))
         }
     }
@@ -58,12 +61,11 @@ class TransformerRepo @Inject constructor(
         endMs: Long,
     ): Flow<TransformerStatus> {
         val output = trimOutput(context)
-        val request = TransformerKt.DefaultRequest
         val mediaItem = MediaItem.fromUri(input.uri).buildWith {
             setClippingConfiguration(startMs = startMs, endMs = endMs)
         }
 
-        return transformer.start(mediaItem, output, request)
+        return transformer.start(mediaItem, output)
     }
 
     fun concat(inputs: List<VideoDetails>): Flow<TransformerStatus> {
@@ -72,8 +74,7 @@ class TransformerRepo @Inject constructor(
         val composition = Composition.Builder(listOf(sequence)).build()
 
         val output = concatOutput(context)
-        val request = TransformerKt.DefaultRequest
-        return transformer.start(composition, output, request)
+        return transformer.start(composition, output)
     }
 
     fun transform(
@@ -132,7 +133,7 @@ class TransformerRepo @Inject constructor(
         }
 
         val output = transformOutput(context)
-        return transformer.start(composition, output, TransformerKt.DefaultRequest)
+        return transformer.start(composition, output)
     }
 
     private fun Uri.audioTracks(context: Context): Int {
