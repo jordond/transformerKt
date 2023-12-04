@@ -185,8 +185,8 @@ fun EffectsContent(
                     Text(text = "Speed:", modifier = Modifier.width(100.dp))
                     Text(text = String.format("%.2fx", speed))
                     Slider(
-                        valueRange = -0.5f..2f,
-                        steps = 4,
+                        valueRange = -0.5f..6f,
+                        steps = 16,
                         value = speed,
                         onValueChange = { speed = it },
                         onValueChangeFinished = {
@@ -277,20 +277,6 @@ fun EffectsContent(
                 }
             }
 
-//            if (state.selectedVideos.isNotEmpty()) {
-//                val videos = remember(state.selectedVideos) {
-//                    state.selectedVideos.map { it.uri }
-//                }
-//                Spacer(modifier = Modifier.height(16.dp))
-//                Text(text = "Preview:", style = MaterialTheme.typography.titleMedium)
-//                UriVideoPlayer(
-//                    uris = videos,
-//                    play = true,
-//                    modifier = Modifier.height(200.dp),
-//                    effectsSettings = state.settings,
-//                )
-//            }
-
             if (!state.inProgress && result != null && result is TransformerStatus.Success) {
                 var play by remember { mutableStateOf(true) }
                 Column(
@@ -303,6 +289,7 @@ fun EffectsContent(
                         file = result.output,
                         play = play,
                         modifier = Modifier.height(200.dp),
+                        useController = true,
                     )
                     Button(onClick = { play = !play }) {
                         Text(text = if (play) "Pause" else "Play")

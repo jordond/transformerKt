@@ -117,8 +117,6 @@ class TransformerRepo @Inject constructor(
                         }
                     }
                 }
-
-                item(File(""))
             }
 
             if (settings.audioOverlay != null) {

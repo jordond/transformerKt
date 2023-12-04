@@ -31,6 +31,7 @@ fun VideoPlayer(
     modifier: Modifier = Modifier,
     play: Boolean = true,
     effectsSettings: EffectSettings = EffectSettings(),
+    useController: Boolean = false,
 ) {
     val mediaItem by remember(file) {
         derivedStateOf {
@@ -38,7 +39,7 @@ fun VideoPlayer(
         }
     }
 
-    VideoPlayer(listOf(mediaItem), modifier, play, effectsSettings)
+    VideoPlayer(listOf(mediaItem), modifier, play, effectsSettings, useController)
 }
 
 @Composable
@@ -47,6 +48,7 @@ fun VideoPlayer(
     modifier: Modifier = Modifier,
     play: Boolean = true,
     effectsSettings: EffectSettings = EffectSettings(),
+    useController: Boolean = false,
 ) {
     val mediaItem by remember(uri) {
         derivedStateOf {
@@ -54,7 +56,7 @@ fun VideoPlayer(
         }
     }
 
-    VideoPlayer(listOf(mediaItem), modifier, play, effectsSettings)
+    VideoPlayer(listOf(mediaItem), modifier, play, effectsSettings, useController)
 }
 
 @Composable
@@ -63,12 +65,13 @@ fun UriVideoPlayer(
     modifier: Modifier = Modifier,
     play: Boolean = true,
     effectsSettings: EffectSettings = EffectSettings(),
+    useController: Boolean = false,
 ) {
     val mediaItems = remember(uris) {
         uris.map { MediaItem.fromUri(it) }
     }
 
-    VideoPlayer(mediaItems, modifier, play, effectsSettings)
+    VideoPlayer(mediaItems, modifier, play, effectsSettings, useController)
 }
 
 @Composable
@@ -77,6 +80,7 @@ fun VideoPlayer(
     modifier: Modifier = Modifier,
     play: Boolean = true,
     effectsSettings: EffectSettings = EffectSettings(),
+    useController: Boolean = false,
 ) {
     val context = LocalContext.current
 
@@ -92,7 +96,6 @@ fun VideoPlayer(
             mediaItems.forEach { player.addMediaItem(it) }
             player.repeatMode = ExoPlayer.REPEAT_MODE_ONE
             player.setVideoEffects(effects.videoEffects)
-            Napier.e("Effects: $effects")
             player.prepare()
         }
     }
@@ -105,25 +108,25 @@ fun VideoPlayer(
         }
     }
 
-    Column(modifier = modifier) {
-        DisposableEffect(
-            AndroidView(
-                factory = {
-                    PlayerView(context).apply {
-                        useController = false
-                        player = exoPlayer
-                        layoutParams = FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        )
-                    }
-                }
-            )
-        ) {
-            onDispose {
-                exoPlayer.stop()
-                exoPlayer.release()
-            }
+    DisposableEffect(exoPlayer) {
+        onDispose {
+            exoPlayer.stop()
+            exoPlayer.release()
         }
+    }
+
+    Column(modifier = modifier) {
+        AndroidView(
+            factory = {
+                PlayerView(context).apply {
+                    this.useController = useController
+                    player = exoPlayer
+                    layoutParams = FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                }
+            }
+        )
     }
 }
