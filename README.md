@@ -51,7 +51,7 @@ Add the dependency to your app level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("dev.transformerkt:transformerkt:3.3.2")
+    implementation("dev.transformerkt:transformerkt:3.3.4")
 }
 ```
 
@@ -59,7 +59,7 @@ Or using Version Catalogs:
 
 ```toml
 [versions]
-transformerkt = "3.3.2"
+transformerkt = "3.3.4"
 
 [libraries]
 transformerkt = { group = "dev.transformerkt", name = "transformerkt", version.ref = "transformerkt" }
@@ -127,7 +127,7 @@ fun transform(context: Context, input: Uri) {
 
 ## Applying Effects
 
-Starting with version `1.1.0-alpha01`, the `Transformer` library changed the way you apply effects.
+Starting with Media3 `1.1.0-alpha01` the `Transformer` library changed the way you apply effects.
 Instead of applying the effects to the `Transformer.Builder` you now create a `EditedMediaItem` and
 apply the affects there.
 
