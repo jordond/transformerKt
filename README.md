@@ -17,8 +17,7 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 
 You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.transformerkt.dev)
 
-- Using `media3.transformer`
-  version [`1.2.0`](https://github.com/androidx/media/releases)
+- Using `media3.transformer` [version `1.2.0`](https://github.com/androidx/media/releases)
 
 ## Table of Contents
 
@@ -48,35 +47,23 @@ for more information.
 
 ## Getting Started
 
-First you need to add jitpack to either your root level `build.gradle.kts` or
-your `settings.gradle.kts` file:
-
-In `build.gradle.kts`:
-
-```kotlin
-allprojects {
-    repositories {
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
-
-Or `settings.gradle.kts`:
-
-```kotlin
-dependencyResolutionManagement {
-    repositories {
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
-
-Then add the dependency to your app level `build.gradle.kts` file:
+Add the dependency to your app level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("dev.transformerkt:transformerkt::3.3.2")
+    implementation("dev.transformerkt:transformerkt:3.3.2")
 }
+```
+
+Or using Version Catalogs:
+
+```toml
+[versions]
+transformerkt = "3.3.2"
+
+[libraries]
+transformerkt = { group = "dev.transformerkt", name = "transformerkt", version.ref = "transformerkt" }
+
 ```
 
 ## Usage
@@ -90,8 +77,6 @@ Then you need an input video or image file. `TransformerKt` supports the followi
 
 - [MediaItem](https://developer.android.com/reference/androidx/media3/common/MediaItem).
 - [EditedMediaItem](https://github.com/androidx/media/blob/0fce8f416b54124605c1ed8aa72af98c94602834/libraries/transformer/src/main/java/androidx/media3/transformer/EditedMediaItem.java).
-    - Note this class is new as of `media3` version `1.1.0-alpha01`. The library changed the way you
-      apply effects and customizations to the MediaItem.
 - A `Uri` pointing to somewhere on the device.
 - A `File` object pointing to a file in the _app's_ sand-boxed storage.
     - Warning: Getting a `File` object to a file outside of the app's storage will probably cause a
