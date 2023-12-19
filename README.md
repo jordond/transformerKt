@@ -17,8 +17,7 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 
 You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.transformerkt.dev)
 
-- Using `media3.transformer`
-  version [`1.2.0`](https://github.com/androidx/media/releases)
+- Using `media3.transformer` [version `1.2.0`](https://github.com/androidx/media/releases)
 
 ## Table of Contents
 
@@ -48,35 +47,23 @@ for more information.
 
 ## Getting Started
 
-First you need to add jitpack to either your root level `build.gradle.kts` or
-your `settings.gradle.kts` file:
-
-In `build.gradle.kts`:
-
-```kotlin
-allprojects {
-    repositories {
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
-
-Or `settings.gradle.kts`:
-
-```kotlin
-dependencyResolutionManagement {
-    repositories {
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
-
-Then add the dependency to your app level `build.gradle.kts` file:
+Add the dependency to your app level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("dev.transformerkt:transformerkt::3.3.2")
+    implementation("dev.transformerkt:transformerkt:3.3.2")
 }
+```
+
+Or using Version Catalogs:
+
+```toml
+[versions]
+transformerkt = "3.3.2"
+
+[libraries]
+transformerkt = { group = "dev.transformerkt", name = "transformerkt", version.ref = "transformerkt" }
+
 ```
 
 ## Usage

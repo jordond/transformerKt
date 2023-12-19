@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.dokka)
     alias(libs.plugins.poko)
-    id("maven-publish")
+    alias(libs.plugins.publish)
 }
 
 android {
@@ -54,17 +54,4 @@ dependencies {
 
     /* Misc */
     dokkaPlugin(libs.dokka.android)
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "dev.transformerkt"
-            artifactId = "transformerkt"
-
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
 }
