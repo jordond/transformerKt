@@ -179,7 +179,18 @@ public interface CompositionBuilder {
      *
      * @param[block] A block to configure and build the [Effects].
      */
+    @Deprecated(
+        message = "This is confusing when trying to add effects to an EditedMediaItem",
+        replaceWith = ReplaceWith("setEffects(block)"),
+    )
     public fun effects(block: EffectsBuilder.() -> Unit): CompositionBuilder
+
+    /**
+     * Add [Effects] to the entire [Composition].
+     *
+     * @param[block] A block to configure and build the [Effects].
+     */
+    public fun setEffects(block: EffectsBuilder.() -> Unit): CompositionBuilder
 
     /**
      * Build the [Composition].
@@ -216,7 +227,15 @@ internal class DefaultCompositionBuilder : CompositionBuilder {
         sequences += SequenceBuilder().apply(block).items.toSequence(isLooping)
     }
 
+    @Deprecated(
+        message = "This is confusing when trying to add effects to an EditedMediaItem",
+        replaceWith = ReplaceWith("setEffects(block)"),
+    )
     override fun effects(block: EffectsBuilder.() -> Unit): CompositionBuilder = apply {
+        setEffects(block)
+    }
+
+    override fun setEffects(block: EffectsBuilder.() -> Unit): CompositionBuilder = apply {
         val newEffects = buildEffects(block)
         effects = Effects(
             effects.audioProcessors + newEffects.audioProcessors,
