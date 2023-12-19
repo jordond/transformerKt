@@ -45,6 +45,6 @@ if [ -z "$LIBS_MEDIA3_VERSION" ]; then
 else
   echo "Updating Media3 version: '$LIBS_MEDIA3_VERSION'"
   sed -i '' -E "s/media3#$SEMVER_REG/media3#$LIBS_MEDIA3_VERSION/" "$README_FILE"
-  sed -i '' -E "s/media3-#$SEMVER_REG/media3-#$LIBS_MEDIA3_VERSION/" "$README_FILE"
-  sed -i '' -E "s/version%20\`$SEMVER_REG/version%20\`$LIBS_MEDIA3_VERSION/" "$README_FILE"
+  sed -i '' -E "s/media3-$SEMVER_REG/media3-$LIBS_MEDIA3_VERSION/" "$README_FILE"
+  sed -i '' -E "s/version \`$SEMVER_REG/version \`$LIBS_MEDIA3_VERSION/" "$README_FILE"
 fi
