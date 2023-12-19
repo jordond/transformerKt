@@ -77,8 +77,6 @@ Then you need an input video or image file. `TransformerKt` supports the followi
 
 - [MediaItem](https://developer.android.com/reference/androidx/media3/common/MediaItem).
 - [EditedMediaItem](https://github.com/androidx/media/blob/0fce8f416b54124605c1ed8aa72af98c94602834/libraries/transformer/src/main/java/androidx/media3/transformer/EditedMediaItem.java).
-    - Note this class is new as of `media3` version `1.1.0-alpha01`. The library changed the way you
-      apply effects and customizations to the MediaItem.
 - A `Uri` pointing to somewhere on the device.
 - A `File` object pointing to a file in the _app's_ sand-boxed storage.
     - Warning: Getting a `File` object to a file outside of the app's storage will probably cause a
