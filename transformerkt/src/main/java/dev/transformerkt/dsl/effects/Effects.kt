@@ -10,6 +10,7 @@ public fun buildEffects(
     block: EffectsBuilder.() -> Unit,
 ): Effects = DefaultEffectsBuilder().apply(block).build()
 
+@EffectsDsl
 public fun EditedMediaItem.Builder.setEffects(
     block: EffectsBuilder.() -> Unit,
 ): EditedMediaItem.Builder = apply {
@@ -23,6 +24,7 @@ public fun EditedMediaItem.Builder.setEffects(
     setEffects(merged)
 }
 
+@EffectsDsl
 public fun EditedMediaItem.Builder.effects(
     block: EffectsBuilder.() -> Unit,
 ): EditedMediaItem.Builder = setEffects(block)
