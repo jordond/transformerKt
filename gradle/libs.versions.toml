@@ -24,7 +24,7 @@ google-accompanist = "0.32.0"
 compose-destiantions = "1.9.56"
 napier = "2.7.0"
 binaryCompatibility = "0.13.2"
-poko = "0.15.1"
+poko = "0.15.2"
 coil = "2.5.0"
 publish = "0.26.0"
 
