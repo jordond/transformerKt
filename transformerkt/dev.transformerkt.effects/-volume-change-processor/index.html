@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>VolumeChangeProcessor</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            transformerkt
+                    </a>
+            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":transformerkt:dokkaHtml/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="transformerkt::dev.transformerkt.effects/VolumeChangeProcessor///PointingToDeclaration//61283810">
+  <div class="breadcrumbs"><a href="../../../index.html">transformerkt</a><span class="delimiter">/</span><a href="../index.html">dev.transformerkt.effects</a><span class="delimiter">/</span><span class="current">VolumeChangeProcessor</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Volume</span><wbr></wbr><span>Change</span><wbr></wbr><span><span>Processor</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">VolumeChangeProcessor</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">inputChannels<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">outputChannels<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">volumeChangeProvider<span class="token operator">: </span><a href="../-volume-change-provider/index.html">VolumeChangeProvider</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/BaseAudioProcessor.html">BaseAudioProcessor</a></div><p class="paragraph">An AudioProcessor that handles changing the volume on an audio channel.</p><p class="paragraph">Input and output are 16-bit PCM.</p><p class="paragraph">Inspired by <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/ChannelMixingAudioProcessor.html">ChannelMixingAudioProcessor</a>.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>input</span><wbr></wbr><span><span>Channels</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The number of input channels.</p></div></div></div></div><div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>output</span><wbr></wbr><span><span>Channels</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The number of output channels.</p></div></div></div></div><div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>volume</span><wbr></wbr><span>Change</span><wbr></wbr><span><span>Provider</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A provider that returns the volume for a given time.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1700650526%2FConstructors%2F61283810" anchor-label="VolumeChangeProcessor" id="-1700650526%2FConstructors%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-volume-change-processor.html"><span>Volume</span><wbr></wbr><span>Change</span><wbr></wbr><span><span>Processor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1700650526%2FConstructors%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">inputChannels<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">outputChannels<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">volumeChangeProvider<span class="token operator">: </span><a href="../-volume-change-provider/index.html">VolumeChangeProvider</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-765599793%2FFunctions%2F61283810" anchor-label="configure" id="-765599793%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-765599793%2FFunctions%2F61283810"><span><span>configure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765599793%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-765599793%2FFunctions%2F61283810"><span class="token function">configure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/AudioProcessor.AudioFormat.html">AudioProcessor.AudioFormat</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/AudioProcessor.AudioFormat.html">AudioProcessor.AudioFormat</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2000555367%2FFunctions%2F61283810" anchor-label="flush" id="-2000555367%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2000555367%2FFunctions%2F61283810"><span><span>flush</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2000555367%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-2000555367%2FFunctions%2F61283810"><span class="token function">flush</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-750376698%2FFunctions%2F61283810" anchor-label="getOutput" id="-750376698%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-750376698%2FFunctions%2F61283810"><span>get</span><wbr></wbr><span><span>Output</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-750376698%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/CallSuper.html"><span class="token annotation builtin">CallSuper</span></a></div></div><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-750376698%2FFunctions%2F61283810"><span class="token function">getOutput</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/nio/ByteBuffer.html">ByteBuffer</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1025350771%2FFunctions%2F61283810" anchor-label="isActive" id="-1025350771%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1025350771%2FFunctions%2F61283810"><span>is</span><wbr></wbr><span><span>Active</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1025350771%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-1025350771%2FFunctions%2F61283810"><span class="token function">isActive</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1174681453%2FFunctions%2F61283810" anchor-label="isEnded" id="1174681453%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1174681453%2FFunctions%2F61283810"><span>is</span><wbr></wbr><span><span>Ended</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1174681453%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/CallSuper.html"><span class="token annotation builtin">CallSuper</span></a></div></div><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#1174681453%2FFunctions%2F61283810"><span class="token function">isEnded</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1138504291%2FFunctions%2F61283810" anchor-label="plus" id="1138504291%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../dev.transformerkt.dsl.effects/plus.html"><span><span>plus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1138504291%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">operator </span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/AudioProcessor.html">AudioProcessor</a><span class="token punctuation">.</span><a href="../../dev.transformerkt.dsl.effects/plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">processor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/AudioProcessor.html">AudioProcessor</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/audio/AudioProcessor.html">AudioProcessor</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-223604452%2FFunctions%2F61283810" anchor-label="queueEndOfStream" id="-223604452%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-223604452%2FFunctions%2F61283810"><span>queue</span><wbr></wbr><span>End</span><wbr></wbr><span>Of</span><wbr></wbr><span><span>Stream</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-223604452%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-223604452%2FFunctions%2F61283810"><span class="token function">queueEndOfStream</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1531130807%2FFunctions%2F61283810" anchor-label="queueInput" id="-1531130807%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="queue-input.html"><span>queue</span><wbr></wbr><span><span>Input</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1531130807%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="queue-input.html"><span class="token function">queueInput</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">inputBuffer<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/nio/ByteBuffer.html">ByteBuffer</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2117490002%2FFunctions%2F61283810" anchor-label="reset" id="-2117490002%2FFunctions%2F61283810" data-filterable-set=":transformerkt:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":transformerkt:dokkaHtml/release" data-filterable-set=":transformerkt:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2117490002%2FFunctions%2F61283810"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2117490002%2FFunctions%2F61283810"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":transformerkt:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-2117490002%2FFunctions%2F61283810"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

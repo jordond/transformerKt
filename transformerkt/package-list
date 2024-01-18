@@ -13,6 +13,7 @@ $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/effects/#ko
 $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/forceAudioTrack/#/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/force-audio-track.html
 $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/hdrMode/#/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/hdr-mode.html
 $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/sequenceOf/#kotlin.Boolean#kotlin.Function1[dev.transformerkt.dsl.composition.SequenceBuilder,kotlin.Unit]/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/sequence-of.html
+$dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/setEffects/#kotlin.Function1[dev.transformerkt.dsl.effects.EffectsBuilder,kotlin.Unit]/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/set-effects.html
 $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/transmuxAudio/#/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/transmux-audio.html
 $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/transmuxVideo/#/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/transmux-video.html
 $dokka.location:dev.transformerkt.dsl.composition/CompositionBuilder/videoCompositorSettings/#/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.composition/-composition-builder/video-compositor-settings.html
@@ -47,6 +48,13 @@ $dokka.location:dev.transformerkt.dsl.effects/EffectsBuilder/build/#/PointingToD
 $dokka.location:dev.transformerkt.dsl.effects/EffectsBuilder/video/#androidx.media3.common.Effect/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.effects/-effects-builder/video.html
 $dokka.location:dev.transformerkt.dsl.effects/EffectsBuilder/video/#kotlin.Array[androidx.media3.common.Effect]/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.effects/-effects-builder/video.html
 $dokka.location:dev.transformerkt.dsl.effects/EffectsBuilder/video/#kotlin.collections.List[androidx.media3.common.Effect]/PointingToDeclaration/transformerkt/dev.transformerkt.dsl.effects/-effects-builder/video.html
+$dokka.location:dev.transformerkt.effects////PointingToDeclaration/transformerkt/dev.transformerkt.effects/index.html
+$dokka.location:dev.transformerkt.effects/VolumeChangeProcessor///PointingToDeclaration/transformerkt/dev.transformerkt.effects/-volume-change-processor/index.html
+$dokka.location:dev.transformerkt.effects/VolumeChangeProcessor/VolumeChangeProcessor/#kotlin.Int#kotlin.Int#dev.transformerkt.effects.VolumeChangeProvider/PointingToDeclaration/transformerkt/dev.transformerkt.effects/-volume-change-processor/-volume-change-processor.html
+$dokka.location:dev.transformerkt.effects/VolumeChangeProcessor/queueInput/#java.nio.ByteBuffer/PointingToDeclaration/transformerkt/dev.transformerkt.effects/-volume-change-processor/queue-input.html
+$dokka.location:dev.transformerkt.effects/VolumeChangeProvider///PointingToDeclaration/transformerkt/dev.transformerkt.effects/-volume-change-provider/index.html
+$dokka.location:dev.transformerkt.effects/VolumeChangeProvider/getVolume/#kotlin.Long/PointingToDeclaration/transformerkt/dev.transformerkt.effects/-volume-change-provider/get-volume.html
+$dokka.location:dev.transformerkt.effects/VolumeChangeProvider/initial/#/PointingToDeclaration/transformerkt/dev.transformerkt.effects/-volume-change-provider/initial.html
 $dokka.location:dev.transformerkt.ktx.effects////PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/index.html
 $dokka.location:dev.transformerkt.ktx.effects//audioSampleRate/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Int/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/audio-sample-rate.html
 $dokka.location:dev.transformerkt.ktx.effects//audioSampleRateEffect/#kotlin.Int/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/audio-sample-rate-effect.html
@@ -61,6 +69,8 @@ $dokka.location:dev.transformerkt.ktx.effects//buildSpannableString/#kotlin.Func
 $dokka.location:dev.transformerkt.ktx.effects//contrast/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Float/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/contrast.html
 $dokka.location:dev.transformerkt.ktx.effects//drawableOverlay/dev.transformerkt.dsl.effects.EffectsBuilder#android.graphics.drawable.Drawable#androidx.media3.effect.OverlaySettings/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/drawable-overlay.html
 $dokka.location:dev.transformerkt.ktx.effects//drawableOverlayEffect/#android.graphics.drawable.Drawable#androidx.media3.effect.OverlaySettings/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/drawable-overlay-effect.html
+$dokka.location:dev.transformerkt.ktx.effects//fadeAudioOut/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Long#kotlin.Int#kotlin.Int#kotlin.Float#kotlin.Float#kotlin.Long/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/fade-audio-out.html
+$dokka.location:dev.transformerkt.ktx.effects//fadeAudioOutEffect/#kotlin.Long#kotlin.Int#kotlin.Int#kotlin.Float#kotlin.Float#kotlin.Long/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/fade-audio-out-effect.html
 $dokka.location:dev.transformerkt.ktx.effects//resolution/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Float#dev.transformerkt.ktx.effects.LayoutScale/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/resolution.html
 $dokka.location:dev.transformerkt.ktx.effects//resolution/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Int#kotlin.Int#dev.transformerkt.ktx.effects.LayoutScale/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/resolution.html
 $dokka.location:dev.transformerkt.ktx.effects//resolution/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Int/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/resolution.html
@@ -71,6 +81,10 @@ $dokka.location:dev.transformerkt.ktx.effects//speed/dev.transformerkt.dsl.effec
 $dokka.location:dev.transformerkt.ktx.effects//textOverlay/dev.transformerkt.dsl.effects.EffectsBuilder#android.text.SpannableString#androidx.media3.effect.OverlaySettings?/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/text-overlay.html
 $dokka.location:dev.transformerkt.ktx.effects//textOverlayEffect/#android.text.SpannableString#androidx.media3.effect.OverlaySettings?/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/text-overlay-effect.html
 $dokka.location:dev.transformerkt.ktx.effects//volume/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Float#kotlin.Int#kotlin.Int/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/volume.html
+$dokka.location:dev.transformerkt.ktx.effects//volumeChange/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Int#kotlin.Float#kotlin.Int#kotlin.Function2[dev.transformerkt.effects.VolumeChangeProvider,kotlin.Long,kotlin.Float]/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/volume-change.html
+$dokka.location:dev.transformerkt.ktx.effects//volumeChange/dev.transformerkt.dsl.effects.EffectsBuilder#kotlin.Int#kotlin.Int#dev.transformerkt.effects.VolumeChangeProvider/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/volume-change.html
+$dokka.location:dev.transformerkt.ktx.effects//volumeChangeEffect/#kotlin.Int#kotlin.Float#kotlin.Int#kotlin.Function2[dev.transformerkt.effects.VolumeChangeProvider,kotlin.Long,kotlin.Float]/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/volume-change-effect.html
+$dokka.location:dev.transformerkt.ktx.effects//volumeChangeEffect/#kotlin.Int#kotlin.Int#dev.transformerkt.effects.VolumeChangeProvider/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/volume-change-effect.html
 $dokka.location:dev.transformerkt.ktx.effects//volumeEffect/#kotlin.Float#kotlin.Int#kotlin.Int/PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/volume-effect.html
 $dokka.location:dev.transformerkt.ktx.effects/LayoutScale.Fill///PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/-layout-scale/-fill/index.html
 $dokka.location:dev.transformerkt.ktx.effects/LayoutScale.Fit///PointingToDeclaration/transformerkt/dev.transformerkt.ktx.effects/-layout-scale/-fit/index.html
@@ -143,6 +157,7 @@ $dokka.location:dev.transformerkt/TransformerStatus///PointingToDeclaration/tra
 dev.transformerkt
 dev.transformerkt.dsl.composition
 dev.transformerkt.dsl.effects
+dev.transformerkt.effects
 dev.transformerkt.ktx
 dev.transformerkt.ktx.effects
 dev.transformerkt.ktx.inputs
