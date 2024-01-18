@@ -44,6 +44,12 @@ class EffectsModel @Inject constructor(
         }
     }
 
+    fun updateAudioOverlay(overlay: AudioOverlay) {
+        _state.update { state ->
+            state.copy(settings = state.settings.copy(audioOverlay = overlay))
+        }
+    }
+
     fun selectAudioUri(uri: Uri) {
         _state.update { state ->
             val audio = state.settings.audioOverlay?.copy(uri = uri) ?: AudioOverlay(uri)

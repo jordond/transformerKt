@@ -14,4 +14,5 @@ data class EffectSettings(
 data class AudioOverlay(
     val uri: Uri,
     val volume: Float = 1f,
+    val fade: Boolean = false,
 )

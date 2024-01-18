@@ -216,6 +216,44 @@ Checkout
 the [`TransformerRepo.kt`](demo/src/main/java/dev/transformerkt/demo/transformer/TransformerRepo.kt)
 file for more examples.
 
+## Included Effects
+
+Currently only one custom effect is included in this library. It is the `AudioProcessor`
+called `VolumeChangeProcessor`. It allows you to change the volume of the audio track in the video.
+
+```kotlin
+val volumeChange = volumeChangeEffect(inputChannels = 2, volume = 0.5f)
+// ... Add to your EditedMediaItemSequence
+```
+
+If you provide a `VolumeChangeProcessor` you are able to customize the volume based on the elapsed
+time in the output video:
+
+```kotlin
+val volumeChange = volumeChangeEffect(inputChannels = 2) { elapsedMs ->
+    when {
+        elapsedMs < 1000 -> 0f
+        elapsedMs < 2000 -> 0.5f
+        else -> 1f
+    }
+}
+```
+
+For convenience there is a `fadeAudioOutEffect` that will fade the audio out over a given duration:
+
+```kotlin
+val volumeChange = fadeAudioOutEffect(
+    totalDurationUs = 10_000_000,
+    inputChannels = 2,
+    initialVolume = 0.8f,
+    finalVolume = 0.3f,
+    fadeDurationUs = 2_000_000,
+)
+```
+
+This effect will fade the audio from `0.8f` to `0.3f` over the course of `2_000_000` microseconds
+(2 seconds) from the end of the video.
+
 ## Demo App
 
 A demo app is included in the `demo` module. It is a simple app that allows you to select a HDR

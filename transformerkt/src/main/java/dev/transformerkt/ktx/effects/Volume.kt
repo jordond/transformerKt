@@ -7,6 +7,10 @@ import androidx.media3.common.audio.ChannelMixingMatrix
 import dev.transformerkt.dsl.effects.EffectsBuilder
 
 @CheckResult
+@Deprecated(
+    message = "Use volumeChangeEffect instead",
+    replaceWith = ReplaceWith("volumeChangeEffect(inputChannels, volume, outputChannels)"),
+)
 public fun volumeEffect(
     volume: Float,
     inputChannels: Int,
@@ -21,5 +25,5 @@ public fun EffectsBuilder.volume(
     inputChannels: Int,
     outputChannels: Int = 2,
 ): EffectsBuilder = apply {
-    audio(volumeEffect(volume, inputChannels, outputChannels))
+    volumeChange(inputChannels, volume, outputChannels)
 }

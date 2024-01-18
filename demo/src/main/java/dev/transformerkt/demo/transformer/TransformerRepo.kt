@@ -22,12 +22,14 @@ import dev.transformerkt.ktx.buildWith
 import dev.transformerkt.ktx.effects.audioSampleRate
 import dev.transformerkt.ktx.effects.brightness
 import dev.transformerkt.ktx.effects.contrast
+import dev.transformerkt.ktx.effects.fadeAudioOut
 import dev.transformerkt.ktx.effects.speed
 import dev.transformerkt.ktx.effects.volume
 import dev.transformerkt.ktx.inputs.start
 import dev.transformerkt.ktx.setClippingConfiguration
 import kotlinx.coroutines.flow.Flow
 import java.io.File
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class TransformerRepo @Inject constructor(
@@ -81,6 +83,7 @@ class TransformerRepo @Inject constructor(
         videos: List<VideoDetails>,
         settings: EffectSettings,
     ): Flow<TransformerStatus> {
+        val duration = TimeUnit.MILLISECONDS.toMicros(videos.sumOf { it.duration })
         val composition: Composition = compositionOf {
             sequenceOf {
                 items(videos, { it.uri }) { video ->
@@ -124,7 +127,17 @@ class TransformerRepo @Inject constructor(
                     val inputChannels = settings.audioOverlay.uri.audioTracks(context)
                     effects {
                         audioSampleRate(44100)
-                        volume(settings.audioOverlay.volume, inputChannels = inputChannels)
+                        if (settings.audioOverlay.fade) {
+                            fadeAudioOut(
+                                totalDurationUs = duration,
+                                inputChannels = inputChannels,
+                                initialVolume = settings.audioOverlay.volume,
+                                finalVolume = 0.3f,
+                                fadeDurationUs = TimeUnit.SECONDS.toMicros(1),
+                            )
+                        } else {
+                            volume(settings.audioOverlay.volume, inputChannels = inputChannels)
+                        }
                     }
                 }
             }
