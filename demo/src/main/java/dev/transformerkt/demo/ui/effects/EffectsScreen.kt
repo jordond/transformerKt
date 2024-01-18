@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -59,6 +60,7 @@ fun EffectsScreen() {
         updateSettings = { model.updateSettings(it) },
         onSelectUri = { model.selectUri(it) },
         onSelectAudioUri = { model.selectAudioUri(it) },
+        updateAudioOverlay = { model.updateAudioOverlay(it) },
         onStart = { model.start() },
         onCancel = { model.cancel() },
     )
@@ -215,6 +217,22 @@ fun EffectsContent(
                             onValueChangeFinished = {
                                 updateAudioOverlay(state.settings.audioOverlay.copy(volume = volume))
                             },
+                        )
+                    }
+                }
+
+                if (state.settings.audioOverlay != null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(text = "Fade Audio Overlay: ")
+                        Checkbox(
+                            checked = state.settings.audioOverlay.fade,
+                            onCheckedChange = { value ->
+                                updateAudioOverlay(state.settings.audioOverlay.copy(fade = value))
+                            }
                         )
                     }
                 }
