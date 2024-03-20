@@ -53,6 +53,7 @@ public abstract interface class dev/transformerkt/dsl/composition/CompositionBui
 	public abstract fun getTransmuxVideo ()Z
 	public abstract fun getVideoCompositorSettings ()Landroidx/media3/effect/VideoCompositorSettings;
 	public abstract fun sequenceOf (ZLkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
+	public abstract fun setEffects (Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/composition/CompositionBuilder;
 	public abstract fun setForceAudioTrack (Z)V
 	public abstract fun setHdrMode (I)V
 	public abstract fun setTransmuxAudio (Z)V
@@ -132,6 +133,16 @@ public final class dev/transformerkt/dsl/effects/OverlaySettingsKt {
 	public static final fun textOverlay (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/text/SpannableString;Lkotlin/jvm/functions/Function1;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
 }
 
+public final class dev/transformerkt/effects/VolumeChangeProcessor : androidx/media3/common/audio/BaseAudioProcessor {
+	public fun <init> (IILdev/transformerkt/effects/VolumeChangeProvider;)V
+	public fun queueInput (Ljava/nio/ByteBuffer;)V
+}
+
+public abstract interface class dev/transformerkt/effects/VolumeChangeProvider {
+	public abstract fun getInitial ()F
+	public abstract fun getVolume (J)F
+}
+
 public final class dev/transformerkt/ktx/CompositionKt {
 	public static final fun composition (Landroidx/media3/transformer/EditedMediaItemSequence;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition;
 	public static final fun composition (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Landroidx/media3/transformer/Composition;
@@ -193,6 +204,13 @@ public final class dev/transformerkt/ktx/effects/DrawableOverlayKt {
 	public static final fun drawableOverlayEffect (Landroid/graphics/drawable/Drawable;Landroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
 }
 
+public final class dev/transformerkt/ktx/effects/FadeAudioOutKt {
+	public static final fun fadeAudioOut (Ldev/transformerkt/dsl/effects/EffectsBuilder;JIIFFJ)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun fadeAudioOut$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;JIIFFJILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun fadeAudioOutEffect (JIIFFJ)Ldev/transformerkt/effects/VolumeChangeProcessor;
+	public static synthetic fun fadeAudioOutEffect$default (JIIFFJILjava/lang/Object;)Ldev/transformerkt/effects/VolumeChangeProcessor;
+}
+
 public abstract class dev/transformerkt/ktx/effects/LayoutScale {
 	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
@@ -237,6 +255,17 @@ public final class dev/transformerkt/ktx/effects/TextOverlayKt {
 	public static synthetic fun textOverlay$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
 	public static final fun textOverlayEffect (Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;)Landroidx/media3/effect/OverlayEffect;
 	public static synthetic fun textOverlayEffect$default (Landroid/text/SpannableString;Landroidx/media3/effect/OverlaySettings;ILjava/lang/Object;)Landroidx/media3/effect/OverlayEffect;
+}
+
+public final class dev/transformerkt/ktx/effects/VolumeChangeKt {
+	public static final fun volumeChange (Ldev/transformerkt/dsl/effects/EffectsBuilder;IFILkotlin/jvm/functions/Function2;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun volumeChange (Ldev/transformerkt/dsl/effects/EffectsBuilder;IILdev/transformerkt/effects/VolumeChangeProvider;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun volumeChange$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;IFILkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static synthetic fun volumeChange$default (Ldev/transformerkt/dsl/effects/EffectsBuilder;IILdev/transformerkt/effects/VolumeChangeProvider;ILjava/lang/Object;)Ldev/transformerkt/dsl/effects/EffectsBuilder;
+	public static final fun volumeChangeEffect (IFILkotlin/jvm/functions/Function2;)Ldev/transformerkt/effects/VolumeChangeProcessor;
+	public static final fun volumeChangeEffect (IILdev/transformerkt/effects/VolumeChangeProvider;)Ldev/transformerkt/effects/VolumeChangeProcessor;
+	public static synthetic fun volumeChangeEffect$default (IFILkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/transformerkt/effects/VolumeChangeProcessor;
+	public static synthetic fun volumeChangeEffect$default (IILdev/transformerkt/effects/VolumeChangeProvider;ILjava/lang/Object;)Ldev/transformerkt/effects/VolumeChangeProcessor;
 }
 
 public final class dev/transformerkt/ktx/effects/VolumeKt {

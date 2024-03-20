@@ -36,6 +36,11 @@ jobs:
       - name: Gradle Wrapper Validation
         uses: gradle/wrapper-validation-action@v2
 
+      - name: Binary Compatibility Validation
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          arguments: apiCheck --scan
+
       - name: Lint
         uses: gradle/gradle-build-action@v3
         with:
