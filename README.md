@@ -4,7 +4,7 @@
 <p align="center">
     <a href="https://jitpack.io/#dev.transformerkt/transformerkt"><img src="https://jitpack.io/v/dev.transformerkt/transformerkt.svg"></a>
     <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
-    <a href="https://developer.android.com/jetpack/androidx/releases/media3#1.3.0"><img src="https://img.shields.io/badge/media3-1.3.0?color=brightgreen" /></a>
+    <a href="https://developer.android.com/jetpack/androidx/releases/media3#1.3.0"><img src="https://img.shields.io/badge/media3-1.3.0-beta01?color=brightgreen" /></a>
     <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
 </p>
 
