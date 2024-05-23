@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKsp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
     id("kotlin-kapt")
     id("kotlin-parcelize")
 }
@@ -42,10 +43,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     packaging {
