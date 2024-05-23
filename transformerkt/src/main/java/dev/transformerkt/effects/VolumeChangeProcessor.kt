@@ -74,7 +74,8 @@ public class VolumeChangeProcessor(
             /* mixingAudioFormat = */ outputAudioFormat,
             /* matrix = */ channelMixingMatrix,
             /* framesToMix = */ framesToMix,
-            /* accumulate= */ false
+            /* accumulate= */ false,
+            /* clipFloatOutput = */ false,
         )
         outputBuffer.flip()
     }
