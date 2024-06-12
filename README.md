@@ -4,7 +4,7 @@
 <p align="center">
     <img src="https://img.shields.io/maven-central/v/dev.transformerkt/transformerkt">
     <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
-    <a href="https://developer.android.com/jetpack/androidx/releases/media3#1.4.0-alpha01"><img src="https://img.shields.io/badge/media3-1.4.0-alpha01-beta01?color=brightgreen" /></a>
+    <a href="https://developer.android.com/jetpack/androidx/releases/media3#1.4.0-alpha02-alpha01"><img src="https://img.shields.io/badge/media3-1.4.0-alpha02-alpha01-beta01?color=brightgreen" /></a>
     <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
 </p>
 
@@ -17,7 +17,7 @@ around [media3.transformer](https://developer.android.com/guide/topics/media/tra
 
 You can view the TransformerKt KDocs at [docs.transformerkt.dev](https://docs.transformerkt.dev)
 
-- Using `media3.transformer` [version `1.4.0-alpha01`](https://github.com/androidx/media/releases)
+- Using `media3.transformer` [version `1.4.0-alpha02-alpha01`](https://github.com/androidx/media/releases)
 
 ## Table of Contents
 
