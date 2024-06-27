@@ -2,7 +2,7 @@
    <img height="200" src="art/logo-text.png"/>
 </p>
 <p align="center">
-    <img src="https://img.shields.io/maven-central/v/dev.transformerkt/transformerkt">
+    <img src="https://img.shields.io/maven-central/v/dev.jordond.transformerkt/transformerkt">
     <a href="https://github.com/jordond/transformerKt/actions/workflows/ci.yml"><img src="https://github.com/jordond/transformerKt/actions/workflows/ci.yml/badge.svg"></img></a>
     <a href="https://developer.android.com/jetpack/androidx/releases/media3#1.4.0-beta01-alpha02-alpha01"><img src="https://img.shields.io/badge/media3-1.4.0-beta01-alpha02-alpha01-beta01?color=brightgreen" /></a>
     <img src="https://img.shields.io/github/license/jordond/transformerkt" />   
@@ -51,7 +51,7 @@ Add the dependency to your app level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("dev.transformerkt:transformerkt:3.6.0-beta01")
+    implementation("dev.jordond.transformerkt:transformerkt:3.6.0-beta01")
 }
 ```
 
@@ -62,7 +62,7 @@ Or using Version Catalogs:
 transformerkt = "3.6.0-beta01"
 
 [libraries]
-transformerkt = { group = "dev.transformerkt", name = "transformerkt", version.ref = "transformerkt" }
+transformerkt = { group = "dev.jordond.transformerkt", name = "transformerkt", version.ref = "transformerkt" }
 
 ```
 
