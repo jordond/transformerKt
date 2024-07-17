@@ -24,7 +24,7 @@ compose-destiantions = "1.10.2"
 napier = "2.7.1"
 binaryCompatibility = "0.15.1"
 poko = "0.16.0"
-coil = "2.6.0"
+coil = "2.7.0"
 publish = "0.29.0"
 
 [libraries]
