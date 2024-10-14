@@ -25,7 +25,7 @@ napier = "2.7.1"
 binaryCompatibility = "0.16.3"
 poko = "0.17.1"
 coil = "2.7.0"
-publish = "0.29.0"
+publish = "0.30.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
