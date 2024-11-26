@@ -7,6 +7,7 @@ import androidx.core.text.toSpannable
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
 import androidx.media3.effect.TextOverlay
+import androidx.media3.effect.TextureOverlay
 import com.google.common.collect.ImmutableList
 import dev.transformerkt.dsl.effects.EffectsBuilder
 
@@ -19,7 +20,7 @@ public fun textOverlayEffect(
         if (settings == null) TextOverlay.createStaticTextOverlay(text)
         else TextOverlay.createStaticTextOverlay(text, settings)
 
-    return OverlayEffect(ImmutableList.of(overlay))
+    return OverlayEffect(ImmutableList.of(overlay as TextureOverlay))
 }
 
 public fun EffectsBuilder.textOverlay(
