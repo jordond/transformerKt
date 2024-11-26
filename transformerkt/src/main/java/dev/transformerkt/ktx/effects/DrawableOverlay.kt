@@ -5,6 +5,7 @@ import androidx.annotation.CheckResult
 import androidx.media3.effect.DrawableOverlay
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
+import androidx.media3.effect.TextureOverlay
 import com.google.common.collect.ImmutableList
 import dev.transformerkt.dsl.effects.EffectsBuilder
 
@@ -14,7 +15,7 @@ public fun drawableOverlayEffect(
     settings: OverlaySettings,
 ): OverlayEffect {
     val overlay = DrawableOverlay.createStaticDrawableOverlay(drawable, settings)
-    return OverlayEffect(ImmutableList.of(overlay))
+    return OverlayEffect(ImmutableList.of(overlay as TextureOverlay))
 }
 
 public fun EffectsBuilder.drawableOverlay(
