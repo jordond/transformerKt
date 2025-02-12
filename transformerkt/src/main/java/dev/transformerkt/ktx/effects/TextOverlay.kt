@@ -5,14 +5,14 @@ import android.text.SpannableStringBuilder
 import androidx.annotation.CheckResult
 import androidx.core.text.toSpannable
 import androidx.media3.effect.OverlayEffect
-import androidx.media3.effect.OverlaySettings
+import androidx.media3.effect.StaticOverlaySettings
 import androidx.media3.effect.TextOverlay
 import dev.transformerkt.dsl.effects.EffectsBuilder
 
 @CheckResult
 public fun textOverlayEffect(
     text: SpannableString,
-    settings: OverlaySettings? = null,
+    settings: StaticOverlaySettings? = null,
 ): OverlayEffect {
     val overlay =
         if (settings == null) TextOverlay.createStaticTextOverlay(text)
@@ -23,7 +23,7 @@ public fun textOverlayEffect(
 
 public fun EffectsBuilder.textOverlay(
     text: SpannableString,
-    settings: OverlaySettings? = null,
+    settings: StaticOverlaySettings? = null,
 ): EffectsBuilder = apply {
     video(textOverlayEffect(text, settings))
 }
