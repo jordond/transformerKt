@@ -22,7 +22,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
-import com.ramcosta.composedestinations.navigation.popUpTo
 import com.ramcosta.composedestinations.spec.Direction
 import dev.transformerkt.demo.ui.destinations.ConcatScreenDestination
 import dev.transformerkt.demo.ui.destinations.EffectsScreenDestination
@@ -68,7 +67,7 @@ fun HomeScreen(
 }
 
 private fun DestinationsNavigator.nav(direction: Direction) {
-    navigate(direction = direction, onlyIfResumed = true) {
+    navigate(direction = direction) {
         popUpTo(HomeScreenDestination) {
             inclusive = true
         }

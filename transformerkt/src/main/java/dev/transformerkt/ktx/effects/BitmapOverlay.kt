@@ -9,7 +9,6 @@ import androidx.annotation.DrawableRes
 import androidx.media3.effect.BitmapOverlay
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.OverlaySettings
-import com.google.common.collect.ImmutableList
 import dev.transformerkt.dsl.effects.EffectsBuilder
 
 @CheckResult
@@ -20,7 +19,7 @@ public fun bitmapOverlayEffect(
     val overlay =
         if (settings == null) BitmapOverlay.createStaticBitmapOverlay(bitmap)
         else BitmapOverlay.createStaticBitmapOverlay(bitmap, settings)
-    return OverlayEffect(ImmutableList.of(overlay))
+    return OverlayEffect(listOf(overlay))
 }
 
 @CheckResult
@@ -30,7 +29,7 @@ public fun bitmapOverlayEffect(
     settings: OverlaySettings,
 ): OverlayEffect {
     val overlay = BitmapOverlay.createStaticBitmapOverlay(context, uri, settings)
-    return OverlayEffect(ImmutableList.of(overlay))
+    return OverlayEffect(listOf(overlay))
 }
 
 @CheckResult
