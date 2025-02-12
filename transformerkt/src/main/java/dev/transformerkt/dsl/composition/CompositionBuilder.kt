@@ -3,7 +3,7 @@ package dev.transformerkt.dsl.composition
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
-import androidx.media3.effect.VideoCompositorSettings
+import androidx.media3.common.VideoCompositorSettings
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.Composition.HdrMode
 import androidx.media3.transformer.EditedMediaItem
