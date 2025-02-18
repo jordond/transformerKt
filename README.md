@@ -1,3 +1,7 @@
+## Project status
+
+This project is no longer maintained, please see #261.
+
 <p align="center"> 
    <img height="200" src="art/logo-text.png"/>
 </p>
